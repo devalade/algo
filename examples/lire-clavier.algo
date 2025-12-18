@@ -1,0 +1,30 @@
+programme LireClavier;
+var
+  nom: chaine;
+  age: entier;
+  note: reel;
+debut
+  // Lire le nom de l'utilisateur
+  ecrire("Comment vous appelez-vous ?");
+  lire(nom);
+  
+  // Lire l'âge
+  ecrire("Quel âge avez-vous ?");
+  lire(age);
+  
+  // Lire une note (nombre réel)
+  ecrire("Quelle est votre note (sur 20) ?");
+  lire(note);
+  
+  // Afficher les informations lues
+  ecrire("Bonjour ", nom, " !");
+  ecrire("Vous avez ", age, " ans.");
+  ecrire("Votre note est : ", note, "/20");
+  
+  // Vérifier si la note est suffisante
+  si note >= 10 alors
+    ecrire("Félicitations, vous avez réussi !");
+  sinon
+    ecrire("Dommage, vous devez travailler davantage.");
+  finsi;
+fin.

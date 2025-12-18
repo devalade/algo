@@ -1,0 +1,26 @@
+programme TableMultiplication;
+var
+  i, j: entier;
+debut
+  ecrire("TABLE DE MULTIPLICATION COMPLÈTE");
+  ecrire("================================");
+  
+  // Boucle pour les lignes (1 à 10)
+  pour i := 1 a 10 faire
+    ecrire("");  // Ligne vide pour la lisibilité
+    ecrire("Table de ", i, " :");
+    
+    // Boucle pour les colonnes (1 à 10)
+    pour j := 1 a 10 faire
+      // Afficher le résultat formaté
+      si i * j < 10 alors
+        ecrire(i, " × ", j, " =  ", i * j, "  ");
+      sinon
+        ecrire(i, " × ", j, " = ", i * j, " ");
+      finsi;
+    finpour;
+  finpour;
+  
+  ecrire("");
+  ecrire("Tables de multiplication terminées !");
+fin.

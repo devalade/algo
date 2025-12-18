@@ -1,0 +1,26 @@
+programme DevinerNombre;
+var
+  secret: entier;
+  essai: entier;
+  compteur: entier;
+  trouve: booleen;
+debut
+  secret := 42;
+  compteur := 0;
+  trouve := faux;
+  
+  ecrire("Jeu du nombre secret !");
+  ecrire("Devinez un nombre entre 1 et 100");
+  
+  tantque non trouve faire
+    ecrire("Votre essai : ");
+    lire(essai);
+    compteur := compteur + 1;
+    
+    si essai = secret alors
+      trouve := vrai;
+    finsi;
+  fintantque;
+  
+  ecrire("Bravo ! Trouve en ", compteur, " essais !");
+fin.

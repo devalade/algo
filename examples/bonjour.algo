@@ -1,0 +1,7 @@
+programme BonjourMonde;
+var
+  message: chaine;
+debut
+  message := "Bonjour, AlgoLang en français!";
+  ecrire(message);
+fin.

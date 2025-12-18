@@ -1,0 +1,23 @@
+programme Calculatrice;
+var
+  x, y, resultat, i: entier;
+debut
+  // Addition simple
+  x := 10;
+  y := 5;
+  resultat := x + y;
+  ecrire("Addition: ", x, " + ", y, " = ", resultat);
+  
+  // Boucle pour
+  ecrire("Table de multiplication de 3:");
+  pour i := 1 a 5 faire
+    ecrire("3 × ", i, " = ", 3 * i);
+  finpour;
+
+  // Condition si-alors-sinon
+  si resultat > 15 alors
+    ecrire("Le résultat est grand");
+  sinon
+    ecrire("Le résultat est petit");
+  finsi;
+fin.
