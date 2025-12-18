@@ -16,9 +16,9 @@ debut
     lire(reponse);
     
     compteur := compteur + 1;
-  jusqua reponse = "non";
+  jusqu'à reponse = "non";
   
   ecrire("");
   ecrire("La boucle s'est terminée après ", compteur - 1, " itérations.");
-  ecrire("Merci d'avoir testé la boucle REPETER...JUSQUA !");
+  ecrire("Merci d'avoir testé la boucle REPETER...JUSQU'À !");
 fin.

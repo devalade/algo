@@ -14,7 +14,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("message = \"Bonjour, AlgoLang!\";");
@@ -36,7 +36,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("resultat = (nombre1 + nombre2);");
@@ -49,13 +49,13 @@ programme BouclePour;
 var
   compteur: entier;
 debut
-  pour compteur := 1 a 3 faire
+  pour compteur := 1 à 3 faire
     ecrire("i = ", compteur);
   finpour;
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("for (let compteur = 1; compteur <= 3; compteur++)");
@@ -77,7 +77,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("if ((valeur > 5))");
@@ -94,12 +94,12 @@ debut
   repeter
     ecrire("Compteur: ", compteur);
     compteur := compteur + 1;
-  jusqua compteur > 3;
+  jusqu'à compteur > 3;
   ecrire("Fin de la boucle");
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("do {");
@@ -125,7 +125,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("nombre = 42;");
@@ -144,7 +144,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true); // Le compilateur est tolérant aux erreurs de syntaxe mineures
   expect(result.errors).toHaveLength(0);
 });
@@ -162,7 +162,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   // Note: Cette vérification dépend de l'implémentation de l'analyse sémantique
   expect(result.success).toBe(true); // Pour l'instant, le compilateur génère le code
   expect(result.output).toContain("y = (x + 1);");
@@ -186,7 +186,7 @@ debut
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("resultat = ((valeur1 + valeur2) * valeur3);");
@@ -200,16 +200,16 @@ var
   ligne: entier;
   colonne: entier;
 debut
-  pour ligne := 1 a 2 faire
+  pour ligne := 1 à 2 faire
     ecrire("Ligne ", ligne);
-    pour colonne := 1 a 2 faire
+    pour colonne := 1 à 2 faire
       ecrire("  Colonne ", colonne);
     finpour;
   finpour;
 fin.`;
 
   const result = await compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("for (let ligne = 1; ligne <= 2; ligne++)");

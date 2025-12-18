@@ -28,9 +28,9 @@ export class Lexer {
 			["pour", TokenType.FOR],
 			["allant", TokenType.ALLANT],
 			["de", TokenType.DE],
-			["a", TokenType.TO],
+			["à", TokenType.TO],
 			["repeter", TokenType.REPEAT],
-			["jusqua", TokenType.UNTIL],
+			["jusqu'à", TokenType.UNTIL],
 			["lire", TokenType.READ],
 			["ecrire", TokenType.WRITE],
 			["vrai", TokenType.TRUE],
@@ -384,7 +384,9 @@ export class Lexer {
 		return (
 			(char >= "a" && char <= "z") ||
 			(char >= "A" && char <= "Z") ||
-			char === "_"
+			(char >= "\u00C0" && char <= "\u00FF") || // Expanded Latin-1 for accented characters
+			char === "_" ||
+			char === "'"
 		);
 	}
 

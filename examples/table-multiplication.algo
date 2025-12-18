@@ -6,12 +6,12 @@ debut
   ecrire("================================");
   
   // Boucle pour les lignes (1 à 10)
-  pour i allant de 1 a 10 faire
+  pour i allant de 1 à 10 faire
     ecrire("");  // Ligne vide pour la lisibilité
     ecrire("Table de ", i, " :");
     
     // Boucle pour les colonnes (1 à 10)
-    pour j := 1 a 10 faire
+    pour j := 1 à 10 faire
       // Afficher le résultat formaté
       si i * j < 10 alors
         ecrire(i, " × ", j, " =  ", i * j, "  ");

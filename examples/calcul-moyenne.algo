@@ -11,7 +11,7 @@ debut
   somme := 0;
   
   // Lire chaque note et faire la somme
-   pour i := 1 a nbNotes faire
+   pour i := 1 à nbNotes faire
     ecrire("Entrez la note ", i, " :");
     lire(note);
     somme := somme + note;

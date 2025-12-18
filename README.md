@@ -1,181 +1,158 @@
 # AlgoLang - Compilateur Éducatif
 
-AlgoLang est un langage de programmation éducatif pour l'apprentissage de l'algorithmique avec une syntaxe française.
+AlgoLang est un langage de programmation éducatif conçu pour apprendre l'algorithmique avec une syntaxe française intuitive.
 
-## Installation
+## 🚀 Installation
 
 ```bash
 bun install
 ```
 
-## Utilisation
+## 📖 Guide d'apprentissage par l'exemple
 
-### Compiler un fichier
+Ce guide est conçu pour vous aider à maîtriser AlgoLang pas à pas.
 
-```bash
-# Compiler un fichier AlgoLang
-bun run src/cli.ts compile examples/bonjour.algo -o output.js
-
-# Compiler et exécuter directement
-bun run src/cli.ts run examples/calculatrice.algo
-```
-
-### Vérifier la syntaxe
-
-```bash
-# Vérifier la syntaxe avec détails
-bun run src/cli.ts check examples/calculatrice.algo --verbose
-```
-
-### Créer un nouveau projet
-
-```bash
-# Créer un nouveau programme avec template
-bun run src/cli.ts init monprogramme --template hello
-bun run src/cli.ts init moncalculatrice --template calculator
-```
-
-## Syntaxe AlgoLang
-
-### Structure de base
-
-```algo
-programme NomDuProgramme;
-var
-  variable1: entier;
-  variable2: chaine;
-debut
-  // Votre code ici
-fin.
-```
-
-### Types de données
-
-- `entier` : nombres entiers
-- `reel` : nombres à virgule flottante  
-- `chaine` : chaînes de caractères
-- `booleen` : valeurs vrai/faux
-
-### Instructions principales
-
-- `ecrire(expr)` : afficher une valeur
-- `lire(variable)` : lire une entrée utilisateur
-- `variable := valeur` : affectation
-- `si condition alors ... sinon ...` : condition
-- `tantque condition faire ...` : boucle while
-- `pour variable := debut a fin faire ...` : boucle for
-
-### Opérateurs
-
-- Arithmétiques : `+`, `-`, `*`, `/`
-- Comparaison : `=`, `<>`, `<`, `<=`, `>`, `>=`
-- Logiques : `et`, `ou`, `non`
-
-## Exemples
-
-### Bonjour le monde
+### Niveau 1 : Les Bases (Bonjour Monde)
+Apprenez à structurer un programme et à afficher du texte.
 
 ```algo
 programme BonjourMonde;
 var
   message: chaine;
 debut
-  message := "Bonjour, AlgoLang en français!";
+  message := "Bonjour, bienvenue dans l'apprentissage de l'algorithmique !";
   ecrire(message);
 fin.
 ```
 
-### Calculatrice simple
+### Niveau 2 : Variables et Calculs
+Manipulez des nombres et effectuez des opérations arithmétiques.
 
 ```algo
-programme Calculatrice;
+programme CalculSimple;
 var
-  x, y, resultat: entier;
+  nombre1, nombre2, resultat: entier;
 debut
-  x := 10;
-  y := 5;
-  resultat := x + y;
-  ecrire("Addition: ", x, " + ", y, " = ", resultat);
+  nombre1 := 15;
+  nombre2 := 10;
+  resultat := (nombre1 + nombre2) * 2;
+  ecrire("Le résultat de (15 + 10) * 2 est : ", resultat);
 fin.
 ```
 
-## Fonctionnalités
+### Niveau 3 : Conditions (Si/Sinon)
+Apprenez à prendre des décisions dans votre code.
 
-- ✅ Compilation JavaScript complète
-- ✅ Génération de code avec commentaires pédagogiques
-- ✅ Vérification syntaxique et sémantique
-- ✅ Messages d'erreur en français
-- ✅ Support des structures de contrôle classiques
-- ✅ Gestion des variables typées
-- ✅ Interface en ligne de commande moderne
-- ✅ Validation des mots-clés réservés
-- ✅ Messages d'erreur détaillés avec suggestions
-
-## Structure du projet
-
-```
-├── src/
-│   ├── lexer/          # Analyse lexicale
-│   ├── parser/         # Analyse syntaxique  
-│   ├── codegen/        # Génération de code JavaScript
-│   ├── types/          # Définitions de types TypeScript
-│   ├── compiler.ts     # Orchestrateur du compilateur
-│   └── cli.ts         # Interface en ligne de commande
-├── examples/           # Exemples de programmes AlgoLang
-└── context/           # Documentation technique
+```algo
+programme VerifAge;
+var
+  age: entier;
+debut
+  ecrire("Entrez votre âge : ");
+  lire(age);
+  
+  si age >= 18 alors
+    ecrire("Vous êtes majeur.");
+  sinon
+    ecrire("Vous êtes mineur.");
+  finsi;
+fin.
 ```
 
-## Mots-clés réservés
+### Niveau 4 : Boucles (Répétition)
+Automatisez des tâches répétitives avec `pour` et `tantque`.
 
-Les mots-clés suivants sont réservés par le langage et ne peuvent pas être utilisés comme noms de variables :
+```algo
+programme TableMultiplication;
+var
+  i, nombre: entier;
+debut
+  nombre := 7;
+  ecrire("Table de ", nombre, " :");
+  
+  pour i := 1 à 10 faire
+    ecrire(i, " x ", nombre, " = ", i * nombre);
+  finpour;
+fin.
+```
 
-### Mots-clés principaux
-- `programme`, `debut`, `fin`, `var`
+---
+
+## 🛠 Utilisation (CLI)
+
+### Compiler et Exécuter
+Le moyen le plus simple de tester votre code :
+
+```bash
+# Compiler et exécuter directement
+bun run src/cli.ts run side-panel.algo
+```
+
+### Compiler vers JavaScript
+Si vous voulez voir le code JavaScript généré :
+
+```bash
+bun run src/cli.ts compile examples/bonjour.algo -o output.js
+```
+
+### Vérifier la Syntaxe
+Utile pour trouver des erreurs sans exécuter le code :
+
+```bash
+bun run src/cli.ts check examples/calculatrice.algo --verbose
+```
+
+---
+
+## 📝 Référence de Syntaxe
 
 ### Types de données
-- `entier`, `reel`, `booleen`, `chaine`
+- `entier` : Nombres entiers (ex: 10, -5)
+- `reel` : Nombres à virgule (ex: 3.14)
+- `chaine` : Texte (ex: "Bonjour")
+- `booleen` : Logique (`vrai` ou `faux`)
 
-### Structures de contrôle
-- `si`, `alors`, `sinon`, `finsi`
-- `tantque`, `faire`, `fintantque`
-- `pour`, `a`, `finpour`
-- `repeter`, `jusqua`
+### Opérateurs
+| Type | Opérateurs |
+| :--- | :--- |
+| **Calcul** | `+`, `-`, `*`, `/` |
+| **Comparaison** | `=`, `<>`, `<`, `<=`, `>`, `>=` |
+| **Logique** | `et`, `ou`, `non` |
 
-### Entrées/sorties
-- `lire`, `ecrire`
+### Mots-clés réservés
+Ne les utilisez pas comme noms de variables !
+`programme`, `debut`, `fin`, `var`, `si`, `alors`, `sinon`, `finsi`, `tantque`, `faire`, `pour`, `à`, `finpour`, `repeter`, `jusqu'à`, `lire`, `ecrire`.
 
-### Valeurs booléennes
-- `vrai`, `faux`
+---
 
-### Opérateurs logiques
-- `et`, `ou`, `non`
+## ✨ Fonctionnalités Pédagogiques
 
-### Exemple d'erreur et correction
+- **Messages en Français** : Toutes les erreurs et suggestions sont dans votre langue.
+- **Mode Pédagogique** : Le code JavaScript généré contient des commentaires expliquant chaque étape.
+- **Gestion Stricte** : Empêche l'utilisation de mots-clés réservés avec des suggestions de correction.
 
-❌ **Incorrect** (utilisation d'un mot-clé réservé) :
-```algo
-programme MonProgramme;
-var
-  pour: entier;  // Erreur: 'pour' est réservé
-debut
-  pour := 10;
-fin.
+---
+
+## 📁 Structure du Projet
+
+```text
+.
+├── src/                    # Code source du compilateur
+│   ├── cli.ts              # Interface en ligne de commande (CLI)
+│   ├── compiler.ts         # Orchestrateur (Lexer -> Parser -> Codegen)
+│   ├── lexer/              # Analyse lexicale (découpage en jetons)
+│   ├── parser/             # Analyse syntaxique (génération de l'AST)
+│   ├── codegen/            # Génération de code JavaScript
+│   └── types/              # Définitions des types et structures de l'AST
+├── examples/               # Programmes d'exemple (.algo)
+│   ├── bonjour.algo        # Niveau 1 : Bases
+│   ├── calculatrice.algo   # Niveau 2 : Variables
+│   └── ...                 # Autres exemples (boucles, conditions)
+├── tests/                  # Suite de tests complète
+│   ├── lexer.test.ts       # Tests unitaires du Lexer
+│   ├── parser.test.ts      # Tests unitaires du Parser
+│   ├── codegen.test.ts     # Tests de génération de code
+│   └── regression.test.ts  # Tests de bout en bout
+├── package.json            # Dépendances (Bun)
+└── README.md               # Cette documentation
 ```
-
-✅ **Correct** (noms valides) :
-```algo
-programme MonProgramme;
-var
-  compteurPour: entier;  // ✅ Valide
-  valeur: entier;        // ✅ Valide
-debut
-  compteurPour := 10;
-fin.
-```
-
-## Notes
-
-- Le compilateur génère du code JavaScript moderne avec Node.js
-- Les programmes peuvent être exécutés directement avec la commande `run`
-- Le mode pédagogique ajoute des commentaires explicatifs dans le code généré
-- Les erreurs de mots-clés réservés incluent des suggestions de noms alternatifs

@@ -34,7 +34,7 @@ test("Lexer - Tokenize basic keywords", () => {
 });
 
 test("Lexer - Tokenize control flow keywords", () => {
-  const lexer = new Lexer("si alors sinon tantque faire pour a repeter jusqua lire ecrire vrai faux et ou non finpour finsi fintantque");
+  const lexer = new Lexer("si alors sinon tantque faire pour à repeter jusqu'à lire ecrire vrai faux et ou non finpour finsi fintantque");
   const tokens = lexer.tokenize();
 
   const expectedTokens = [
@@ -97,12 +97,12 @@ test("Lexer - Tokenize string with escape sequences", () => {
 });
 
 test("Lexer - Tokenize identifiers", () => {
-  const lexer = new Lexer("variable1 ma_variable VariableName _underscore");
+  const lexer = new Lexer("variable1 ma_variable VariableName _underscore l'étudiant");
   const tokens = lexer.tokenize();
 
-  expect(tokens).toHaveLength(5); // 4 identifiers + EOF
+  expect(tokens).toHaveLength(6); // 5 identifiers + EOF
 
-  tokens.slice(0, 4).forEach((token) => {
+  tokens.slice(0, 5).forEach((token) => {
     expect(token.type).toBe(TokenType.IDENTIFIER);
   });
 
@@ -110,6 +110,7 @@ test("Lexer - Tokenize identifiers", () => {
   expect(tokens[1].value).toBe("ma_variable");
   expect(tokens[2].value).toBe("VariableName");
   expect(tokens[3].value).toBe("_underscore");
+  expect(tokens[4].value).toBe("l'étudiant");
 });
 
 test("Lexer - Tokenize operators", () => {

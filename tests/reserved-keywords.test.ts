@@ -3,13 +3,13 @@ import { AlgoLangCompiler } from "../src/compiler";
 
 test("Erreur - Mot-clé réservé utilisé comme nom de variable", async () => {
   const compiler = new AlgoLangCompiler();
-  
+
   // Test avec seulement les mots-clés qui peuvent être testés comme variables
   // sans conflit immédiat avec la structure du programme
   const reservedKeywords = [
     "entier", "reel", "booleen", "chaine",
     "finsi", "fintantque", "finpour",
-    "repeter", "jusqua",
+    "repeter", "jusqu'à", "à",
     "lire", "ecrire",
     "vrai", "faux",
     "et", "ou", "non"
@@ -26,12 +26,12 @@ debut
 fin.`;
 
     const result = compiler.compile(source);
-    
+
     expect(result.success).toBe(false);
     expect(result.errors.length).toBeGreaterThan(0);
-    
+
     // Vérifier que l'erreur contient le bon code d'erreur
-    const reservedKeywordError = result.errors.find(err => err.code === "RESERVED_KEYWORD");
+    const reservedKeywordError = result.errors.find((err: any) => err.code === "RESERVED_KEYWORD");
     expect(reservedKeywordError).toBeDefined();
     expect(reservedKeywordError?.message).toContain(`'${keyword}' est un mot-clé réservé`);
     expect(reservedKeywordError?.explanation).toContain("mots-clés réservés");
@@ -41,7 +41,7 @@ fin.`;
 
 test("Succès - Noms de variables valides", async () => {
   const compiler = new AlgoLangCompiler();
-  
+
   const source = `
 programme TestValide;
 var
@@ -60,7 +60,7 @@ debut
 fin.`;
 
   const result = compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("nombre = 42;");
@@ -70,7 +70,7 @@ fin.`;
 
 test("Erreur - Mot-clé dans une expression", async () => {
   const compiler = new AlgoLangCompiler();
-  
+
   const source = `
 programme TestExpression;
 var
@@ -83,18 +83,18 @@ debut
 fin.`;
 
   const result = compiler.compile(source);
-  
+
   expect(result.success).toBe(false);
   expect(result.errors.length).toBeGreaterThan(0);
-  
-  const reservedKeywordError = result.errors.find(err => err.code === "RESERVED_KEYWORD");
+
+  const reservedKeywordError = result.errors.find((err: any) => err.code === "RESERVED_KEYWORD");
   expect(reservedKeywordError).toBeDefined();
   expect(reservedKeywordError?.message).toContain("'pour' est un mot-clé réservé");
 });
 
 test("Succès - Noms similaires mais valides", async () => {
   const compiler = new AlgoLangCompiler();
-  
+
   const source = `
 programme TestSimilaire;
 var
@@ -109,7 +109,7 @@ debut
 fin.`;
 
   const result = compiler.compile(source);
-  
+
   expect(result.success).toBe(true);
   expect(result.errors).toHaveLength(0);
   expect(result.output).toContain("nombrePour = 10;");
