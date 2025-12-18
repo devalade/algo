@@ -10,7 +10,7 @@ debut
   
   // Boucle pour
   ecrire("Table de multiplication de 3:");
-  pour i := 1 a 5 faire
+  pour i allant de 1 a 5 faire
     ecrire("3 × ", i, " = ", 3 * i);
   finpour;
 

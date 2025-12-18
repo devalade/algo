@@ -6,7 +6,7 @@ debut
   ecrire("================================");
   
   // Boucle pour les lignes (1 à 10)
-  pour i := 1 a 10 faire
+  pour i allant de 1 a 10 faire
     ecrire("");  // Ligne vide pour la lisibilité
     ecrire("Table de ", i, " :");
     

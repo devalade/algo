@@ -25,6 +25,8 @@ export class Lexer {
 			["tantque", TokenType.WHILE],
 			["faire", TokenType.DO],
 			["pour", TokenType.FOR],
+			["allant", TokenType.ALLANT],
+			["de", TokenType.DE],
 			["a", TokenType.TO],
 			["repeter", TokenType.REPEAT],
 			["jusqua", TokenType.UNTIL],
