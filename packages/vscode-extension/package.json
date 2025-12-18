@@ -1,0 +1,53 @@
+{
+    "name": "@algolang/vscode-extension",
+    "displayName": "AlgoLang",
+    "description": "Prise en charge du langage AlgoLang pour VS Code",
+    "version": "1.0.0",
+    "publisher": "algolang-team",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [],
+    "main": "dist/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "algolang",
+                "aliases": [
+                    "AlgoLang",
+                    "algolang"
+                ],
+                "extensions": [
+                    ".algo"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "algolang",
+                "scopeName": "source.algo",
+                "path": "./syntaxes/algolang.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.1"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.85.0",
+        "@types/node": "^20.11.0",
+        "typescript": "^5.3.3"
+    }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@algolang/compiler",
+  "version": "1.0.0",
+  "description": "Langage de programmation éducatif pour l'algorithmique - Coeur du compilateur",
+  "main": "dist/index.js",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "algolang": "./bin/algolang"
+  },
+  "scripts": {
+    "build": "bun build src/cli.ts --minify --outdir dist --outfile=cli.js",
+    "compile:linux": "bun run build && bun build --compile --minify --sourcemap ./src/cli.ts --target:bun-linux-x64-baseline --outfile algolang",
+    "compile:windows": "bun run build && bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
+    "compile:darwin": "bun run build && bun build --compile --target=bun-macos-arm64 ./src/cli.ts --outfile algolang-macos",
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test",
+    "lint": "bunx @biomejs/biome check src/",
+    "format": "bunx @biomejs/biome format --write src/"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@types/bun": "latest",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "@algolang/lsp-server",
+    "version": "1.0.0",
+    "description": "LSP Server for AlgoLang",
+    "main": "dist/server.js",
+    "type": "module",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "vscode-languageserver": "^9.0.1",
+        "vscode-languageserver-textdocument": "^1.0.11",
+        "@algolang/compiler": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.0",
+        "typescript": "^5.3.3"
+    }
+}

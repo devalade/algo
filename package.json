@@ -6,17 +6,26 @@
   "module": "src/index.ts",
   "type": "module",
   "private": true,
-  "keywords": ["algorithm", "education", "programming-language", "compiler", "typescript"],
+  "keywords": [
+    "algorithm",
+    "education",
+    "programming-language",
+    "compiler",
+    "typescript"
+  ],
   "author": "AlgoLang Team",
   "license": "MIT",
   "bin": {
     "algolang": "./bin/algolang"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "bun build src/cli.ts --minify --outdir dist --outfile=cli.js",
-	"compile:linux": "bun run build bun build --compile --minify --sourcemap ./src/cli.ts --target:bun-linux-x64-baseline --outfile algolang",
-	"compile:windows": "bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
-	"compile:darwin": "bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
+    "build": "bun build packages/compiler/src/cli.ts --minify --outdir dist --outfile=cli.js",
+    "compile:linux": "bun run build bun build --compile --minify --sourcemap ./src/cli.ts --target:bun-linux-x64-baseline --outfile algolang",
+    "compile:windows": "bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
+    "compile:darwin": "bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",
     "test": "bun test",
