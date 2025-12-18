@@ -5,8 +5,8 @@
     "main": "dist/server.js",
     "type": "module",
     "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w"
+        "build": "bun build src/server.ts --outdir dist --target node",
+        "watch": "bun build src/server.ts --outdir dist --target node --watch"
     },
     "dependencies": {
         "vscode-languageserver": "^9.0.1",

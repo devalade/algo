@@ -4,7 +4,12 @@ node_modules
 # output
 out
 dist
+packages/**/dist
 *.tgz
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
 
 # code coverage
 coverage

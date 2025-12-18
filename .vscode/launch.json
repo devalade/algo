@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Lancer l'extension (Extension Development Host)",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}/packages/vscode-extension"
+            ],
+            "outFiles": [
+                "${workspaceRoot}/packages/vscode-extension/dist/**/*.js"
+            ],
+            "preLaunchTask": "npm: compile"
+        },
+        {
+            "name": "Attacher au serveur LSP",
+            "type": "node",
+            "request": "attach",
+            "port": 6009,
+            "restart": true,
+            "outFiles": [
+                "${workspaceRoot}/packages/lsp-server/dist/**/*.js"
+            ]
+        }
+    ]
+}

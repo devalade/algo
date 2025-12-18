@@ -4,13 +4,29 @@
     "description": "Prise en charge du langage AlgoLang pour VS Code",
     "version": "1.0.0",
     "publisher": "algolang-team",
+    "license": "MIT",
+    "icon": "resources/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/algolang/algolang"
+    },
     "engines": {
         "vscode": "^1.85.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Linters",
+        "Snippets"
     ],
-    "activationEvents": [],
+    "keywords": [
+        "algolang",
+        "algorithmique",
+        "education",
+        "french"
+    ],
+    "activationEvents": [
+        "onLanguage:algolang"
+    ],
     "main": "dist/extension.js",
     "contributes": {
         "languages": [

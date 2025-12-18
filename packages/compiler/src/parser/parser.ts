@@ -148,8 +148,8 @@ export class Parser {
 							error instanceof Error
 								? error.message
 								: "Erreur de parsing inconnue",
-						line: 0,
-						column: 0,
+						line: 1,
+						column: 1,
 						position: 0,
 						code: "PARSE_ERROR",
 					},

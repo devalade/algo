@@ -1,0 +1,25 @@
+programme TestLSP;
+
+var
+    age, score : entier;
+    nom : chaine;
+    estActif : booleen;
+
+debut
+    // Test : survoler 'ecrire' ou 'score'
+    ecrire("Bienvenue dans le test d'AlgoLang LSP");
+    
+    score := 10 + 5;
+    
+    // Test : faire une erreur de syntaxe (enlever le finsi par exemple)
+    si score > 10 alors
+        ecrire("Bravo !");
+    finsi;
+    
+    // Test : Auto-complétion (taper 'tan' ou 'pou')
+    tantque score < 20 faire
+        score := score + 1;
+    fintantque;
+    
+    ecrire("Fin du test. Valeur finale du score : ", score);
+fin.
