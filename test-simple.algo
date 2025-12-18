@@ -1,6 +1,0 @@
-programme Test;
-var
-  x: entier;
-debut
-  x := 42;
-fin.

@@ -347,7 +347,7 @@ test("CodeGenerator - Generate logical expressions", () => {
           createMockAST(NodeType.VARIABLE, "a"),
           createMockAST(NodeType.BINARY_OP, "et", [
             createMockAST(NodeType.BINARY_OP, "ou", [
-          createMockAST(NodeType.LITERAL, "true" as any),
+          createMockAST(NodeType.LITERAL, true),
               createMockAST(NodeType.LITERAL, false)
             ]),
             createMockAST(NodeType.UNARY_OP, "non", [
@@ -407,8 +407,8 @@ test("CodeGenerator - Generate literals", () => {
         createMockAST(NodeType.WRITE_STATEMENT, undefined, [
           createMockAST(NodeType.LITERAL, 42),
           createMockAST(NodeType.LITERAL, 3.14),
-          createMockAST(NodeType.LITERAL, "true" as any),
-          createMockAST(NodeType.LITERAL, "false" as any),
+          createMockAST(NodeType.LITERAL, true),
+          createMockAST(NodeType.LITERAL, false as any),
           createMockAST(NodeType.LITERAL, "Hello World")
         ])
       ])

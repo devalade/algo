@@ -16,22 +16,42 @@ export class Parser {
 	// Liste des mots-clés réservés qui ne peuvent pas être utilisés comme noms de variables
 	private readonly reservedKeywords = new Set([
 		// Mots-clés principaux
-		"programme", "debut", "fin", "var",
+		"programme",
+		"debut",
+		"fin",
+		"var",
 		// Types de données
-		"entier", "reel", "booleen", "chaine",
+		"entier",
+		"reel",
+		"booleen",
+		"chaine",
 		// Structures de contrôle
-		"si", "alors", "sinon", "finsi",
-		"tantque", "faire", "fintantque",
-		"pour", "a", "finpour",
-		"repeter", "jusqua",
+		"si",
+		"alors",
+		"sinon",
+		"finsi",
+		"tantque",
+		"faire",
+		"fintantque",
+		"pour",
+		"a",
+		"finpour",
+		"repeter",
+		"jusqua",
 		// Entrées/sorties
-		"lire", "ecrire",
+		"lire",
+		"ecrire",
 		// Valeurs booléennes
-		"vrai", "faux",
+		"vrai",
+		"faux",
 		// Opérateurs logiques
-		"et", "ou", "non",
+		"et",
+		"ou",
+		"non",
 		// Mots-clés spéciaux
-		"fonction", "procedure", "retourner",
+		"fonction",
+		"procedure",
+		"retourner",
 	]);
 
 	constructor(tokens: Token[]) {
@@ -69,6 +89,8 @@ export class Parser {
 			TokenType.WHILE,
 			TokenType.DO,
 			TokenType.FOR,
+			TokenType.ALLANT,
+			TokenType.DE,
 			TokenType.TO,
 			TokenType.REPEAT,
 			TokenType.UNTIL,
@@ -96,8 +118,9 @@ export class Parser {
 			column: token.column,
 			position: token.position,
 			code: "RESERVED_KEYWORD",
-			explanation: "Les mots-clés réservés sont utilisés par le langage AlgoLang pour définir la structure du programme et ne peuvent pas être utilisés comme noms de variables.",
-			suggestion: `Choisissez un autre nom plus descriptif, par exemple: '${identifier}Valeur', '${identifier}Temp', 'ma${identifier.charAt(0).toUpperCase() + identifier.slice(1)}'`
+			explanation:
+				"Les mots-clés réservés sont utilisés par le langage AlgoLang pour définir la structure du programme et ne peuvent pas être utilisés comme noms de variables.",
+			suggestion: `Choisissez un autre nom plus descriptif, par exemple: '${identifier}Valeur', '${identifier}Temp', 'ma${identifier.charAt(0).toUpperCase() + identifier.slice(1)}'`,
 		});
 	}
 
@@ -106,13 +129,34 @@ export class Parser {
 		errors: CompilationError[];
 		symbolTable: SymbolTable;
 	} {
-		const program = this.parseProgram();
+		try {
+			const program = this.parseProgram();
 
-		return {
-			ast: program,
-			errors: this.errors,
-			symbolTable: this.symbolTable,
-		};
+			return {
+				ast: program,
+				errors: this.errors,
+				symbolTable: this.symbolTable,
+			};
+		} catch (error) {
+			return {
+				ast: { type: NodeType.PROGRAM, children: [] },
+				errors: [
+					...this.errors,
+					{
+						type: "ERROR",
+						message:
+							error instanceof Error
+								? error.message
+								: "Erreur de parsing inconnue",
+						line: 0,
+						column: 0,
+						position: 0,
+						code: "PARSE_ERROR",
+					},
+				],
+				symbolTable: this.symbolTable,
+			};
+		}
 	}
 
 	private parseProgram(): ASTNode {
@@ -147,11 +191,11 @@ export class Parser {
 
 		return {
 			type: NodeType.BLOCK,
-			children: [...declarations, compoundStatement],
+			children: [declarations, compoundStatement],
 		};
 	}
 
-	private parseDeclarations(): ASTNode[] {
+	private parseDeclarations(): ASTNode {
 		const declarations: ASTNode[] = [];
 
 		while (this.check(TokenType.VAR)) {
@@ -168,7 +212,10 @@ export class Parser {
 			}
 		}
 
-		return declarations;
+		return {
+			type: NodeType.BLOCK,
+			children: declarations,
+		};
 	}
 
 	private parseVariableDeclaration(): ASTNode {
@@ -177,7 +224,7 @@ export class Parser {
 		// Parser la liste d'identificateurs
 		do {
 			let identifier: Token;
-			
+
 			// Vérifier si on a un identificateur ou un mot-clé réservé
 			if (this.check(TokenType.IDENTIFIER)) {
 				identifier = this.advance();
@@ -196,12 +243,12 @@ export class Parser {
 					break;
 				}
 			}
-			
+
 			// Vérifier si l'identificateur est un mot-clé réservé (au cas où)
 			if (this.isReservedKeyword(identifier.value)) {
 				this.createReservedKeywordError(identifier.value, identifier);
 			}
-			
+
 			identifiers.push(identifier.value);
 
 			if (this.check(TokenType.COMMA)) {
@@ -276,7 +323,11 @@ export class Parser {
 			// Mais ne pas en exiger si le token suivant est END, ENDIF, ou ENDWHILE
 			if (this.check(TokenType.SEMICOLON)) {
 				this.advance();
-			} else if (!this.check(TokenType.END) && !this.check(TokenType.ENDIF) && !this.check(TokenType.ENDWHILE)) {
+			} else if (
+				!this.check(TokenType.END) &&
+				!this.check(TokenType.ENDIF) &&
+				!this.check(TokenType.ENDWHILE)
+			) {
 				// Si ce n'est pas END, ENDIF, ou ENDWHILE, on attend un point-virgule
 				this.errors.push({
 					type: "ERROR",
@@ -307,7 +358,10 @@ export class Parser {
 		}
 
 		// Vérifier si c'est une affectation avec un mot-clé réservé comme nom de variable
-		if (this.isKeywordToken(this.peek().type) && this.peekAhead(1)?.type === TokenType.ASSIGN) {
+		if (
+			this.isKeywordToken(this.peek().type) &&
+			this.peekAhead(1)?.type === TokenType.ASSIGN
+		) {
 			return this.parseAssignment();
 		}
 
@@ -339,36 +393,82 @@ export class Parser {
 		return this.parseAssignment();
 	}
 
-	private parseIfStatement(): ASTNode {
+	private parseIfStatement(isElseIf: boolean = false): ASTNode {
 		const ifToken = this.advance(); // Consommer 'si'
 
 		const condition = this.parseExpression();
 
 		this.expect(TokenType.THEN, '"alors" attendu après la condition du si');
 
-		const thenStatement = this.parseStatement();
+		// Parser le bloc "alors"
+		const thenStatements: ASTNode[] = [];
+		while (
+			!this.check(TokenType.ELSE) &&
+			!this.check(TokenType.ENDIF) &&
+			!this.check(TokenType.END) &&
+			!this.isAtEnd()
+		) {
+			const statement = this.parseStatement();
+			thenStatements.push(statement);
 
-	
-
-		// Gérer la chaîne de "sinon si"
-		let elseStatement: ASTNode | undefined;
-		if (this.check(TokenType.ELSE)) {
-			this.advance(); // Consommer 'sinon'
-			
-			if (this.check(TokenType.IF)) {
-				// "sinon si" - on traite ça comme un nouvel if dans la branche else
-				elseStatement = this.parseIfStatement();
-			} else {
-				// "sinon" normal
-				elseStatement = this.parseStatement();
-				
-			
+			// Gérer le point-virgule optionnel après l'instruction
+			if (this.check(TokenType.SEMICOLON)) {
+				this.advance();
 			}
 		}
 
-		// Consommer le 'finsi' obligatoire pour les structures si complètes
-		if (this.check(TokenType.ENDIF)) {
-			this.advance();
+		const thenStatement: ASTNode = {
+			type: NodeType.COMPOUND_STATEMENT,
+			children: thenStatements,
+		};
+
+		// Gérer la chaîne de "sinon si" ou "sinon"
+		let elseStatement: ASTNode | undefined;
+
+		// Vérifier s'il y a un point-virgule avant le sinon (optionnel mais fréquent)
+		if (this.check(TokenType.SEMICOLON) && this.peekAhead(1)?.type === TokenType.ELSE) {
+			this.advance(); // Consommer ';'
+		}
+
+		if (this.check(TokenType.ELSE)) {
+			this.advance(); // Consommer 'sinon'
+
+			if (this.check(TokenType.IF)) {
+				// "sinon si" - on traite ça comme un nouvel if dans la branche else
+				// NOTE: On passe true pour isElseIf car dans une chaîne sinon si, le finsi est partagé
+				elseStatement = this.parseIfStatement(true);
+			} else {
+				// "sinon" normal
+				const elseStatements: ASTNode[] = [];
+				while (
+					!this.check(TokenType.ENDIF) &&
+					!this.check(TokenType.END) &&
+					!this.isAtEnd()
+				) {
+					const statement = this.parseStatement();
+					elseStatements.push(statement);
+
+					// Gérer le point-virgule optionnel
+					if (this.check(TokenType.SEMICOLON)) {
+						this.advance();
+					}
+				}
+
+				elseStatement = {
+					type: NodeType.COMPOUND_STATEMENT,
+					children: elseStatements,
+				};
+			}
+		}
+
+		// Si c'est un "sinon si", on ne consomme pas le finsi (il appartient au si parent)
+		if (!isElseIf) {
+			// Vérifier s'il y a un point-virgule avant le finsi (optionnel mais fréquent)
+			if (this.check(TokenType.SEMICOLON) && this.peekAhead(1)?.type === TokenType.ENDIF) {
+				this.advance(); // Consommer ';'
+			}
+
+			this.expect(TokenType.ENDIF, '"finsi" attendu à la fin du bloc si');
 		}
 
 		return {
@@ -391,9 +491,13 @@ export class Parser {
 
 		// Parser le corps de la boucle
 		const bodyStatements: ASTNode[] = [];
-		
+
 		// Tant qu'on ne trouve pas fintantque, on ajoute les instructions
-		while (!this.check(TokenType.ENDWHILE) && !this.check(TokenType.END) && !this.isAtEnd()) {
+		while (
+			!this.check(TokenType.ENDWHILE) &&
+			!this.check(TokenType.END) &&
+			!this.isAtEnd()
+		) {
 			const statement = this.parseStatement();
 			bodyStatements.push(statement);
 
@@ -404,7 +508,10 @@ export class Parser {
 		}
 
 		// Consommer le fintantque obligatoire
-		this.expect(TokenType.ENDWHILE, '"fintantque" attendu à la fin de la boucle tantque');
+		this.expect(
+			TokenType.ENDWHILE,
+			'"fintantque" attendu à la fin de la boucle tantque',
+		);
 
 		return {
 			type: NodeType.WHILE_STATEMENT,
@@ -419,33 +526,27 @@ export class Parser {
 	private parseForStatement(): ASTNode {
 		const forToken = this.advance(); // Consommer 'pour'
 
-		let variable: Token;
-		
-		// Vérifier si on a un identificateur ou un mot-clé réservé
-		if (this.check(TokenType.IDENTIFIER)) {
-			variable = this.advance();
-		} else {
-			// Vérifier si c'est un mot-clé réservé
-			const currentToken = this.peek();
-			if (this.isKeywordToken(currentToken.type)) {
-				variable = this.advance(); // Consommer le mot-clé
-				this.createReservedKeywordError(variable.value, variable);
-			} else {
-				// Erreur normale - pas un identificateur
-				this.expect(
-					TokenType.IDENTIFIER,
-					"Variable attendue dans la boucle pour",
-				);
-				throw new Error("Variable attendue dans la boucle pour");
-			}
-		}
-
-		this.expect(
-			TokenType.ASSIGN,
-			'":=" attendu après la variable dans la boucle pour',
+		const variable = this.expect(
+			TokenType.IDENTIFIER,
+			'Identificateur attendu après "pour"',
 		);
 
-		const startValue = this.parseExpression();
+		let startValue: ASTNode;
+		if (this.check(TokenType.ALLANT)) {
+			this.advance(); // Consommer 'allant'
+			this.expect(
+				TokenType.DE,
+				'"de" attendu après "allant" dans la boucle pour',
+			);
+			startValue = this.parseExpression();
+		} else if (this.check(TokenType.ASSIGN)) {
+			this.advance(); // Consommer ':='
+			startValue = this.parseExpression();
+		} else {
+			throw new Error(
+				'"allant de" ou ":=" attendu après la variable dans la boucle pour',
+			);
+		}
 
 		this.expect(TokenType.TO, '"a" attendu dans la boucle pour');
 
@@ -455,9 +556,13 @@ export class Parser {
 
 		// Parser le corps de la boucle
 		const bodyStatements: ASTNode[] = [];
-		
+
 		// Tant qu'on ne trouve pas finpour, on ajoute les instructions
-		while (!this.check(TokenType.ENDFOR) && !this.check(TokenType.END) && !this.isAtEnd()) {
+		while (
+			!this.check(TokenType.ENDFOR) &&
+			!this.check(TokenType.END) &&
+			!this.isAtEnd()
+		) {
 			const statement = this.parseStatement();
 			bodyStatements.push(statement);
 
@@ -468,7 +573,10 @@ export class Parser {
 		}
 
 		// Consommer le finpour obligatoire
-		this.expect(TokenType.ENDFOR, '"finpour" attendu à la fin de la boucle pour');
+		this.expect(
+			TokenType.ENDFOR,
+			'"finpour" attendu à la fin de la boucle pour',
+		);
 
 		return {
 			type: NodeType.FOR_STATEMENT,
@@ -491,7 +599,7 @@ export class Parser {
 		);
 
 		let variable: Token;
-		
+
 		// Vérifier si on a un identificateur ou un mot-clé réservé
 		if (this.check(TokenType.IDENTIFIER)) {
 			variable = this.advance();
@@ -503,10 +611,7 @@ export class Parser {
 				this.createReservedKeywordError(variable.value, variable);
 			} else {
 				// Erreur normale - pas un identificateur
-				this.expect(
-					TokenType.IDENTIFIER,
-					'Variable attendue dans "lire"',
-				);
+				this.expect(TokenType.IDENTIFIER, 'Variable attendue dans "lire"');
 				throw new Error('Variable attendue dans "lire"');
 			}
 		}
@@ -558,7 +663,7 @@ export class Parser {
 
 	private parseAssignment(): ASTNode {
 		let variable: Token;
-		
+
 		// Vérifier si on a un identificateur ou un mot-clé réservé
 		if (this.check(TokenType.IDENTIFIER)) {
 			variable = this.advance();
@@ -721,7 +826,15 @@ export class Parser {
 		if (this.check(TokenType.NOT)) {
 			const nextToken = this.peekAhead();
 			// Si le token suivant est ), ;, ,, ou EOF, alors c'est probablement une variable, pas un opérateur unaire
-			if (nextToken && [TokenType.RIGHT_PAREN, TokenType.SEMICOLON, TokenType.COMMA, TokenType.EOF].includes(nextToken.type)) {
+			if (
+				nextToken &&
+				[
+					TokenType.RIGHT_PAREN,
+					TokenType.SEMICOLON,
+					TokenType.COMMA,
+					TokenType.EOF,
+				].includes(nextToken.type)
+			) {
 				return this.parsePrimary(); // Laisser parsePrimary gérer le mot-clé réservé
 			}
 		}
@@ -771,12 +884,12 @@ export class Parser {
 
 		if (this.check(TokenType.IDENTIFIER)) {
 			const token = this.advance();
-			
+
 			// Vérifier si l'identificateur est un mot-clé réservé
 			if (this.isReservedKeyword(token.value)) {
 				this.createReservedKeywordError(token.value, token);
 			}
-			
+
 			return {
 				type: NodeType.VARIABLE,
 				value: token.value,
@@ -789,7 +902,7 @@ export class Parser {
 		if (this.isKeywordToken(currentToken.type)) {
 			const token = this.advance(); // Consommer le mot-clé
 			this.createReservedKeywordError(token.value, token);
-			
+
 			return {
 				type: NodeType.VARIABLE,
 				value: token.value,
@@ -823,29 +936,32 @@ export class Parser {
 
 	private parseRepeatStatement(): ASTNode {
 		const repeatToken = this.advance(); // Consommer 'repeter'
-		
+
 		const statements: ASTNode[] = [];
-		
+
 		// Parser les instructions du corps de la boucle
 		while (!this.check(TokenType.UNTIL) && !this.isAtEnd()) {
 			const statement = this.parseStatement();
 			statements.push(statement);
-			
+
 			// Sauter les points-virgules après les instructions
 			if (this.check(TokenType.SEMICOLON)) {
 				this.advance();
 			}
 		}
-		
-		this.expect(TokenType.UNTIL, '"jusqua" attendu à la fin de la boucle repeter');
-		
+
+		this.expect(
+			TokenType.UNTIL,
+			'"jusqua" attendu à la fin de la boucle repeter',
+		);
+
 		// Parser la condition
 		const condition = this.parseExpression();
-		
+
 		return {
 			type: NodeType.REPEAT_STATEMENT,
 			children: [...statements, condition],
-			token: repeatToken
+			token: repeatToken,
 		};
 	}
 

@@ -15,6 +15,8 @@ export enum TokenType {
 	WHILE = "TANTQUE",
 	DO = "FAIRE",
 	FOR = "POUR",
+	ALLANT = "ALLANT",
+	DE = "DE",
 	TO = "A",
 	REPEAT = "REPETER",
 	UNTIL = "JUSQUA",

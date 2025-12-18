@@ -11,7 +11,7 @@ debut
   somme := 0;
   
   // Lire chaque note et faire la somme
-  pour i := 1 a nbNotes faire
+   pour i := 1 a nbNotes faire
     ecrire("Entrez la note ", i, " :");
     lire(note);
     somme := somme + note;
@@ -21,16 +21,10 @@ debut
   moyenne := somme / nbNotes;
   ecrire("La moyenne est : ", moyenne);
   
-  // Afficher la mention
-  si moyenne >= 16 alors
-    ecrire("Excellent !");
-  sinon si moyenne >= 14 alors
-    ecrire("Bien !");
-  sinon si moyenne >= 12 alors
-    ecrire("Assez bien !");
-  sinon si moyenne >= 10 alors
-    ecrire("Passable !");
-  sinon
-    ecrire("Insuffisant !");
-  finsi;
+   // Afficher la mention
+   si moyenne >= 10 alors
+     ecrire("Passable");
+   sinon
+     ecrire("Insuffisant");
+   finsi;
 fin.

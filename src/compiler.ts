@@ -113,19 +113,19 @@ export class AlgoLangCompiler {
 				);
 			}
 
-		// Phase 4: Post-traitement et optimisation
-		const finalOutput = this.postProcess(compiledOutput, context);
+			// Phase 4: Post-traitement et optimisation
+			const finalOutput = this.postProcess(compiledOutput, context);
 
-		return {
-			...finalOutput,
-			output: finalOutput.output,
-			errors: context.errors,
-			warnings: context.warnings,
-			symbolTable: context.symbolTable,
-			ast: parseResult.ast,
-			success: context.errors.length === 0,
-			executionTime: Date.now() - startTime,
-		};
+			return {
+				...finalOutput,
+				output: finalOutput.output,
+				errors: context.errors,
+				warnings: context.warnings,
+				symbolTable: context.symbolTable,
+				ast: parseResult.ast,
+				success: context.errors.length === 0,
+				executionTime: Date.now() - startTime,
+			};
 		} catch (error) {
 			return this.createErrorOutput(
 				error instanceof Error

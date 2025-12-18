@@ -22,6 +22,7 @@ export class Lexer {
 			["si", TokenType.IF],
 			["alors", TokenType.THEN],
 			["sinon", TokenType.ELSE],
+			["finsi", TokenType.ENDIF],
 			["tantque", TokenType.WHILE],
 			["faire", TokenType.DO],
 			["pour", TokenType.FOR],
@@ -38,7 +39,6 @@ export class Lexer {
 			["ou", TokenType.OR],
 			["non", TokenType.NOT],
 			["finpour", TokenType.ENDFOR],
-			["finsi", TokenType.ENDIF],
 			["fintantque", TokenType.ENDWHILE],
 		]);
 	}
@@ -296,8 +296,6 @@ export class Lexer {
 	private scanBlockComment(): Token {
 		const start = this.position;
 		const startColumn = this.column;
-
-		this.advance(); // Sauter '/'
 		this.advance(); // Sauter '*'
 
 		while (

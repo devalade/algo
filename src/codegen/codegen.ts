@@ -321,10 +321,10 @@ export class CodeGenerator {
 		}
 
 		const conditionCode = this.generateNode(condition);
-		
+
 		let code = "do {\n";
 		this.indentLevel++;
-		
+
 		// Générer les instructions du corps
 		for (const statement of bodyStatements) {
 			const statementCode = this.generateNode(statement);
@@ -332,10 +332,10 @@ export class CodeGenerator {
 				code += this.indent(statementCode) + "\n";
 			}
 		}
-		
+
 		this.indentLevel--;
 		code += "} while (!(" + conditionCode + "));";
-		
+
 		return code;
 	}
 
@@ -446,10 +446,26 @@ export class CodeGenerator {
 	}
 
 	private generateLiteral(node: ASTNode): string {
+		if (node.value === undefined || node.value === null) {
+			return "null";
+		}
+
+		// Pour les booléens, retourner la valeur textuelle
+		if (typeof node.value === "boolean") {
+			return node.value ? "true" : "false";
+		}
+
+		// Pour les nombres, retourner la valeur
+		if (typeof node.value === "number") {
+			return node.value.toString();
+		}
+
+		// Pour les chaînes, retourner entre guillemets
 		if (typeof node.value === "string") {
 			return `"${node.value}"`;
 		}
-		return String(node.value);
+
+		return node.value?.toString() ?? "null";
 	}
 
 	private generateVariable(node: ASTNode): string {
