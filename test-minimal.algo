@@ -1,0 +1,7 @@
+programme Test;
+var
+  x: entier;
+debut
+  x := 5;
+  ecrire(x);
+fin.

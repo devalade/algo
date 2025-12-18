@@ -1,7 +1,7 @@
 // ===============================================
 // Code généré par AlgoLang - Compilateur Éducatif
-// Fichier source: examples/deviner-nombre.algo
-// Variables déclarées: 4
+// Fichier source: examples/bonjour.algo
+// Variables déclarées: 1
 // Erreurs de compilation: 0
 // Avertissements: 0
 // ===============================================
@@ -14,33 +14,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// Programme: DevinerNombre
+// Programme: BonjourMonde
 async function main() {
 // Point d'entrée principal
-    let secret; // number
+    let message; // string
 // Déclaration de variable
-  let essai; // number
-// Déclaration de variable
-  let compteur; // number
-// Déclaration de variable
-  let trouve; // boolean
-// Déclaration de variable
-    secret = 42;
-  compteur = 0;
-  trouve = false;
-  ecrire("Jeu du nombre secret !");
-  ecrire("Devinez un nombre entre 1 et 100");
-  while (!(trouve)) {
-// Boucle conditionnelle : répète tant que la condition est vraie
-      ecrire("Votre essai : ");
-  essai = parseInt(await lire(""));
-  compteur = (compteur + 1);
-  if ((essai === secret)) {
-// Structure conditionnelle : exécute le code si la condition est vraie
-    trouve = true;
-}
-}
-  ecrire("Bravo ! Trouve en ", compteur, " essais !");
+    message = "Bonjour, AlgoLang en français!";
+  ecrire(message);
 }
 
 // Fonctions utilitaires pour les entrées/sorties

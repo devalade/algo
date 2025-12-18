@@ -1,8 +1,8 @@
 programme CalculatriceAvancee;
 var
   choix: entier;
-  a: entier;
-  b: entier;
+  nombre1: entier;
+  nombre2: entier;
   resultat: entier;
   continuer: booleen;
 debut
@@ -28,24 +28,24 @@ debut
     sinon si choix >= 1 et choix <= 4 alors
       // Demander les nombres
       ecrire("Premier nombre : ");
-      lire(a);
+      lire(nombre1);
       ecrire("Deuxième nombre : ");
-      lire(b);
+      lire(nombre2);
       
       // Effectuer l'opération
       si choix = 1 alors
-        resultat := a + b;
-        ecrire(a, " + ", b, " = ", resultat);
+        resultat := nombre1 + nombre2;
+        ecrire(nombre1, " + ", nombre2, " = ", resultat);
       sinon si choix = 2 alors
-        resultat := a - b;
-        ecrire(a, " - ", b, " = ", resultat);
+        resultat := nombre1 - nombre2;
+        ecrire(nombre1, " - ", nombre2, " = ", resultat);
       sinon si choix = 3 alors
-        resultat := a * b;
-        ecrire(a, " × ", b, " = ", resultat);
+        resultat := nombre1 * nombre2;
+        ecrire(nombre1, " × ", nombre2, " = ", resultat);
       sinon si choix = 4 alors
-        si b <> 0 alors
-          resultat := a / b;
-          ecrire(a, " ÷ ", b, " = ", resultat);
+        si nombre2 <> 0 alors
+          resultat := nombre1 / nombre2;
+          ecrire(nombre1, " ÷ ", nombre2, " = ", resultat);
         sinon
           ecrire("Erreur : Division par zéro !");
         finsi;
