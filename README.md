@@ -2,6 +2,32 @@
 
 AlgoLang est un langage de programmation éducatif conçu pour apprendre l'algorithmique avec une syntaxe française intuitive.
 
+## ⚡ Démarrage Rapide
+
+**1. Installer AlgoLang**
+```bash
+# Linux / macOS
+curl -fsSL https://raw.githubusercontent.com/devalade/algo/main/install.sh | bash
+
+# Windows (PowerShell)
+irm https://raw.githubusercontent.com/devalade/algo/main/install.ps1 | iex
+```
+
+**2. Créer votre premier programme** (`bonjour.algo`)
+```algo
+programme Bonjour;
+debut
+  ecrire("Bonjour le monde !");
+fin.
+```
+
+**3. Exécuter**
+```bash
+algolang run bonjour.algo
+```
+
+---
+
 ## 🚀 Installation
 
 ### Installation rapide (Binaire pré-compilé)
