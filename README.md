@@ -4,8 +4,72 @@ AlgoLang est un langage de programmation éducatif conçu pour apprendre l'algor
 
 ## 🚀 Installation
 
+### Installation rapide (Binaire pré-compilé)
+
+#### Linux / macOS
 ```bash
+curl -fsSL https://raw.githubusercontent.com/devalade/algo/main/install.sh | bash
+```
+
+#### Windows (PowerShell)
+```powershell
+irm https://raw.githubusercontent.com/devalade/algo/main/install.ps1 | iex
+```
+
+### Plateformes supportées
+
+| Système d'exploitation | Architecture | Binaire |
+|------------------------|--------------|---------|
+| Linux | x86_64 (amd64) | `algolang-linux-amd64` |
+| Linux | ARM64 | `algolang-linux-arm64` |
+| macOS | Intel (x86_64) | `algolang-darwin-amd64` |
+| macOS | Apple Silicon (ARM64) | `algolang-darwin-arm64` |
+| Windows | x86_64 (amd64) | `algolang-windows-amd64.exe` |
+
+### Compilation depuis les sources
+
+Si vous préférez compiler depuis les sources ou contribuer au projet :
+
+```bash
+# Cloner le dépôt
+git clone https://github.com/devalade/algo.git
+cd algo
+
+# Installer les dépendances (nécessite Bun)
 bun install
+
+# Compiler pour votre plateforme
+bun run compile:linux        # Linux x86_64
+bun run compile:linux-arm64  # Linux ARM64
+bun run compile:darwin       # macOS Intel
+bun run compile:darwin-arm64 # macOS Apple Silicon
+bun run compile:windows      # Windows x86_64
+
+# Ou compiler pour toutes les plateformes
+bun run compile:all
+
+# Le binaire sera créé dans le répertoire racine
+```
+
+### Désinstallation
+
+#### Linux / macOS
+```bash
+# Si installé dans /usr/local/bin
+sudo rm /usr/local/bin/algolang
+
+# Si installé dans ~/.local/bin
+rm ~/.local/bin/algolang
+```
+
+#### Windows
+```powershell
+# Supprimer le binaire
+Remove-Item "$env:LOCALAPPDATA\AlgoLang" -Recurse
+
+# Retirer du PATH (manuel)
+# Ouvrez "Modifier les variables d'environnement système"
+# et supprimez l'entrée AlgoLang du PATH utilisateur
 ```
 
 ## 📖 Guide d'apprentissage par l'exemple
@@ -85,21 +149,38 @@ Le moyen le plus simple de tester votre code :
 
 ```bash
 # Compiler et exécuter directement
-bun run src/cli.ts run side-panel.algo
+algolang run side-panel.algo
 ```
 
 ### Compiler vers JavaScript
 Si vous voulez voir le code JavaScript généré :
 
 ```bash
-bun run src/cli.ts compile examples/bonjour.algo -o output.js
+algolang compile examples/bonjour.algo -o output.js
 ```
 
 ### Vérifier la Syntaxe
 Utile pour trouver des erreurs sans exécuter le code :
 
 ```bash
-bun run src/cli.ts check examples/calculatrice.algo --verbose
+algolang check examples/calculatrice.algo --verbose
+```
+
+### Initialiser un nouveau projet
+Créer un nouveau programme AlgoLang avec un modèle de base :
+
+```bash
+algolang init mon-programme
+```
+
+### Développement (depuis les sources)
+Si vous développez AlgoLang ou n'avez pas installé le binaire :
+
+```bash
+# Utiliser directement avec Bun
+bun run packages/compiler/src/cli.ts run examples/bonjour.algo
+bun run packages/compiler/src/cli.ts compile examples/bonjour.algo -o output.js
+bun run packages/compiler/src/cli.ts check examples/bonjour.algo --verbose
 ```
 
 ---
