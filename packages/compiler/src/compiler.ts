@@ -25,7 +25,7 @@ export class AlgoLangCompiler {
 		sourceCode: string,
 		filePath: string = "<input>",
 	): CompiledOutput {
-		const startTime = Date.now();
+		const startTime = performance.now();
 
 		try {
 			// Créer le contexte de compilation
@@ -124,7 +124,7 @@ export class AlgoLangCompiler {
 				symbolTable: context.symbolTable,
 				ast: parseResult.ast,
 				success: context.errors.length === 0,
-				executionTime: Date.now() - startTime,
+				executionTime: performance.now() - startTime,
 			};
 		} catch (error) {
 			return this.createErrorOutput(
