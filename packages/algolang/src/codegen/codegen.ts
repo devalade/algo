@@ -98,6 +98,8 @@ export class CodeGenerator {
 				return this.generateBlock(node);
 			case "VAR_DECLARATION":
 				return this.generateVariableDeclaration(node);
+			case "ARRAY_DECLARATION":
+				return this.generateArrayDeclaration(node);
 			case "COMPOUND_STATEMENT":
 				return this.generateCompoundStatement(node);
 			case "ASSIGNMENT":
@@ -114,6 +116,12 @@ export class CodeGenerator {
 				return this.generateReadStatement(node);
 			case "WRITE_STATEMENT":
 				return this.generateWriteStatement(node);
+			case "FUNCTION_DECLARATION":
+				return this.generateFunctionDeclaration(node);
+			case "PROCEDURE_DECLARATION":
+				return this.generateProcedureDeclaration(node);
+			case "RETURN_STATEMENT":
+				return this.generateReturnStatement(node);
 			case "BINARY_OP":
 				return this.generateBinaryOp(node);
 			case "UNARY_OP":
@@ -122,6 +130,10 @@ export class CodeGenerator {
 				return this.generateLiteral(node);
 			case "VARIABLE":
 				return this.generateVariable(node);
+			case "ARRAY_ACCESS":
+				return this.generateArrayAccess(node);
+			case "FUNCTION_CALL":
+				return this.generateFunctionCall(node);
 			default:
 				this.errors.push({
 					type: "ERROR",
@@ -137,17 +149,37 @@ export class CodeGenerator {
 
 	private generateProgram(node: ASTNode): string {
 		const lines: string[] = [];
+		const block = node.children?.[0];
 
 		lines.push(`// Programme: ${node.value}`);
-		lines.push("async function main() {");
 
+		// Émettre les fonctions/procédures utilisateur en dehors de main()
+		if (block?.children) {
+			for (const child of block.children) {
+				if (
+					child.type === "FUNCTION_DECLARATION" ||
+					child.type === "PROCEDURE_DECLARATION"
+				) {
+					lines.push(this.generateNode(child));
+					lines.push("");
+				}
+			}
+		}
+
+		lines.push("async function main() {");
 		this.indentLevel++;
 
-		if (node.children && node.children.length > 0) {
-			for (const child of node.children) {
-				const childCode = this.generateNode(child);
-				if (childCode) {
-					lines.push(this.indent(childCode));
+		// Émettre les déclarations de variables et le corps principal
+		if (block?.children) {
+			for (const child of block.children) {
+				if (
+					child.type !== "FUNCTION_DECLARATION" &&
+					child.type !== "PROCEDURE_DECLARATION"
+				) {
+					const childCode = this.generateNode(child);
+					if (childCode) {
+						lines.push(this.indent(childCode));
+					}
 				}
 			}
 		}
@@ -194,7 +226,12 @@ export class CodeGenerator {
 			for (const child of node.children) {
 				const childCode = this.generateNode(child);
 				if (childCode) {
-					lines.push(this.indent(childCode));
+					// Un appel de fonction/procédure utilisé comme instruction doit se terminer par ;
+					const stmt =
+						child.type === "FUNCTION_CALL"
+							? childCode.replace(/^\(|\)$/g, "") + ";"
+							: childCode;
+					lines.push(this.indent(stmt));
 				}
 			}
 		}
@@ -207,17 +244,106 @@ export class CodeGenerator {
 			return "";
 		}
 
-		const variable = node.children[0];
+		const target = node.children[0];
 		const expression = node.children[1];
 
-		if (!variable || !expression) {
+		if (!target || !expression) {
 			return "";
 		}
 
-		const variableName = variable.value as string;
 		const expressionCode = this.generateNode(expression);
 
+		if (target.type === "ARRAY_ACCESS") {
+			const arrayName = target.value as string;
+			const index = this.generateNode(target.children![0]);
+			return `${arrayName}[${index}] = ${expressionCode};`;
+		}
+
+		const variableName = target.value as string;
 		return `${variableName} = ${expressionCode};`;
+	}
+
+	private generateArrayDeclaration(node: ASTNode): string {
+		if (!node.children || node.children.length < 2) return "";
+		const size = node.children[0].value as number;
+		const elemType = node.value as string;
+		const defaultValue = elemType === "BOOLEEN" ? "false" : elemType === "CHAINE" ? '""' : "0";
+		const names = node.children.slice(1).map((c) => c.value as string);
+		return names
+			.map((name) => `let ${name} = new Array(${size}).fill(${defaultValue});`)
+			.join("\n");
+	}
+
+	private generateArrayAccess(node: ASTNode): string {
+		const name = node.value as string;
+		const index = this.generateNode(node.children![0]);
+		return `${name}[${index}]`;
+	}
+
+	private generateFunctionCall(node: ASTNode): string {
+		const name = node.value as string;
+		const args = (node.children ?? []).map((c) => {
+			const code = this.generateNode(c);
+			// Tableaux passés par valeur (copie)
+			if (c.type === "VARIABLE") {
+				const sym = this.symbolTable.symbols.get(c.value as string);
+				if (sym?.type?.startsWith("TABLEAU")) return `${code}.slice()`;
+			}
+			return code;
+		});
+
+		// Fonctions mathématiques intégrées
+		switch (name.toLowerCase()) {
+			case "abs":          return `Math.abs(${args[0]})`;
+			case "max":          return `Math.max(${args.join(", ")})`;
+			case "min":          return `Math.min(${args.join(", ")})`;
+			case "mod":          return `(${args[0]} % ${args[1]})`;
+			case "racine_carree": return `Math.sqrt(${args[0]})`;
+			case "taille":       return `${args[0]}.length`;
+			case "sous_chaine":  return `${args[0]}.substring(${args[1]}, ${args[1]} + ${args[2]})`;
+			case "concat":       return args.join(" + ");
+			case "entier_en_reel": return `${args[0]}`;
+			case "reel_en_entier": return `Math.trunc(${args[0]})`;
+			default:
+				// Fonction définie par l'utilisateur (async)
+				return `(await ${name}(${args.join(", ")}))`;
+		}
+	}
+
+	private generateFunctionDeclaration(node: ASTNode): string {
+		const name = node.value as string;
+		const [paramList, , body] = node.children ?? [];
+		const params = this.generateParamList(paramList);
+		const bodyCode = this.generateNode(body);
+		const lines = [`async function ${name}(${params}) {`];
+		this.indentLevel++;
+		lines.push(this.indent(bodyCode));
+		this.indentLevel--;
+		lines.push("}");
+		return lines.join("\n");
+	}
+
+	private generateProcedureDeclaration(node: ASTNode): string {
+		const name = node.value as string;
+		const [paramList, body] = node.children ?? [];
+		const params = this.generateParamList(paramList);
+		const bodyCode = this.generateNode(body);
+		const lines = [`async function ${name}(${params}) {`];
+		this.indentLevel++;
+		lines.push(this.indent(bodyCode));
+		this.indentLevel--;
+		lines.push("}");
+		return lines.join("\n");
+	}
+
+	private generateParamList(paramList: ASTNode | undefined): string {
+		if (!paramList?.children) return "";
+		return paramList.children.map((p) => p.value as string).join(", ");
+	}
+
+	private generateReturnStatement(node: ASTNode): string {
+		if (!node.children?.[0]) return "return;";
+		return `return ${this.generateNode(node.children[0])};`;
 	}
 
 	private generateIfStatement(node: ASTNode): string {
@@ -340,40 +466,24 @@ export class CodeGenerator {
 	}
 
 	private generateReadStatement(node: ASTNode): string {
-		if (!node.children || node.children.length === 0) {
-			return "";
+		if (!node.children || node.children.length === 0) return "";
+
+		const target = node.children[0];
+		if (!target) return "";
+
+		const isArray = target.type === "ARRAY_ACCESS";
+		const varName = isArray
+			? `${target.value as string}[${this.generateNode(target.children![0])}]`
+			: (target.value as string);
+
+		const symbolName = target.value as string;
+		const symbolInfo = this.symbolTable.symbols.get(symbolName);
+		const typeHint = symbolInfo?.type ?? "";
+
+		if (typeHint.startsWith("ENTIER") || typeHint === "REEL" || typeHint.startsWith("TABLEAU")) {
+			return `${varName} = parseInt(await lire(""));`;
 		}
-
-		const variable = node.children[0];
-		if (!variable) {
-			return "";
-		}
-
-		const variableName = variable.value as string;
-
-		// Vérifier le type de la variable depuis la table des symboles
-		const symbolInfo = this.symbolTable.symbols.get(variableName);
-		let conversion = "";
-
-		if (symbolInfo) {
-			switch (symbolInfo.type) {
-				case "ENTIER":
-				case "REEL":
-					conversion = "parseInt(";
-					break;
-				case "BOOLEEN":
-					conversion = "(";
-					break;
-				default:
-					conversion = "";
-			}
-		}
-
-		if (conversion) {
-			return `${variableName} = ${conversion}await lire(""));`;
-		} else {
-			return `${variableName} = await lire("");`;
-		}
+		return `${varName} = await lire("");`;
 	}
 
 	private generateWriteStatement(node: ASTNode): string {
@@ -503,6 +613,8 @@ export class CodeGenerator {
 				return ">";
 			case ">=":
 				return ">=";
+			case "%":
+				return "%";
 			case "et":
 				return "&&";
 			case "ou":

@@ -1,0 +1,48 @@
+PROGRAMME Fonctions;
+VAR
+  n, resultat: ENTIER;
+  b, e: ENTIER;
+
+FONCTION factorielle(n: ENTIER): ENTIER
+DEBUT
+  SI n <= 1 ALORS
+    RETOURNER 1
+  SINON
+    RETOURNER n * factorielle(n - 1)
+  FINSI
+FIN
+
+FONCTION estPair(n: ENTIER): BOOLEEN
+DEBUT
+  RETOURNER n % 2 = 0
+FIN
+
+FONCTION puissance(base: ENTIER, exposant: ENTIER): ENTIER
+DEBUT
+  SI exposant = 0 ALORS
+    RETOURNER 1
+  FINSI
+  RETOURNER base * puissance(base, exposant - 1)
+FIN
+
+DEBUT
+  ECRIRE("=== Démonstration des fonctions ===");
+
+  ECRIRE("Entrez un entier positif :");
+  LIRE(n);
+  resultat := factorielle(n);
+  ECRIRE("Factorielle de ", n, " = ", resultat);
+
+  SI estPair(n) ALORS
+    ECRIRE(n, " est pair");
+  SINON
+    ECRIRE(n, " est impair");
+  FINSI
+
+  ECRIRE("Entrez la base :");
+  LIRE(b);
+  ECRIRE("Entrez l'exposant :");
+  LIRE(e);
+  resultat := puissance(b, e);
+  ECRIRE(b, " ^ ", e, " = ", resultat)
+FIN

@@ -38,6 +38,8 @@ export class Parser {
 		"finpour",
 		"repeter",
 		"jusqu'a",
+		// Tableaux
+		"tableau",
 		// Entrées/sorties
 		"lire",
 		"ecrire",
@@ -48,7 +50,7 @@ export class Parser {
 		"et",
 		"ou",
 		"non",
-		// Mots-clés spéciaux
+		// Fonctions et procédures
 		"fonction",
 		"procedure",
 		"retourner",
@@ -104,6 +106,10 @@ export class Parser {
 			TokenType.ENDFOR,
 			TokenType.ENDIF,
 			TokenType.ENDWHILE,
+			TokenType.ARRAY,
+			TokenType.FUNCTION,
+			TokenType.PROCEDURE,
+			TokenType.RETURN,
 		].includes(tokenType);
 	}
 
@@ -186,11 +192,22 @@ export class Parser {
 
 	private parseBlock(): ASTNode {
 		const declarations = this.parseDeclarations();
+
+		// Collecter les déclarations de fonctions/procédures avant le DEBUT principal
+		const subprograms: ASTNode[] = [];
+		while (this.check([TokenType.FUNCTION, TokenType.PROCEDURE])) {
+			if (this.check(TokenType.FUNCTION)) {
+				subprograms.push(this.parseFunctionDeclaration());
+			} else {
+				subprograms.push(this.parseProcedureDeclaration());
+			}
+		}
+
 		const compoundStatement = this.parseCompoundStatement();
 
 		return {
 			type: NodeType.BLOCK,
-			children: [declarations, compoundStatement],
+			children: [declarations, ...subprograms, compoundStatement],
 		};
 	}
 
@@ -200,7 +217,12 @@ export class Parser {
 		while (this.check(TokenType.VAR)) {
 			this.advance(); // Consommer 'var'
 
-			while (!this.check(TokenType.BEGIN) && !this.isAtEnd()) {
+			while (
+				!this.check(TokenType.BEGIN) &&
+				!this.check(TokenType.FUNCTION) &&
+				!this.check(TokenType.PROCEDURE) &&
+				!this.isAtEnd()
+			) {
 				const declaration = this.parseVariableDeclaration();
 				declarations.push(declaration);
 
@@ -262,7 +284,44 @@ export class Parser {
 			"Deux-points attendus après les identificateurs",
 		);
 
-		// Parser le type
+		// Tableau : t: TABLEAU[n] DE TYPE
+		if (this.check(TokenType.ARRAY)) {
+			this.advance(); // Consommer 'TABLEAU'
+			this.expect(TokenType.LEFT_BRACKET, '"[" attendu après TABLEAU');
+			const sizeToken = this.expect(TokenType.NUMBER, 'Taille du tableau attendue');
+			this.expect(TokenType.RIGHT_BRACKET, '"]" attendu après la taille du tableau');
+			this.expect(TokenType.DE, '"DE" attendu après la taille du tableau');
+			const elemTypeToken = this.expect(
+				[TokenType.INTEGER, TokenType.REAL, TokenType.BOOLEAN, TokenType.STRING],
+				"Type des éléments du tableau attendu",
+			);
+			const elemType = this.tokenTypeToDataType(elemTypeToken.type);
+			const size = parseInt(sizeToken.value);
+
+			for (const identifier of identifiers) {
+				if (!this.symbolTable.symbols.has(identifier)) {
+					this.symbolTable.symbols.set(identifier, {
+						name: identifier,
+						type: `TABLEAU[${size}] DE ${elemType}`,
+						scope: this.symbolTable.scopeName,
+						line: elemTypeToken.line,
+						column: elemTypeToken.column,
+					});
+				}
+			}
+
+			return {
+				type: NodeType.ARRAY_DECLARATION,
+				value: elemType,
+				children: [
+					{ type: NodeType.LITERAL, value: size },
+					...identifiers.map((name) => ({ type: NodeType.VARIABLE, value: name })),
+				],
+				token: elemTypeToken,
+			};
+		}
+
+		// Parser le type scalaire
 		const typeToken = this.expect(
 			[TokenType.INTEGER, TokenType.REAL, TokenType.BOOLEAN, TokenType.STRING],
 			"Type de variable attendu",
@@ -396,7 +455,28 @@ export class Parser {
 			return this.parseWriteStatement();
 		}
 
-		// Sinon, c'est une affectation
+		if (this.check(TokenType.RETURN)) {
+			return this.parseReturnStatement();
+		}
+
+		// Appel de procédure/fonction comme instruction : proc(args)
+		if (
+			this.check(TokenType.IDENTIFIER) &&
+			this.peekAhead(1)?.type === TokenType.LEFT_PAREN
+		) {
+			const nameToken = this.advance();
+			return this.parseFunctionCall(nameToken);
+		}
+
+		// Affectation sur un élément de tableau : t[i] := val
+		if (
+			this.check(TokenType.IDENTIFIER) &&
+			this.peekAhead(1)?.type === TokenType.LEFT_BRACKET
+		) {
+			return this.parseArrayAssignment();
+		}
+
+		// Sinon, c'est une affectation scalaire
 		return this.parseAssignment();
 	}
 
@@ -605,19 +685,26 @@ export class Parser {
 			'Parenthèse ouvrante attendue après "lire"',
 		);
 
-		let variable: Token;
+		let target: ASTNode;
 
-		// Vérifier si on a un identificateur ou un mot-clé réservé
 		if (this.check(TokenType.IDENTIFIER)) {
-			variable = this.advance();
+			const variable = this.advance();
+			// Accès à un élément de tableau : LIRE(t[i])
+			if (this.check(TokenType.LEFT_BRACKET)) {
+				this.advance(); // Consommer '['
+				const index = this.parseExpression();
+				this.expect(TokenType.RIGHT_BRACKET, '"]" attendu après l\'index');
+				target = { type: NodeType.ARRAY_ACCESS, value: variable.value, children: [index], token: variable };
+			} else {
+				target = { type: NodeType.VARIABLE, value: variable.value, token: variable };
+			}
 		} else {
-			// Vérifier si c'est un mot-clé réservé
 			const currentToken = this.peek();
 			if (this.isKeywordToken(currentToken.type)) {
-				variable = this.advance(); // Consommer le mot-clé
+				const variable = this.advance();
 				this.createReservedKeywordError(variable.value, variable);
+				target = { type: NodeType.VARIABLE, value: variable.value, token: variable };
 			} else {
-				// Erreur normale - pas un identificateur
 				this.expect(TokenType.IDENTIFIER, 'Variable attendue dans "lire"');
 				throw new Error('Variable attendue dans "lire"');
 			}
@@ -630,9 +717,7 @@ export class Parser {
 
 		return {
 			type: NodeType.READ_STATEMENT,
-			children: [
-				{ type: NodeType.VARIABLE, value: variable.value, token: variable },
-			],
+			children: [target],
 			token: readToken,
 		};
 	}
@@ -813,7 +898,7 @@ export class Parser {
 	private parseMultiplicativeExpression(): ASTNode {
 		let left = this.parseUnaryExpression();
 
-		while (this.check([TokenType.MULTIPLY, TokenType.DIVIDE])) {
+		while (this.check([TokenType.MULTIPLY, TokenType.DIVIDE, TokenType.MODULO])) {
 			const operator = this.advance();
 			const right = this.parseUnaryExpression();
 
@@ -892,6 +977,24 @@ export class Parser {
 		if (this.check(TokenType.IDENTIFIER)) {
 			const token = this.advance();
 
+			// Appel de fonction : nom(args...)
+			if (this.check(TokenType.LEFT_PAREN)) {
+				return this.parseFunctionCall(token);
+			}
+
+			// Accès à un tableau : t[i]
+			if (this.check(TokenType.LEFT_BRACKET)) {
+				this.advance(); // Consommer '['
+				const index = this.parseExpression();
+				this.expect(TokenType.RIGHT_BRACKET, '"]" attendu après l\'index');
+				return {
+					type: NodeType.ARRAY_ACCESS,
+					value: token.value,
+					children: [index],
+					token,
+				};
+			}
+
 			// Vérifier si l'identificateur est un mot-clé réservé
 			if (this.isReservedKeyword(token.value)) {
 				this.createReservedKeywordError(token.value, token);
@@ -969,6 +1072,145 @@ export class Parser {
 			type: NodeType.REPEAT_STATEMENT,
 			children: [...statements, condition],
 			token: repeatToken,
+		};
+	}
+
+	private parseFunctionCall(nameToken: Token): ASTNode {
+		this.advance(); // Consommer '('
+		const args: ASTNode[] = [];
+		if (!this.check(TokenType.RIGHT_PAREN)) {
+			args.push(this.parseExpression());
+			while (this.check(TokenType.COMMA)) {
+				this.advance();
+				args.push(this.parseExpression());
+			}
+		}
+		this.expect(TokenType.RIGHT_PAREN, '")` attendu après les arguments');
+		return {
+			type: NodeType.FUNCTION_CALL,
+			value: nameToken.value,
+			children: args,
+			token: nameToken,
+		};
+	}
+
+	private parseArrayAssignment(): ASTNode {
+		const nameToken = this.advance(); // Consommer le nom du tableau
+		this.advance(); // Consommer '['
+		const index = this.parseExpression();
+		this.expect(TokenType.RIGHT_BRACKET, '"]" attendu après l\'index');
+		this.expect(TokenType.ASSIGN, '":=" attendu dans l\'affectation');
+		const value = this.parseExpression();
+		return {
+			type: NodeType.ASSIGNMENT,
+			children: [
+				{ type: NodeType.ARRAY_ACCESS, value: nameToken.value, children: [index], token: nameToken },
+				value,
+			],
+			token: nameToken,
+		};
+	}
+
+	private parseReturnStatement(): ASTNode {
+		const token = this.advance(); // Consommer 'RETOURNER'
+		const expr = this.parseExpression();
+		return {
+			type: NodeType.RETURN_STATEMENT,
+			children: [expr],
+			token,
+		};
+	}
+
+	private parseParameterList(): ASTNode {
+		this.expect(TokenType.LEFT_PAREN, '"(" attendu dans la déclaration');
+		const params: ASTNode[] = [];
+		if (!this.check(TokenType.RIGHT_PAREN)) {
+			params.push(this.parseParameter());
+			while (this.check(TokenType.SEMICOLON) || this.check(TokenType.COMMA)) {
+				this.advance();
+				if (this.check(TokenType.RIGHT_PAREN)) break;
+				params.push(this.parseParameter());
+			}
+		}
+		this.expect(TokenType.RIGHT_PAREN, '")" attendu après les paramètres');
+		return { type: NodeType.PARAMETER_LIST, children: params };
+	}
+
+	private parseParameter(): ASTNode {
+		const nameToken = this.expect(TokenType.IDENTIFIER, 'Nom de paramètre attendu');
+		this.expect(TokenType.COLON, '":" attendu après le nom du paramètre');
+
+		// Paramètre tableau : t: TABLEAU[n] DE TYPE  ou  t: TABLEAU DE TYPE
+		if (this.check(TokenType.ARRAY)) {
+			this.advance(); // Consommer 'TABLEAU'
+			let size: number | undefined;
+			if (this.check(TokenType.LEFT_BRACKET)) {
+				this.advance();
+				const sizeToken = this.expect(TokenType.NUMBER, 'Taille attendue');
+				this.expect(TokenType.RIGHT_BRACKET, '"]" attendu');
+				size = parseInt(sizeToken.value);
+			}
+			this.expect(TokenType.DE, '"DE" attendu après TABLEAU');
+			const elemTypeToken = this.expect(
+				[TokenType.INTEGER, TokenType.REAL, TokenType.BOOLEAN, TokenType.STRING],
+				'Type des éléments attendu',
+			);
+			const elemType = this.tokenTypeToDataType(elemTypeToken.type);
+			const typeLabel = size !== undefined ? `TABLEAU[${size}] DE ${elemType}` : `TABLEAU DE ${elemType}`;
+			return {
+				type: NodeType.PARAMETER,
+				value: nameToken.value,
+				token: nameToken,
+				symbolInfo: { name: nameToken.value, type: typeLabel, scope: 'param' },
+			};
+		}
+
+		const typeToken = this.expect(
+			[TokenType.INTEGER, TokenType.REAL, TokenType.BOOLEAN, TokenType.STRING],
+			'Type du paramètre attendu',
+		);
+		const paramType = this.tokenTypeToDataType(typeToken.type);
+		return {
+			type: NodeType.PARAMETER,
+			value: nameToken.value,
+			token: nameToken,
+			symbolInfo: { name: nameToken.value, type: paramType, scope: 'param' },
+		};
+	}
+
+	private parseFunctionDeclaration(): ASTNode {
+		const token = this.advance(); // Consommer 'FONCTION'
+		const nameToken = this.expect(TokenType.IDENTIFIER, 'Nom de fonction attendu');
+		const paramList = this.parseParameterList();
+		this.expect(TokenType.COLON, '":" attendu pour le type de retour');
+		const retTypeToken = this.expect(
+			[TokenType.INTEGER, TokenType.REAL, TokenType.BOOLEAN, TokenType.STRING],
+			'Type de retour attendu',
+		);
+		const retType = this.tokenTypeToDataType(retTypeToken.type);
+		const body = this.parseCompoundStatement();
+		return {
+			type: NodeType.FUNCTION_DECLARATION,
+			value: nameToken.value,
+			children: [
+				paramList,
+				{ type: NodeType.TYPE_SPECIFIER, value: retType },
+				body,
+			],
+			token,
+		};
+	}
+
+	private parseProcedureDeclaration(): ASTNode {
+		const token = this.advance(); // Consommer 'PROCEDURE'
+		const nameToken = this.expect(TokenType.IDENTIFIER, 'Nom de procédure attendu');
+		const paramList = this.parseParameterList();
+		const body = this.parseCompoundStatement();
+		return {
+			type: NodeType.PROCEDURE_DECLARATION,
+			value: nameToken.value,
+			children: [paramList, body],
+			token,
 		};
 	}
 

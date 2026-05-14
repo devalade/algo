@@ -40,6 +40,10 @@ export class Lexer {
 			["NON", TokenType.NOT],
 			["FINPOUR", TokenType.ENDFOR],
 			["FINTANTQUE", TokenType.ENDWHILE],
+			["TABLEAU", TokenType.ARRAY],
+			["FONCTION", TokenType.FUNCTION],
+			["PROCEDURE", TokenType.PROCEDURE],
+			["RETOURNER", TokenType.RETURN],
 		]);
 	}
 
@@ -137,6 +141,8 @@ export class Lexer {
 				return this.createToken(TokenType.MULTIPLY, this.advance());
 			case "/":
 				return this.createToken(TokenType.DIVIDE, this.advance());
+			case "%":
+				return this.createToken(TokenType.MODULO, this.advance());
 			case "=":
 				return this.createToken(TokenType.EQUAL, this.advance());
 			case "<":
@@ -155,6 +161,10 @@ export class Lexer {
 				return this.createToken(TokenType.LEFT_PAREN, this.advance());
 			case ")":
 				return this.createToken(TokenType.RIGHT_PAREN, this.advance());
+			case "[":
+				return this.createToken(TokenType.LEFT_BRACKET, this.advance());
+			case "]":
+				return this.createToken(TokenType.RIGHT_BRACKET, this.advance());
 			default:
 				throw new Error(
 					`Caractère non reconnu '${char}' à la ligne ${this.line}, colonne ${this.column}`,
