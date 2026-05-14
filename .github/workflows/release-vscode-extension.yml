@@ -3,9 +3,14 @@ name: Release — VS Code Extension
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version (e.g. 1.2.0)'
+      bump:
+        description: 'Version bump type'
         required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
       pre_release:
         description: 'Publish as pre-release?'
         type: boolean
@@ -41,21 +46,31 @@ jobs:
       - name: Install extension dependencies
         run: npm install
 
-      - name: Build LSP server and bundle into extension
-        run: |
-          bun run build:lsp
-          mkdir -p server
-          cp ../lsp-server/dist/server.js server/server.js
-        working-directory: .
-
       - name: Bump version
+        id: version
         run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          case "${{ github.event.inputs.bump }}" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
           node -e "
             const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json','utf8'));
-            pkg.version = '${{ github.event.inputs.version }}';
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            pkg.version = '${NEW_VERSION}';
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Build LSP server and bundle into extension
+        working-directory: .
+        run: |
+          bun run build:lsp
+          mkdir -p packages/vscode-extension/server
+          cp packages/lsp-server/dist/server.js packages/vscode-extension/server/server.js
 
       - name: Compile TypeScript
         run: npm run compile
@@ -64,37 +79,37 @@ jobs:
         run: |
           npx @vscode/vsce package \
             ${{ github.event.inputs.pre_release == 'true' && '--pre-release' || '' }} \
-            --out algolang-${{ github.event.inputs.version }}.vsix
+            --out algolang-${{ steps.version.outputs.version }}.vsix
 
       - name: Publish to VS Code Marketplace
         run: |
           npx @vscode/vsce publish \
             ${{ github.event.inputs.pre_release == 'true' && '--pre-release' || '' }} \
             --pat ${{ secrets.VSCE_PAT }} \
-            --packagePath algolang-${{ github.event.inputs.version }}.vsix
+            --packagePath algolang-${{ steps.version.outputs.version }}.vsix
 
-      - name: Commit version bump
+      - name: Commit, tag and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json
-          git commit -m "chore: bump vscode-extension to v${{ github.event.inputs.version }}"
-          git tag "vscode-v${{ github.event.inputs.version }}"
+          git commit -m "chore(vscode-extension): release v${{ steps.version.outputs.version }}"
+          git tag "vscode-v${{ steps.version.outputs.version }}"
           git push origin HEAD --tags
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: vscode-v${{ github.event.inputs.version }}
-          name: VS Code Extension v${{ github.event.inputs.version }}
+          tag_name: vscode-v${{ steps.version.outputs.version }}
+          name: VS Code Extension v${{ steps.version.outputs.version }}
           body: |
-            ## AlgoLang VS Code Extension v${{ github.event.inputs.version }}
+            ## AlgoLang VS Code Extension v${{ steps.version.outputs.version }}
 
-            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=algolang-team.algolang)
+            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=devalade.algolang)
             or download the `.vsix` below and run:
             ```
-            code --install-extension algolang-${{ github.event.inputs.version }}.vsix
+            code --install-extension algolang-${{ steps.version.outputs.version }}.vsix
             ```
-          files: algolang-${{ github.event.inputs.version }}.vsix
+          files: algolang-${{ steps.version.outputs.version }}.vsix
           prerelease: ${{ github.event.inputs.pre_release }}
           draft: false
