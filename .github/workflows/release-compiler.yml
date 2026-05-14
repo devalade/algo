@@ -63,7 +63,7 @@ jobs:
         run: bun run build
 
       - name: Verify binary
-        run: node bin/algolang --version
+        run: node dist/cli.js --version
 
       - name: Publish to npm
         run: npm publish --access public --ignore-scripts --provenance
