@@ -23,5 +23,9 @@ jobs:
       - name: Test compiler
         run: bun test packages/algolang/tests
 
+      - name: Build compiler
+        run: bun run build
+        working-directory: packages/algolang
+
       - name: Test LSP server
         run: bun test packages/lsp-server/tests
