@@ -19,35 +19,60 @@ Neovim support for [AlgoLang](https://github.com/devalade/algo) — a French edu
 npm install -g @devalade/algolang-lsp
 ```
 
-### 2. Install the plugin
+### 2. Syntax highlighting
 
-**lazy.nvim**
-
-```lua
-{
-  "devalade/algo",
-  subdir = "packages/nvim-plugin",
-  ft = "algo",
-}
-```
-
-**vim-plug**
+Create the file `~/.config/nvim/syntax/algo.vim` and paste the following:
 
 ```vim
-Plug 'devalade/algo', { 'rtp': 'packages/nvim-plugin' }
+if exists("b:current_syntax")
+  finish
+endif
+
+syn case ignore
+
+syn keyword algoKeyword PROGRAMME DEBUT FIN VAR
+syn keyword algoKeyword SI ALORS SINON FINSI
+syn keyword algoKeyword TANTQUE FAIRE FINTANTQUE
+syn keyword algoKeyword POUR ALLANT DE A FINPOUR
+syn keyword algoKeyword REPETER JUSQUA
+syn keyword algoType    ENTIER REEL BOOLEEN CHAINE
+syn keyword algoBool    VRAI FAUX
+syn keyword algoFunc    LIRE ECRIRE
+syn keyword algoOp      ET OU NON
+
+syn match   algoNumber  "\b\d\+\(\.\d\+\)\?\b"
+syn match   algoAssign  ":="
+syn match   algoCompare "<>\|<=\|>=\|<\|>"
+syn region  algoString  start='"' end='"'
+syn match   algoComment "//.*$"
+syn region  algoComment start="/\*" end="\*/"
+
+hi def link algoKeyword Keyword
+hi def link algoType    Type
+hi def link algoBool    Boolean
+hi def link algoFunc    Function
+hi def link algoOp      Operator
+hi def link algoNumber  Number
+hi def link algoAssign  Operator
+hi def link algoCompare Operator
+hi def link algoString  String
+hi def link algoComment Comment
+
+let b:current_syntax = "algo"
+```
+
+Then create `~/.config/nvim/ftdetect/algo.vim`:
+
+```vim
+au BufRead,BufNewFile *.algo set filetype=algo
 ```
 
 ### 3. Configure the LSP
 
-Add this to your Neovim config (e.g. `~/.config/nvim/lua/plugins/algolang.lua` for LazyVim):
+**LazyVim** — create `~/.config/nvim/lua/plugins/algolang.lua`:
 
 ```lua
 return {
-  {
-    "devalade/algo",
-    subdir = "packages/nvim-plugin",
-    ft = "algo",
-  },
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -63,7 +88,7 @@ return {
 }
 ```
 
-**Without LazyVim**, add this anywhere in your config:
+**Plain Neovim** — add this to your `init.lua`:
 
 ```lua
 vim.filetype.add({ extension = { algo = "algo" } })
@@ -79,8 +104,6 @@ vim.lsp.enable("algolang")
 
 ## With blink.cmp
 
-If you use [blink.cmp](https://github.com/saghen/blink.cmp), enable LSP completions for `.algo` files:
-
 ```lua
 {
   "saghen/blink.cmp",
@@ -91,19 +114,6 @@ If you use [blink.cmp](https://github.com/saghen/blink.cmp), enable LSP completi
     opts.sources.per_filetype.algo = { "lsp" }
   end,
 },
-```
-
-## Options
-
-The plugin auto-sets up the LSP on load. To disable auto-setup and configure manually:
-
-```lua
-vim.g.algolang_auto_setup = false
-
-require("algolang").setup({
-  node_cmd = "/path/to/node",       -- default: auto-detected from PATH
-  server_path = "/path/to/server.js", -- default: bundled server
-})
 ```
 
 ## AlgoLang
