@@ -1,5 +1,5 @@
 {
-    "name": "@algolang/vscode-extension",
+    "name": "@devalade/vscode-extension",
     "displayName": "AlgoLang",
     "description": "Prise en charge du langage AlgoLang pour VS Code",
     "version": "1.0.0",

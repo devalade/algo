@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { Lexer, Parser } from "@algolang/compiler";
+import { Lexer, Parser } from "@devalade/algolang";
 import { formatAlgoLangSource } from "../src/formatting";
 import { KEYWORD_DOCS } from "../src/keyword-docs";
 import { getWordAtPosition, computeErrorEndCharacter } from "../src/utils";

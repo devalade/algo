@@ -1,5 +1,5 @@
 {
-  "name": "@algolang/compiler",
+  "name": "@devalade/algolang",
   "version": "1.0.0",
   "description": "Compilateur AlgoLang — langage de programmation éducatif pour l'algorithmique",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@algolang/nvim-plugin",
+  "name": "@devalade/nvim-plugin",
   "version": "1.0.0",
   "description": "Neovim plugin for AlgoLang — syntax highlighting, LSP, completion",
   "scripts": {

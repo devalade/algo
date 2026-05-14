@@ -1,4 +1,4 @@
-import type { SymbolTable, ASTNode } from "@algolang/compiler";
+import type { SymbolTable, ASTNode } from "@devalade/algolang";
 
 export const symbolTables = new Map<string, SymbolTable>();
 export const documentAsts = new Map<string, ASTNode>();

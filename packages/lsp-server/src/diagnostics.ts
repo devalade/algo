@@ -6,7 +6,7 @@ import type {
 } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
 import { DiagnosticSeverity } from "vscode-languageserver/node";
-import { Lexer, Parser } from "@algolang/compiler";
+import { Lexer, Parser } from "@devalade/algolang";
 import { symbolTables, documentAsts } from "./cache.js";
 import { computeErrorEndCharacter } from "./utils.js";
 
