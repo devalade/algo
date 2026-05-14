@@ -8,11 +8,10 @@
     ".": "./dist/index.js"
   },
   "bin": {
-    "algolang": "./bin/algolang.js"
+    "algolang": "./dist/cli.js"
   },
   "files": [
-    "dist",
-    "bin"
+    "dist"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -29,7 +28,7 @@
   "author": "AlgoLang Team",
   "license": "MIT",
   "scripts": {
-    "build": "bun build src/cli.ts --outdir dist --outfile=cli.js --target=node && bun build src/index.ts --outdir dist --outfile=index.js --target=node",
+    "build": "bun build src/cli.ts --outdir dist --outfile=cli.js --target=node && bun build src/index.ts --outdir dist --outfile=index.js --target=node && node -e \"const fs=require('fs');const f='dist/cli.js';fs.writeFileSync(f,'#!/usr/bin/env node\\n'+fs.readFileSync(f,'utf8'))\" && chmod +x dist/cli.js",
     "prepublishOnly": "bun run build",
     "dev": "bun --watch src/index.ts",
     "test": "bun test",
