@@ -1,0 +1,8 @@
+{
+  "name": "@algolang/nvim-plugin",
+  "version": "1.0.0",
+  "description": "Neovim plugin for AlgoLang — syntax highlighting, LSP, completion",
+  "scripts": {
+    "build": "cd ../lsp-server && bun build src/server.ts --outdir dist --target node && cd - && cp ../lsp-server/dist/server.js server/server.js"
+  }
+}

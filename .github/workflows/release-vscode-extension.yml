@@ -1,0 +1,100 @@
+name: Release — VS Code Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. 1.2.0)'
+        required: true
+      pre_release:
+        description: 'Publish as pre-release?'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: packages/vscode-extension
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install root dependencies
+        run: bun install --frozen-lockfile
+        working-directory: .
+
+      - name: Install extension dependencies
+        run: npm install
+
+      - name: Build LSP server and bundle into extension
+        run: |
+          bun run build:lsp
+          mkdir -p server
+          cp ../lsp-server/dist/server.js server/server.js
+        working-directory: .
+
+      - name: Bump version
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json','utf8'));
+            pkg.version = '${{ github.event.inputs.version }}';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Compile TypeScript
+        run: npm run compile
+
+      - name: Package VSIX
+        run: |
+          npx @vscode/vsce package \
+            ${{ github.event.inputs.pre_release == 'true' && '--pre-release' || '' }} \
+            --out algolang-${{ github.event.inputs.version }}.vsix
+
+      - name: Publish to VS Code Marketplace
+        run: |
+          npx @vscode/vsce publish \
+            ${{ github.event.inputs.pre_release == 'true' && '--pre-release' || '' }} \
+            --pat ${{ secrets.VSCE_PAT }} \
+            --packagePath algolang-${{ github.event.inputs.version }}.vsix
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore: bump vscode-extension to v${{ github.event.inputs.version }}"
+          git tag "vscode-v${{ github.event.inputs.version }}"
+          git push origin HEAD --tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: vscode-v${{ github.event.inputs.version }}
+          name: VS Code Extension v${{ github.event.inputs.version }}
+          body: |
+            ## AlgoLang VS Code Extension v${{ github.event.inputs.version }}
+
+            Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=algolang-team.algolang)
+            or download the `.vsix` below and run:
+            ```
+            code --install-extension algolang-${{ github.event.inputs.version }}.vsix
+            ```
+          files: algolang-${{ github.event.inputs.version }}.vsix
+          prerelease: ${{ github.event.inputs.pre_release }}
+          draft: false

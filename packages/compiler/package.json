@@ -1,21 +1,37 @@
 {
   "name": "@algolang/compiler",
   "version": "1.0.0",
-  "description": "Langage de programmation éducatif pour l'algorithmique - Coeur du compilateur",
-  "main": "dist/index.js",
-  "module": "src/index.ts",
+  "description": "Compilateur AlgoLang — langage de programmation éducatif pour l'algorithmique",
   "type": "module",
-  "private": true,
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "bin": {
     "algolang": "./bin/algolang"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "algorithmique",
+    "algorithme",
+    "education",
+    "compiler",
+    "algolang",
+    "french",
+    "programmation"
+  ],
+  "author": "AlgoLang Team",
+  "license": "MIT",
   "scripts": {
-    "build": "bun build src/cli.ts --minify --outdir dist --outfile=cli.js",
-    "compile:linux": "bun run build && bun build --compile --minify --sourcemap ./src/cli.ts --target:bun-linux-x64-baseline --outfile algolang",
-    "compile:windows": "bun run build && bun build --compile --target=bun-windows-x64-baseline ./src/cli.ts --outfile algolang-win",
-    "compile:darwin": "bun run build && bun build --compile --target=bun-macos-arm64 ./src/cli.ts --outfile algolang-macos",
+    "build": "bun build src/cli.ts --outdir dist --outfile=cli.js --target=node && bun build src/index.ts --outdir dist --outfile=index.js --target=node",
+    "prepublishOnly": "bun run build",
     "dev": "bun --watch src/index.ts",
-    "start": "bun src/index.ts",
     "test": "bun test",
     "lint": "bunx @biomejs/biome check src/",
     "format": "bunx @biomejs/biome format --write src/"
@@ -24,9 +40,6 @@
     "@biomejs/biome": "^1.8.3",
     "@types/bun": "latest",
     "typescript": "^5.5.4"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
   },
   "dependencies": {
     "chalk": "^5.6.2",

@@ -1,0 +1,82 @@
+name: Release — Neovim Plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. 1.2.0)'
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build LSP server and bundle into plugin
+        run: bun run build:nvim-plugin
+
+      - name: Bump plugin version
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('packages/nvim-plugin/package.json','utf8'));
+            pkg.version = '${{ github.event.inputs.version }}';
+            fs.writeFileSync('packages/nvim-plugin/package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Commit bundled server and version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add packages/nvim-plugin/server/server.js packages/nvim-plugin/package.json
+          git commit -m "chore: release nvim-plugin v${{ github.event.inputs.version }}"
+          git tag "nvim-plugin-v${{ github.event.inputs.version }}"
+          git push origin HEAD --tags
+
+      - name: Package plugin as zip
+        run: |
+          cd packages/nvim-plugin
+          zip -r ../../nvim-algolang-${{ github.event.inputs.version }}.zip \
+            lua/ ftdetect/ syntax/ plugin/ server/ package.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nvim-plugin-v${{ github.event.inputs.version }}
+          name: nvim-algolang v${{ github.event.inputs.version }}
+          body: |
+            ## Neovim Plugin — AlgoLang v${{ github.event.inputs.version }}
+
+            ### Install with lazy.nvim (recommended)
+            ```lua
+            {
+              "algolang/algo",
+              subdir = "packages/nvim-plugin",
+              ft = "algo",
+            }
+            ```
+
+            ### What's included
+            - Syntax highlighting (`syntax/algo.vim`)
+            - Filetype detection (`ftdetect/algo.lua`)
+            - LSP server bundled (`server/server.js`) — requires Node.js ≥ 18
+            - Auto-setup on plugin load
+
+            ### Manual install
+            Download `nvim-algolang-${{ github.event.inputs.version }}.zip`, extract to your Neovim runtime path.
+          files: nvim-algolang-${{ github.event.inputs.version }}.zip
+          draft: false
+          prerelease: false

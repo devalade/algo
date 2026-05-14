@@ -23,6 +23,8 @@
   ],
   "scripts": {
     "build": "bun build packages/compiler/src/cli.ts --minify --outdir dist --outfile=cli.js",
+    "build:lsp": "bun build packages/lsp-server/src/server.ts --outdir packages/lsp-server/dist --target node",
+    "build:nvim-plugin": "bun run build:lsp && cp packages/lsp-server/dist/server.js packages/nvim-plugin/server/server.js",
     "compile:linux": "bun build --compile --minify --sourcemap ./packages/compiler/src/cli.ts --target=bun-linux-x64-baseline --outfile algolang-linux-amd64",
     "compile:linux-arm64": "bun build --compile --minify --sourcemap ./packages/compiler/src/cli.ts --target=bun-linux-arm64-baseline --outfile algolang-linux-arm64",
     "compile:darwin": "bun build --compile --minify --sourcemap ./packages/compiler/src/cli.ts --target=bun-darwin-x64-baseline --outfile algolang-darwin-amd64",

@@ -35,19 +35,23 @@
             "patterns": [
                 {
                     "name": "keyword.control.algo",
-                    "match": "\\b(programme|debut|fin|var|si|alors|sinon|finsi|tantque|faire|pour|allant|de|à|repeter|jusqu'à|finpour|fintantque)\\b"
+                    "match": "(?i)\\b(PROGRAMME|DEBUT|FIN|VAR|SI|ALORS|SINON|FINSI|TANTQUE|FAIRE|POUR|ALLANT|DE|REPETER|JUSQUA|FINPOUR|FINTANTQUE)\\b"
                 },
                 {
                     "name": "storage.type.algo",
-                    "match": "\\b(entier|reel|booleen|chaine)\\b"
+                    "match": "(?i)\\b(ENTIER|REEL|BOOLEEN|CHAINE)\\b"
                 },
                 {
                     "name": "constant.language.boolean.algo",
-                    "match": "\\b(vrai|faux)\\b"
+                    "match": "(?i)\\b(VRAI|FAUX)\\b"
+                },
+                {
+                    "name": "keyword.operator.logical.algo",
+                    "match": "(?i)\\b(ET|OU|NON)\\b"
                 },
                 {
                     "name": "support.function.algo",
-                    "match": "\\b(lire|ecrire)\\b"
+                    "match": "(?i)\\b(LIRE|ECRIRE)\\b"
                 }
             ]
         },
@@ -79,10 +83,6 @@
                 {
                     "name": "keyword.operator.arithmetic.algo",
                     "match": "(\\+|\\-|\\*|/)"
-                },
-                {
-                    "name": "keyword.operator.logical.algo",
-                    "match": "\\b(et|ou|non)\\b"
                 }
             ]
         }

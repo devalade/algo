@@ -1,0 +1,7 @@
+.vscode/**
+src/**
+tsconfig.json
+bun.lock
+node_modules/**
+*.vsix
+PUBLISHING.md

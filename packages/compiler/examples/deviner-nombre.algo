@@ -1,26 +1,26 @@
-programme DevinerNombre;
-var
-  secret: entier;
-  essai: entier;
-  compteur: entier;
-  trouve: booleen;
-debut
+PROGRAMME DevinerNombre;
+VAR
+  secret: ENTIER;
+  essai: ENTIER;
+  compteur: ENTIER;
+  trouve: BOOLEEN;
+DEBUT
   secret := 42;
   compteur := 0;
-  trouve := faux;
+  trouve := FAUX;
   
-  ecrire("Jeu du nombre secret !");
-  ecrire("Devinez un nombre entre 1 et 100");
+  ECRIRE("Jeu du nombre secret !");
+  ECRIRE("Devinez un nombre entre 1 et 100");
   
-  tantque non trouve faire
-    ecrire("Votre essai : ");
-    lire(essai);
+  TANTQUE NON trouve FAIRE
+    ECRIRE("Votre essai : ");
+    LIRE(essai);
     compteur := compteur + 1;
     
-    si essai = secret alors
-      trouve := vrai;
-    finsi;
-  fintantque;
+    SI essai = secret ALORS
+      trouve := VRAI;
+    FINSI;
+  FINTANTQUE;
   
-  ecrire("Bravo ! Trouve en ", compteur, " essais !");
-fin
+  ECRIRE("Bravo ! Trouvé en ", compteur, " essais !");
+FIN

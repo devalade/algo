@@ -2,10 +2,30 @@
     "name": "@algolang/lsp-server",
     "version": "1.0.0",
     "description": "LSP Server for AlgoLang",
-    "main": "dist/server.js",
     "type": "module",
+    "main": "./dist/server.js",
+    "bin": {
+        "algolang-lsp": "./bin/algolang-lsp"
+    },
+    "files": [
+        "dist",
+        "bin"
+    ],
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "keywords": [
+        "algolang",
+        "lsp",
+        "language-server",
+        "algorithmique",
+        "education"
+    ],
+    "author": "AlgoLang Team",
+    "license": "MIT",
     "scripts": {
         "build": "bun build src/server.ts --outdir dist --target node",
+        "prepublishOnly": "bun run build",
         "watch": "bun build src/server.ts --outdir dist --target node --watch"
     },
     "dependencies": {

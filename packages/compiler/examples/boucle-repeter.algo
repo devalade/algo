@@ -1,24 +1,24 @@
-programme BoucleRepeter;
-var
-  compteur: entier;
-  reponse: chaine;
-debut
-  // Démonstration de la boucle repeter...jusqua
-  ecrire("Démonstration de la boucle REPETER...JUSQUA");
-  ecrire("===========================================");
+PROGRAMME BoucleRepeter;
+VAR
+  compteur: ENTIER;
+  reponse: CHAINE;
+DEBUT
+  // Démonstration de la boucle REPETER...JUSQUA
+  ECRIRE("Démonstration de la boucle REPETER...JUSQUA");
+  ECRIRE("===========================================");
   
   compteur := 1;
   
   // Boucle qui s'exécute JUSQUA ce que l'utilisateur dise 'non'
-  repeter
-    ecrire("C'est l'itération numéro ", compteur);
-    ecrire("Voulez-vous continuer ? (oui/non)");
-    lire(reponse);
+  REPETER
+    ECRIRE("C'est l'itération numéro ", compteur);
+    ECRIRE("Voulez-vous continuer ? (oui/non)");
+    LIRE(reponse);
     
     compteur := compteur + 1;
   JUSQUA reponse = "non";
   
-  ecrire("");
-  ecrire("La boucle s'est terminée après ", compteur - 1, " itérations.");
-  ecrire("Merci d'avoir testé la boucle REPETER...JUSQUA !");
-fin
+  ECRIRE("");
+  ECRIRE("La boucle s'est terminée après ", compteur - 1, " itérations.");
+  ECRIRE("Merci d'avoir testé la boucle REPETER...JUSQUA !");
+FIN

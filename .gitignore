@@ -11,6 +11,9 @@ packages/**/dist
 *.d.ts
 *.d.ts.map
 
+# exceptions: bundled assets that must be committed
+!packages/nvim-plugin/server/server.js
+
 # code coverage
 coverage
 *.lcov
@@ -38,7 +41,9 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-# compiled binaries
-algolang-*
+# compiled native binaries (bun compile output)
+algolang-linux-*
+algolang-darwin-*
+algolang-windows-*
 *.exe
 temp_output.js

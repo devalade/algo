@@ -1,30 +1,30 @@
-programme CalculMoyenne;
-var
-  nbNotes, i: entier;
-  note, somme, moyenne: reel;
-debut
+PROGRAMME CalculMoyenne;
+VAR
+  nbNotes, i: ENTIER;
+  note, somme, moyenne: REEL;
+DEBUT
   // Demander le nombre de notes
-  ecrire("Combien de notes voulez-vous calculer ?");
-  lire(nbNotes);
+  ECRIRE("Combien de notes voulez-vous calculer ?");
+  LIRE(nbNotes);
   
   // Initialiser la somme
   somme := 0;
   
   // Lire chaque note et faire la somme
-   pour i := 1 A nbNotes faire
-    ecrire("Entrez la note ", i, " :");
-    lire(note);
+  POUR i := 1 A nbNotes FAIRE
+    ECRIRE("Entrez la note ", i, " :");
+    LIRE(note);
     somme := somme + note;
-  finpour;
+  FINPOUR;
   
   // Calculer et afficher la moyenne
   moyenne := somme / nbNotes;
-  ecrire("La moyenne est : ", moyenne);
+  ECRIRE("La moyenne est : ", moyenne);
   
-   // Afficher la mention
-   si moyenne >= 10 alors
-     ecrire("Passable");
-   sinon
-     ecrire("Insuffisant");
-   finsi;
-fin
+  // Afficher la mention
+  SI moyenne >= 10 ALORS
+    ECRIRE("Passable");
+  SINON
+    ECRIRE("Insuffisant");
+  FINSI;
+FIN

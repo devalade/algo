@@ -13,7 +13,7 @@ let client: LanguageClient;
 export function activate(context: ExtensionContext) {
     // Le serveur est implémenté en node
     const serverModule = context.asAbsolutePath(
-        path.join("..", "lsp-server", "dist", "server.js"),
+        path.join("server", "server.js"),
     );
 
     // Les options de débogage pour le serveur

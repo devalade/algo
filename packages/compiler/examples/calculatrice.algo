@@ -1,23 +1,23 @@
-programme Calculatrice;
-var
-  x, y, resultat, i: entier;
-debut
+PROGRAMME Calculatrice;
+VAR
+  x, y, resultat, i: ENTIER;
+DEBUT
   // Addition simple
   x := 10;
   y := 5;
   resultat := x + y;
-  ecrire("Addition: ", x, " + ", y, " = ", resultat);
+  ECRIRE("Addition: ", x, " + ", y, " = ", resultat);
   
-  // Boucle pour
-  ecrire("Table de multiplication de 3:");
-  pour i ALLANT DE 1 A 5 faire
-    ecrire("3 × ", i, " = ", 3 * i);
-  finpour;
+  // Boucle POUR
+  ECRIRE("Table de multiplication de 3:");
+  POUR i ALLANT DE 1 A 5 FAIRE
+    ECRIRE("3 × ", i, " = ", 3 * i);
+  FINPOUR;
 
-  // Condition si-alors-sinon
-  si resultat > 15 alors
-    ecrire("Le résultat est grand");
-  sinon
-    ecrire("Le résultat est petit");
-  finsi;
-fin
+  // Condition SI-ALORS-SINON
+  SI resultat > 15 ALORS
+    ECRIRE("Le résultat est grand");
+  SINON
+    ECRIRE("Le résultat est petit");
+  FINSI;
+FIN

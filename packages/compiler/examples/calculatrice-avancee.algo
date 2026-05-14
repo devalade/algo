@@ -1,57 +1,57 @@
-programme CalculatriceAvancee;
-var
-  choix: entier;
-  nombre1: entier;
-  nombre2: entier;
-  resultat: entier;
-  continuer: booleen;
-debut
-  continuer := vrai;
+PROGRAMME CalculatriceAvancee;
+VAR
+  choix: ENTIER;
+  nombre1: ENTIER;
+  nombre2: ENTIER;
+  resultat: ENTIER;
+  continuer: BOOLEEN;
+DEBUT
+  continuer := VRAI;
   
-  tantque continuer faire
+  TANTQUE continuer FAIRE
     // Afficher le menu
-    ecrire("");
-    ecrire("CALCULATRICE AVANCÉE");
-    ecrire("======================");
-    ecrire("1. Addition");
-    ecrire("2. Soustraction");
-    ecrire("3. Multiplication");
-    ecrire("4. Division");
-    ecrire("5. Quitter");
-    ecrire("Votre choix (1-5) : ");
-    lire(choix);
+    ECRIRE("");
+    ECRIRE("CALCULATRICE AVANCÉE");
+    ECRIRE("======================");
+    ECRIRE("1. Addition");
+    ECRIRE("2. Soustraction");
+    ECRIRE("3. Multiplication");
+    ECRIRE("4. Division");
+    ECRIRE("5. Quitter");
+    ECRIRE("Votre choix (1-5) : ");
+    LIRE(choix);
     
     // Traiter le choix
-    si choix = 5 alors
-      continuer := faux;
-      ecrire("Au revoir !");
-    sinon si choix >= 1 et choix <= 4 alors
+    SI choix = 5 ALORS
+      continuer := FAUX;
+      ECRIRE("Au revoir !");
+    SINON SI choix >= 1 ET choix <= 4 ALORS
       // Demander les nombres
-      ecrire("Premier nombre : ");
-      lire(nombre1);
-      ecrire("Deuxième nombre : ");
-      lire(nombre2);
+      ECRIRE("Premier nombre : ");
+      LIRE(nombre1);
+      ECRIRE("Deuxième nombre : ");
+      LIRE(nombre2);
       
       // Effectuer l'opération
-      si choix = 1 alors
+      SI choix = 1 ALORS
         resultat := nombre1 + nombre2;
-        ecrire(nombre1, " + ", nombre2, " = ", resultat);
-      sinon si choix = 2 alors
+        ECRIRE(nombre1, " + ", nombre2, " = ", resultat);
+      SINON SI choix = 2 ALORS
         resultat := nombre1 - nombre2;
-        ecrire(nombre1, " - ", nombre2, " = ", resultat);
-      sinon si choix = 3 alors
+        ECRIRE(nombre1, " - ", nombre2, " = ", resultat);
+      SINON SI choix = 3 ALORS
         resultat := nombre1 * nombre2;
-        ecrire(nombre1, " × ", nombre2, " = ", resultat);
-      sinon si choix = 4 alors
-        si nombre2 <> 0 alors
+        ECRIRE(nombre1, " × ", nombre2, " = ", resultat);
+      SINON SI choix = 4 ALORS
+        SI nombre2 <> 0 ALORS
           resultat := nombre1 / nombre2;
-          ecrire(nombre1, " ÷ ", nombre2, " = ", resultat);
-        sinon
-          ecrire("Erreur : Division par zéro !");
-        finsi;
-      finsi;
-    sinon
-      ecrire("Choix invalide !");
-    finsi;
-  fintantque;
-fin
+          ECRIRE(nombre1, " ÷ ", nombre2, " = ", resultat);
+        SINON
+          ECRIRE("Erreur : Division par zéro !");
+        FINSI;
+      FINSI;
+    SINON
+      ECRIRE("Choix invalide !");
+    FINSI;
+  FINTANTQUE;
+FIN

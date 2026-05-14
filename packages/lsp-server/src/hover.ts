@@ -23,7 +23,7 @@ function provideHover(params: HoverParams, documents: TextDocuments<TextDocument
 	if (!word) return null;
 
 	// 1. Check if it's a keyword (D4: add missing hover docs)
-	const keyword = word.toLowerCase();
+	const keyword = word.toUpperCase();
 	const keywordDoc = KEYWORD_DOCS[keyword];
 
 	if (keywordDoc) {

@@ -3,8 +3,9 @@ import { Command } from "commander";
 import chalk from "chalk";
 import { AlgoLangCompiler } from "@/compiler";
 import type { CompilerOptions } from "@/types";
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, unlinkSync } from "fs";
 import { join } from "path";
+import { tmpdir } from "os";
 
 const program = new Command();
 
@@ -162,16 +163,10 @@ program
 			console.log(chalk.yellow("🏃 Exécution..."));
 			console.log(chalk.gray("─".repeat(50)));
 
+			const tempFile = join(tmpdir(), `algolang_${Date.now()}.mjs`);
 			try {
-				// Créer un fichier temporaire et l'exécuter
-				const tempFile = join(process.cwd(), "temp_output.js");
 				writeFileSync(tempFile, result.output || "");
-
-				// Importer et exécuter le module
 				await import(`file://${tempFile}`);
-
-				// Nettoyer le fichier temporaire
-				// Note: Dans un environnement de production, vous voudriez gérer cela différemment
 			} catch (execError) {
 				console.log(chalk.red("💥 Erreur lors de l'exécution:"));
 				console.log(
@@ -180,6 +175,8 @@ program
 					),
 				);
 				process.exit(1);
+			} finally {
+				try { unlinkSync(tempFile); } catch {}
 			}
 		} catch (error) {
 			console.log(chalk.red("💥 Erreur fatale:"));
@@ -278,33 +275,30 @@ program
 
 			// Templates de base
 			const templates: Record<string, string> = {
-				basic: `program ${name};
-begin
+				basic: `PROGRAMME ${name}
+DEBUT
   // Votre code ici
-end.`,
+FIN`,
 
-				hello: `program ${name};
-var
-  message: string;
-begin
-  message := "Bonjour, AlgoLang!";
-  write(message);
-end.`,
+				hello: `PROGRAMME ${name}
+VAR
+  message : CHAINE
+DEBUT
+  message := "Bonjour, AlgoLang!"
+  ECRIRE(message)
+FIN`,
 
-				calculator: `program ${name};
-var
-  a, b, resultat: integer;
-begin
-  write("Entrez le premier nombre: ");
-  read(a);
-  
-  write("Entrez le deuxième nombre: ");
-  read(b);
-  
-  resultat := a + b;
-  write("Le résultat est: ");
-  write(resultat);
-end.`,
+				calculator: `PROGRAMME ${name}
+VAR
+  a, b, resultat : ENTIER
+DEBUT
+  ECRIRE("Entrez le premier nombre : ")
+  LIRE(a)
+  ECRIRE("Entrez le deuxième nombre : ")
+  LIRE(b)
+  resultat := a + b
+  ECRIRE("Le résultat est : ", resultat)
+FIN`,
 			};
 
 			const template = templates[options.template] || templates.basic;
