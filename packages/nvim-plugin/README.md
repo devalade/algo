@@ -75,15 +75,15 @@ au BufRead,BufNewFile *.algo set filetype=algo
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        algolang = {
-          cmd = { "algolang-lsp", "--stdio" },
-          filetypes = { "algo" },
-          single_file_support = true,
-        },
-      },
-    },
+    init = function()
+      vim.lsp.config("algolang", {
+        cmd = { vim.fn.exepath("algolang-lsp"), "--stdio" },
+        filetypes = { "algo" },
+        root_markers = { ".git", "*.algo" },
+        single_file_support = true,
+      })
+      vim.lsp.enable("algolang")
+    end,
   },
 }
 ```
@@ -91,10 +91,8 @@ return {
 **Plain Neovim** — add this to your `init.lua`:
 
 ```lua
-vim.filetype.add({ extension = { algo = "algo" } })
-
 vim.lsp.config("algolang", {
-  cmd = { "algolang-lsp", "--stdio" },
+  cmd = { vim.fn.exepath("algolang-lsp"), "--stdio" },
   filetypes = { "algo" },
   root_markers = { ".git", "*.algo" },
   single_file_support = true,
