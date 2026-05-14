@@ -2,67 +2,25 @@ import type {
 	Token,
 	ASTNode,
 	SymbolTable,
-	SymbolInfo,
 	CompilationError,
 } from "@/types";
 import { TokenType, NodeType, DataType } from "@/types";
+import { KEYWORDS } from "@/keywords";
+import { SemanticAnalyzer } from "@/semantic/semantic-analyzer";
 
 export class Parser {
 	private tokens: Token[];
 	private current: number = 0;
 	private errors: CompilationError[] = [];
-	private symbolTable: SymbolTable;
 
-	// Liste des mots-clés réservés qui ne peuvent pas être utilisés comme noms de variables
-	private readonly reservedKeywords = new Set([
-		// Mots-clés principaux
-		"programme",
-		"debut",
-		"fin",
-		"var",
-		// Types de données
-		"entier",
-		"reel",
-		"booleen",
-		"chaine",
-		// Structures de contrôle
-		"si",
-		"alors",
-		"sinon",
-		"finsi",
-		"tantque",
-		"faire",
-		"fintantque",
-		"pour",
-		"a",
-		"finpour",
-		"repeter",
-		"jusqu'a",
-		// Tableaux
-		"tableau",
-		// Entrées/sorties
-		"lire",
-		"ecrire",
-		// Valeurs booléennes
-		"vrai",
-		"faux",
-		// Opérateurs logiques
-		"et",
-		"ou",
-		"non",
-		// Fonctions et procédures
-		"fonction",
-		"procedure",
-		"retourner",
-	]);
+	private readonly reservedKeywords = new Set(
+		Object.entries(KEYWORDS)
+			.filter(([, e]) => e.tokenType !== null)
+			.map(([label]) => label.toLowerCase()),
+	);
 
 	constructor(tokens: Token[]) {
 		this.tokens = tokens;
-		this.symbolTable = {
-			symbols: new Map(),
-			children: [],
-			scopeName: "global",
-		};
 	}
 
 	/**
@@ -72,45 +30,8 @@ export class Parser {
 		return this.reservedKeywords.has(identifier.toLowerCase());
 	}
 
-	/**
-	 * Vérifie si un token type correspond à un mot-clé réservé
-	 */
 	private isKeywordToken(tokenType: TokenType): boolean {
-		return [
-			TokenType.PROGRAM,
-			TokenType.BEGIN,
-			TokenType.END,
-			TokenType.VAR,
-			TokenType.INTEGER,
-			TokenType.REAL,
-			TokenType.BOOLEAN,
-			TokenType.STRING,
-			TokenType.IF,
-			TokenType.THEN,
-			TokenType.ELSE,
-			TokenType.WHILE,
-			TokenType.DO,
-			TokenType.FOR,
-			TokenType.ALLANT,
-			TokenType.DE,
-			TokenType.TO,
-			TokenType.REPEAT,
-			TokenType.UNTIL,
-			TokenType.READ,
-			TokenType.WRITE,
-			TokenType.TRUE,
-			TokenType.FALSE,
-			TokenType.AND,
-			TokenType.OR,
-			TokenType.NOT,
-			TokenType.ENDFOR,
-			TokenType.ENDIF,
-			TokenType.ENDWHILE,
-			TokenType.ARRAY,
-			TokenType.FUNCTION,
-			TokenType.PROCEDURE,
-			TokenType.RETURN,
-		].includes(tokenType);
+		return Object.values(KEYWORDS).some((e) => e.tokenType === tokenType);
 	}
 
 	/**
@@ -135,34 +56,23 @@ export class Parser {
 		errors: CompilationError[];
 		symbolTable: SymbolTable;
 	} {
+		let ast: ASTNode;
 		try {
-			const program = this.parseProgram();
-
-			return {
-				ast: program,
-				errors: this.errors,
-				symbolTable: this.symbolTable,
-			};
+			ast = this.parseProgram();
 		} catch (error) {
-			return {
-				ast: { type: NodeType.PROGRAM, children: [] },
-				errors: [
-					...this.errors,
-					{
-						type: "ERROR",
-						message:
-							error instanceof Error
-								? error.message
-								: "Erreur de parsing inconnue",
-						line: 1,
-						column: 1,
-						position: 0,
-						code: "PARSE_ERROR",
-					},
-				],
-				symbolTable: this.symbolTable,
-			};
+			ast = { type: NodeType.PROGRAM, children: [] };
+			this.errors.push({
+				type: "ERROR",
+				message: error instanceof Error ? error.message : "Erreur de parsing inconnue",
+				line: 1,
+				column: 1,
+				position: 0,
+				code: "PARSE_ERROR",
+			});
 		}
+
+		const { symbolTable, errors: semanticErrors } = new SemanticAnalyzer().analyze(ast!);
+		return { ast: ast!, errors: [...this.errors, ...semanticErrors], symbolTable };
 	}
 
 	private parseProgram(): ASTNode {
@@ -298,18 +208,6 @@ export class Parser {
 			const elemType = this.tokenTypeToDataType(elemTypeToken.type);
 			const size = parseInt(sizeToken.value);
 
-			for (const identifier of identifiers) {
-				if (!this.symbolTable.symbols.has(identifier)) {
-					this.symbolTable.symbols.set(identifier, {
-						name: identifier,
-						type: `TABLEAU[${size}] DE ${elemType}`,
-						scope: this.symbolTable.scopeName,
-						line: elemTypeToken.line,
-						column: elemTypeToken.column,
-					});
-				}
-			}
-
 			return {
 				type: NodeType.ARRAY_DECLARATION,
 				value: elemType,
@@ -327,32 +225,6 @@ export class Parser {
 			"Type de variable attendu",
 		);
 		const type = this.tokenTypeToDataType(typeToken.type);
-
-		// Ajouter les variables à la table des symboles
-		for (const identifier of identifiers) {
-			if (this.symbolTable.symbols.has(identifier)) {
-				this.errors.push({
-					type: "ERROR",
-					message: `La variable '${identifier}' est déjà déclarée`,
-					line: typeToken.line,
-					column: typeToken.column,
-					position: typeToken.position,
-					code: "DUPLICATE_VARIABLE",
-					explanation:
-						"Chaque variable doit avoir un nom unique dans son scope",
-					suggestion: `Choisissez un autre nom pour la variable '${identifier}'`,
-				});
-			} else {
-				const symbolInfo: SymbolInfo = {
-					name: identifier,
-					type,
-					scope: this.symbolTable.scopeName,
-					line: typeToken.line,
-					column: typeToken.column,
-				};
-				this.symbolTable.symbols.set(identifier, symbolInfo);
-			}
-		}
 
 		return {
 			type: NodeType.VAR_DECLARATION,
@@ -960,7 +832,7 @@ export class Parser {
 			const token = this.advance();
 			return {
 				type: NodeType.LITERAL,
-				value: token.value === "vrai",
+				value: token.value.toLowerCase() === "vrai",
 				token,
 			};
 		}

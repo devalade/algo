@@ -8,7 +8,7 @@ import type {
 } from "vscode-languageserver/node";
 import { SymbolKind } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
-import { symbolTables, documentAsts } from "./cache.js";
+import { documentStore } from "./document-store.js";
 import { getWordAtPosition } from "./utils.js";
 
 export function register(connection: Connection, documents: TextDocuments<TextDocument>): void {
@@ -30,7 +30,7 @@ function provideDefinition(params: DefinitionParams, documents: TextDocuments<Te
 	const word = getWordAtPosition(document, params.position);
 	if (!word) return null;
 
-	const table = symbolTables.get(params.textDocument.uri);
+	const table = documentStore.getSymbolTable(params.textDocument.uri);
 	if (!table) return null;
 
 	const symbol = table.symbols.get(word);
@@ -49,8 +49,9 @@ function provideDocumentSymbols(params: DocumentSymbolParams, documents: TextDoc
 	const document = documents.get(params.textDocument.uri);
 	if (!document) return [];
 
-	const table = symbolTables.get(params.textDocument.uri);
-	const ast = documentAsts.get(params.textDocument.uri);
+	const parsed = documentStore.get(params.textDocument.uri);
+	const table = parsed?.symbolTable;
+	const ast = parsed?.ast;
 
 	const symbols: DocumentSymbol[] = [];
 

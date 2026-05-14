@@ -7,7 +7,7 @@ import type {
 import type { TextDocument } from "vscode-languageserver-textdocument";
 import { DiagnosticSeverity } from "vscode-languageserver/node";
 import { Lexer, Parser } from "@devalade/algolang";
-import { symbolTables, documentAsts } from "./cache.js";
+import { documentStore } from "./document-store.js";
 import { computeErrorEndCharacter } from "./utils.js";
 
 let hasDiagnosticRelatedInformationCapability = false;
@@ -32,9 +32,12 @@ async function validateTextDocument(textDocument: TextDocument, connection: Conn
 		const parser = new Parser(tokens);
 		const result = parser.parse();
 
-		// Store symbol table and AST for other features (A3: eliminate double-parse)
-		symbolTables.set(textDocument.uri, result.symbolTable);
-		documentAsts.set(textDocument.uri, result.ast);
+		documentStore.set(textDocument.uri, {
+			ast: result.ast,
+			symbolTable: result.symbolTable,
+			errors: result.errors,
+			version: textDocument.version,
+		});
 
 		// Add parsing errors to diagnostics (A2: fix hardcoded error range)
 		for (const error of result.errors) {

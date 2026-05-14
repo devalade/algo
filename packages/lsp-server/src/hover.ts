@@ -5,7 +5,7 @@ import type {
 	HoverParams,
 } from "vscode-languageserver/node";
 import type { TextDocument } from "vscode-languageserver-textdocument";
-import { symbolTables } from "./cache.js";
+import { documentStore } from "./document-store.js";
 import { KEYWORD_DOCS } from "./keyword-docs.js";
 import { getWordAtPosition } from "./utils.js";
 
@@ -22,11 +22,10 @@ function provideHover(params: HoverParams, documents: TextDocuments<TextDocument
 	const word = getWordAtPosition(document, params.position);
 	if (!word) return null;
 
-	// 1. Check if it's a keyword (D4: add missing hover docs)
-	const keyword = word.toUpperCase();
-	const keywordDoc = KEYWORD_DOCS[keyword];
+	// Built-in functions are lowercase keys; keywords are uppercase.
+	const keywordDoc = KEYWORD_DOCS[word.toUpperCase()] ?? KEYWORD_DOCS[word];
 
-	if (keywordDoc) {
+	if (keywordDoc !== undefined) {
 		return {
 			contents: {
 				kind: "markdown",
@@ -36,7 +35,7 @@ function provideHover(params: HoverParams, documents: TextDocuments<TextDocument
 	}
 
 	// 2. Check if it's a variable in the symbol table
-	const table = symbolTables.get(params.textDocument.uri);
+	const table = documentStore.getSymbolTable(params.textDocument.uri);
 	if (table) {
 		const symbol = table.symbols.get(word);
 		if (symbol) {

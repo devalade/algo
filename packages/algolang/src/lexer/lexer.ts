@@ -1,5 +1,6 @@
 import type { Token } from "@/types";
 import { TokenType } from "@/types";
+import { KEYWORDS } from "@/keywords";
 
 export class Lexer {
 	private source: string;
@@ -10,41 +11,11 @@ export class Lexer {
 
 	constructor(source: string) {
 		this.source = source;
-		this.keywords = new Map([
-			["PROGRAMME", TokenType.PROGRAM],
-			["DEBUT", TokenType.BEGIN],
-			["FIN", TokenType.END],
-			["VAR", TokenType.VAR],
-			["ENTIER", TokenType.INTEGER],
-			["REEL", TokenType.REAL],
-			["BOOLEEN", TokenType.BOOLEAN],
-			["CHAINE", TokenType.STRING],
-			["SI", TokenType.IF],
-			["ALORS", TokenType.THEN],
-			["SINON", TokenType.ELSE],
-			["FINSI", TokenType.ENDIF],
-			["TANTQUE", TokenType.WHILE],
-			["FAIRE", TokenType.DO],
-			["POUR", TokenType.FOR],
-			["ALLANT", TokenType.ALLANT],
-			["DE", TokenType.DE],
-			["A", TokenType.TO],
-			["REPETER", TokenType.REPEAT],
-			["JUSQU'A", TokenType.UNTIL],
-			["LIRE", TokenType.READ],
-			["ECRIRE", TokenType.WRITE],
-			["VRAI", TokenType.TRUE],
-			["FAUX", TokenType.FALSE],
-			["ET", TokenType.AND],
-			["OU", TokenType.OR],
-			["NON", TokenType.NOT],
-			["FINPOUR", TokenType.ENDFOR],
-			["FINTANTQUE", TokenType.ENDWHILE],
-			["TABLEAU", TokenType.ARRAY],
-			["FONCTION", TokenType.FUNCTION],
-			["PROCEDURE", TokenType.PROCEDURE],
-			["RETOURNER", TokenType.RETURN],
-		]);
+		this.keywords = new Map(
+			Object.entries(KEYWORDS)
+				.filter(([, e]) => e.tokenType !== null)
+				.map(([label, e]) => [label, e.tokenType as TokenType]),
+		);
 	}
 
 	public tokenize(): Token[] {
