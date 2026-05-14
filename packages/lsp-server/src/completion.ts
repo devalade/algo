@@ -46,6 +46,10 @@ function getCompletionItems(params: TextDocumentPositionParams, documents: TextD
 		{ label: "FINPOUR", kind: CompletionItemKind.Keyword },
 		{ label: "REPETER", kind: CompletionItemKind.Keyword },
 		{ label: "JUSQU'A", kind: CompletionItemKind.Keyword },
+		{ label: "TABLEAU", kind: CompletionItemKind.Keyword },
+		{ label: "FONCTION", kind: CompletionItemKind.Keyword },
+		{ label: "PROCEDURE", kind: CompletionItemKind.Keyword },
+		{ label: "RETOURNER", kind: CompletionItemKind.Keyword },
 		{ label: "LIRE", kind: CompletionItemKind.Function },
 		{ label: "ECRIRE", kind: CompletionItemKind.Function },
 		{ label: "VRAI", kind: CompletionItemKind.Constant },
@@ -53,6 +57,17 @@ function getCompletionItems(params: TextDocumentPositionParams, documents: TextD
 		{ label: "ET", kind: CompletionItemKind.Operator },
 		{ label: "OU", kind: CompletionItemKind.Operator },
 		{ label: "NON", kind: CompletionItemKind.Operator },
+		// Fonctions intégrées (minuscules)
+		{ label: "abs", kind: CompletionItemKind.Function },
+		{ label: "max", kind: CompletionItemKind.Function },
+		{ label: "min", kind: CompletionItemKind.Function },
+		{ label: "mod", kind: CompletionItemKind.Function },
+		{ label: "racine_carree", kind: CompletionItemKind.Function },
+		{ label: "taille", kind: CompletionItemKind.Function },
+		{ label: "sous_chaine", kind: CompletionItemKind.Function },
+		{ label: "concat", kind: CompletionItemKind.Function },
+		{ label: "entier_en_reel", kind: CompletionItemKind.Function },
+		{ label: "reel_en_entier", kind: CompletionItemKind.Function },
 	];
 
 	items.push(...keywords);

@@ -35,7 +35,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.algo",
-                    "match": "(?i)\\b(PROGRAMME|DEBUT|FIN|VAR|SI|ALORS|SINON|FINSI|TANTQUE|FAIRE|POUR|ALLANT|DE|REPETER|FINPOUR|FINTANTQUE)\\b|(?i)\\bJUSQU'A\\b"
+                    "match": "(?i)\\b(PROGRAMME|DEBUT|FIN|VAR|SI|ALORS|SINON|FINSI|TANTQUE|FAIRE|POUR|ALLANT|DE|REPETER|FINPOUR|FINTANTQUE|TABLEAU|FONCTION|PROCEDURE|RETOURNER)\\b|(?i)\\bJUSQU'A\\b"
                 },
                 {
                     "name": "storage.type.algo",
@@ -51,7 +51,7 @@
                 },
                 {
                     "name": "support.function.algo",
-                    "match": "(?i)\\b(LIRE|ECRIRE)\\b"
+                    "match": "(?i)\\b(LIRE|ECRIRE|abs|max|min|mod|racine_carree|taille|sous_chaine|concat|entier_en_reel|reel_en_entier)\\b"
                 }
             ]
         },

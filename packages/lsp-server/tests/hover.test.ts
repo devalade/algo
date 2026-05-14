@@ -34,6 +34,25 @@ describe("LSP Server - Hover", () => {
 		expect(KEYWORD_DOCS["ECRIRE"].documentation).toContain("ECRIRE");
 	});
 
+	it("should have hover docs for array and subprogram keywords", () => {
+		const keywords = ["TABLEAU", "FONCTION", "PROCEDURE", "RETOURNER"];
+		for (const keyword of keywords) {
+			expect(KEYWORD_DOCS[keyword]).toBeDefined();
+			expect(KEYWORD_DOCS[keyword].documentation).toContain(`**${keyword}**`);
+		}
+	});
+
+	it("should have hover docs for built-in functions", () => {
+		const builtins = [
+			"abs", "max", "min", "mod", "racine_carree",
+			"taille", "sous_chaine", "concat", "entier_en_reel", "reel_en_entier"
+		];
+		for (const fn of builtins) {
+			expect(KEYWORD_DOCS[fn]).toBeDefined();
+			expect(KEYWORD_DOCS[fn].documentation).toContain(`**${fn}`);
+		}
+	});
+
 	it("should have hover docs for boolean literals and operators", () => {
 		const booleanKeywords = ["VRAI", "FAUX", "ET", "OU", "NON"];
 

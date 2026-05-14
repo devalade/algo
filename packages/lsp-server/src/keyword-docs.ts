@@ -114,5 +114,61 @@ export const KEYWORD_DOCS: Record<string, { detail: string; documentation: strin
 	NON: {
 		detail: "Opérateur NON",
 		documentation: "**NON** : Opérateur logique NON (NOT)."
+	},
+	TABLEAU: {
+		detail: "Type TABLEAU",
+		documentation: "**TABLEAU** : Déclare un tableau de n éléments.\nSyntaxe : `t: TABLEAU[10] DE ENTIER`"
+	},
+	FONCTION: {
+		detail: "Mot-clé FONCTION",
+		documentation: "**FONCTION** nom(params): TYPE : Déclare une fonction qui retourne une valeur.\nExemple : `FONCTION carre(n: ENTIER): ENTIER`"
+	},
+	PROCEDURE: {
+		detail: "Mot-clé PROCEDURE",
+		documentation: "**PROCEDURE** nom(params) : Déclare une procédure (sans valeur de retour).\nExemple : `PROCEDURE afficher(s: CHAINE)`"
+	},
+	RETOURNER: {
+		detail: "Mot-clé RETOURNER",
+		documentation: "**RETOURNER** expr : Retourne une valeur depuis une fonction."
+	},
+	abs: {
+		detail: "Fonction abs(x)",
+		documentation: "**abs(x)** : Retourne la valeur absolue de x."
+	},
+	max: {
+		detail: "Fonction max(a, b)",
+		documentation: "**max(a, b)** : Retourne le plus grand des deux nombres."
+	},
+	min: {
+		detail: "Fonction min(a, b)",
+		documentation: "**min(a, b)** : Retourne le plus petit des deux nombres."
+	},
+	mod: {
+		detail: "Fonction mod(a, b)",
+		documentation: "**mod(a, b)** : Retourne le reste de la division de a par b. Équivalent à `a % b`."
+	},
+	racine_carree: {
+		detail: "Fonction racine_carree(x)",
+		documentation: "**racine_carree(x)** : Retourne la racine carrée de x."
+	},
+	taille: {
+		detail: "Fonction taille(x)",
+		documentation: "**taille(x)** : Retourne la taille d'un tableau ou la longueur d'une chaîne."
+	},
+	sous_chaine: {
+		detail: "Fonction sous_chaine(s, i, n)",
+		documentation: "**sous_chaine(s, i, n)** : Retourne n caractères de la chaîne s à partir de l'indice i."
+	},
+	concat: {
+		detail: "Fonction concat(a, b)",
+		documentation: "**concat(a, b)** : Concatène deux chaînes de caractères."
+	},
+	entier_en_reel: {
+		detail: "Fonction entier_en_reel(x)",
+		documentation: "**entier_en_reel(x)** : Convertit un entier en réel."
+	},
+	reel_en_entier: {
+		detail: "Fonction reel_en_entier(x)",
+		documentation: "**reel_en_entier(x)** : Convertit un réel en entier (troncature)."
 	}
 };
