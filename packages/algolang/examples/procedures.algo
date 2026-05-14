@@ -3,41 +3,40 @@ VAR
   t: TABLEAU[5] DE ENTIER;
   i, n, minVal, maxVal: ENTIER;
 
-PROCEDURE afficherTableau(t: TABLEAU DE ENTIER, taille: ENTIER)
+PROCEDURE afficherTableau(t: TABLEAU DE ENTIER)
 DEBUT
   ECRIRE("Contenu du tableau :");
-  POUR i ALLANT DE 0 A taille - 1 FAIRE
-    ECRIRE("  t[", i, "] = ", t[i])
+
+  POUR i ALLANT DE 0 A taille(t) - 1 FAIRE
+    ECRIRE("  t[", i, "] = ", t[i]);
   FINPOUR
 FIN
 
-PROCEDURE trouverMinMax(t: TABLEAU DE ENTIER, taille: ENTIER)
+PROCEDURE trouverMinMax(t: TABLEAU DE ENTIER)
 DEBUT
   minVal := t[0];
   maxVal := t[0];
-  POUR i ALLANT DE 1 A taille - 1 FAIRE
+
+  POUR i ALLANT DE 1 A taille(t) - 1 FAIRE
     SI t[i] < minVal ALORS
-      minVal := t[i]
+      minVal := t[i];
     FINSI
     SI t[i] > maxVal ALORS
-      maxVal := t[i]
+      maxVal := t[i];
     FINSI
   FINPOUR
   ECRIRE("Minimum : ", minVal);
-  ECRIRE("Maximum : ", maxVal)
+  ECRIRE("Maximum : ", maxVal);
 FIN
-
 DEBUT
   ECRIRE("=== Démonstration des procédures ===");
+  ECRIRE("Combien de valeurs ? (max 5)");
+  LIRE(n);
 
-  // Remplissage direct dans le programme principal
-  n := taille(t);
   POUR i ALLANT DE 0 A n - 1 FAIRE
     ECRIRE("Entrez la valeur [", i, "] :");
-    LIRE(t[i])
+    LIRE(t[i]);
   FINPOUR
-
-  // Les procédures reçoivent une copie du tableau (passage par valeur)
-  afficherTableau(t, n);
-  trouverMinMax(t, n)
+  afficherTableau(t);
+  trouverMinMax(t);
 FIN

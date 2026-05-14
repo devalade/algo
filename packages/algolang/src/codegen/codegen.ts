@@ -153,10 +153,18 @@ export class CodeGenerator {
 
 		lines.push(`// Programme: ${node.value}`);
 
-		// Émettre les fonctions/procédures utilisateur en dehors de main()
+		// Global declarations (vars, arrays, functions, procedures) live at module scope
+		// so that procedures can read/write program-level variables.
+		// AST shape: BLOCK → [BLOCK(var-section), PROCEDURE_DECLARATION*, COMPOUND_STATEMENT]
 		if (block?.children) {
 			for (const child of block.children) {
-				if (
+				if (child.type === "BLOCK") {
+					// VAR section: emit each var/array declaration at module scope
+					for (const decl of child.children ?? []) {
+						lines.push(this.generateNode(decl));
+					}
+					lines.push("");
+				} else if (
 					child.type === "FUNCTION_DECLARATION" ||
 					child.type === "PROCEDURE_DECLARATION"
 				) {
@@ -169,10 +177,11 @@ export class CodeGenerator {
 		lines.push("async function main() {");
 		this.indentLevel++;
 
-		// Émettre les déclarations de variables et le corps principal
+		// Émettre uniquement le corps principal (COMPOUND_STATEMENT)
 		if (block?.children) {
 			for (const child of block.children) {
 				if (
+					child.type !== "BLOCK" &&
 					child.type !== "FUNCTION_DECLARATION" &&
 					child.type !== "PROCEDURE_DECLARATION"
 				) {
