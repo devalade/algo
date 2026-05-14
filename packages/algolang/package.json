@@ -7,9 +7,7 @@
   "exports": {
     ".": "./dist/index.js"
   },
-  "bin": {
-    "algolang": "./dist/cli.js"
-  },
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
