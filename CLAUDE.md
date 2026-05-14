@@ -15,19 +15,19 @@ bun run build
 bun test
 
 # Test single file
-bun test packages/compiler/tests/lexer.test.ts
+bun test packages/algolang/tests/lexer.test.ts
 
 # Test by name filter
 bun test --filter "Lexer - Tokenize basic"
 
 # Run an .algo program
-bun run packages/compiler/src/cli.ts run <file.algo>
+bun run packages/algolang/src/cli.ts run <file.algo>
 
 # Compile to JS
-bun run packages/compiler/src/cli.ts compile <file.algo>
+bun run packages/algolang/src/cli.ts compile <file.algo>
 
 # Syntax check only
-bun run packages/compiler/src/cli.ts check <file.algo>
+bun run packages/algolang/src/cli.ts check <file.algo>
 
 # Lint / Format
 bunx @biomejs/biome check src/
@@ -56,7 +56,7 @@ packages/
   vscode-extension/  VS Code Language Client (launches lsp-server, uses tsc not bun)
 ```
 
-### Compiler Pipeline (`packages/compiler/src/`)
+### Compiler Pipeline (`packages/algolang/src/`)
 
 1. **Lexer** (`lexer/lexer.ts`) — hand-written scanner. Tokenizes French keywords (`programme`, `si`, `tantque`, `pour`, `jusqu'à`, etc.) into `TokenType` enum values. Supports accented identifiers, `//` and `/* */` comments, `:=` assignment.
 2. **Parser** (`parser/parser.ts`) — recursive descent. Builds `ASTNode` tree using `NodeType` enums. Expression precedence: Or → And → Equality → Relational → Additive → Multiplicative → Unary → Primary. Populates `SymbolTable` during parsing.

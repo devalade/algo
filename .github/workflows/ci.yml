@@ -21,7 +21,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Test compiler
-        run: bun test packages/compiler/tests
+        run: bun test packages/algolang/tests
 
       - name: Test LSP server
         run: bun test packages/lsp-server/tests

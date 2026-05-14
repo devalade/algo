@@ -204,9 +204,9 @@ Si vous développez AlgoLang ou n'avez pas installé le binaire :
 
 ```bash
 # Utiliser directement avec Bun
-bun run packages/compiler/src/cli.ts run examples/bonjour.algo
-bun run packages/compiler/src/cli.ts compile examples/bonjour.algo -o output.js
-bun run packages/compiler/src/cli.ts check examples/bonjour.algo --verbose
+bun run packages/algolang/src/cli.ts run examples/bonjour.algo
+bun run packages/algolang/src/cli.ts compile examples/bonjour.algo -o output.js
+bun run packages/algolang/src/cli.ts check examples/bonjour.algo --verbose
 ```
 
 ---

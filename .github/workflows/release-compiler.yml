@@ -20,7 +20,7 @@ jobs:
       id-token: write
     defaults:
       run:
-        working-directory: packages/compiler
+        working-directory: packages/algolang
 
     steps:
       - uses: actions/checkout@v4
