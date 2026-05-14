@@ -7,7 +7,7 @@ describe("LSP Server - Hover", () => {
 			"SI", "ALORS", "SINON", "FINSI",
 			"TANTQUE", "FAIRE", "FINTANTQUE",
 			"POUR", "ALLANT", "DE", "A", "FINPOUR",
-			"REPETER", "JUSQUA"
+			"REPETER", "JUSQU'A"
 		];
 
 		for (const keyword of controlFlow) {

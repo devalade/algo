@@ -53,7 +53,7 @@ FIN`;
 			"SI", "ALORS", "SINON", "FINSI",
 			"TANTQUE", "FAIRE", "FINTANTQUE",
 			"POUR", "ALLANT", "DE", "A", "FINPOUR",
-			"REPETER", "JUSQUA",
+			"REPETER", "JUSQU'A",
 			"LIRE", "ECRIRE",
 			"VRAI", "FAUX",
 			"ET", "OU", "NON"
@@ -138,7 +138,7 @@ DEBUT
 
   REPETER
     i := i - 1
-  JUSQUA i = 0
+  JUSQU'A i = 0
 FIN`;
 
 		const lexer = new Lexer(loopSource);
@@ -152,6 +152,6 @@ FIN`;
 		expect(formatted).toContain("POUR i ALLANT DE 1 A 10 FAIRE");
 		expect(formatted).toContain("TANTQUE i < 20 FAIRE");
 		expect(formatted).toContain("REPETER");
-		expect(formatted).toContain("JUSQUA i = 0");
+		expect(formatted).toContain("JUSQU'A i = 0");
 	});
 });

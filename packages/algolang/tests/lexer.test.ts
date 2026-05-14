@@ -34,7 +34,7 @@ test("Lexer - Tokenize basic keywords", () => {
 });
 
 test("Lexer - Tokenize control flow keywords", () => {
-  const lexer = new Lexer("SI ALORS SINON TANTQUE FAIRE POUR A REPETER JUSQUA LIRE ECRIRE VRAI FAUX ET OU NON FINPOUR FINSI FINTANTQUE");
+  const lexer = new Lexer("SI ALORS SINON TANTQUE FAIRE POUR A REPETER JUSQU'A LIRE ECRIRE VRAI FAUX ET OU NON FINPOUR FINSI FINTANTQUE");
   const tokens = lexer.tokenize();
 
   const expectedTokens = [

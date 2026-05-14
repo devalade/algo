@@ -109,13 +109,13 @@ FIN
 		expect(formatAlgoLangSource(input, 2)).toBe(expected);
 	});
 
-	it("should handle REPETER...JUSQUA correctly", () => {
+	it("should handle REPETER...JUSQU'A correctly", () => {
 		const input = `PROGRAMME Test
 DEBUT
 REPETER
 ECRIRE(x)
 x := x + 1
-JUSQUA x = 10
+JUSQU'A x = 10
 FIN`;
 
 		const expected = `PROGRAMME Test
@@ -123,7 +123,7 @@ DEBUT
   REPETER
     ECRIRE(x)
     x := x + 1
-  JUSQUA x = 10
+  JUSQU'A x = 10
 FIN
 `;
 

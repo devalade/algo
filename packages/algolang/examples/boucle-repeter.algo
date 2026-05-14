@@ -3,22 +3,22 @@ VAR
   compteur: ENTIER;
   reponse: CHAINE;
 DEBUT
-  // Démonstration de la boucle REPETER...JUSQUA
-  ECRIRE("Démonstration de la boucle REPETER...JUSQUA");
+  // Démonstration de la boucle REPETER...JUSQU'A
+  ECRIRE("Démonstration de la boucle REPETER...JUSQU'A");
   ECRIRE("===========================================");
   
   compteur := 1;
   
-  // Boucle qui s'exécute JUSQUA ce que l'utilisateur dise 'non'
+  // Boucle qui s'exécute JUSQU'A ce que l'utilisateur dise 'non'
   REPETER
     ECRIRE("C'est l'itération numéro ", compteur);
     ECRIRE("Voulez-vous continuer ? (oui/non)");
     LIRE(reponse);
     
     compteur := compteur + 1;
-  JUSQUA reponse = "non";
+  JUSQU'A reponse = "non";
   
   ECRIRE("");
   ECRIRE("La boucle s'est terminée après ", compteur - 1, " itérations.");
-  ECRIRE("Merci d'avoir testé la boucle REPETER...JUSQUA !");
+  ECRIRE("Merci d'avoir testé la boucle REPETER...JUSQU'A !");
 FIN

@@ -9,7 +9,7 @@ test("Erreur - Mot-clé réservé utilisé comme nom de variable", async () => {
   const reservedKeywords = [
     "ENTIER", "REEL", "BOOLEEN", "CHAINE",
     "FINSI", "FINTANTQUE", "FINPOUR",
-    "REPETER", "JUSQUA", "A",
+    "REPETER", "JUSQU'A", "A",
     "LIRE", "ECRIRE",
     "VRAI", "FAUX",
     "ET", "OU", "NON"

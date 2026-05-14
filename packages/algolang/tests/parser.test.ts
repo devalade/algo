@@ -299,7 +299,7 @@ test("Parser - Parse repeat statements", () => {
     debut
       repeter
         ecrire(1);
-      JUSQUA VRAI;
+      JUSQU'A VRAI;
     fin
   `);
   const result = parser.parse();

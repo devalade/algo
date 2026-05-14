@@ -44,7 +44,7 @@ export function formatAlgoLangSource(text: string, tabSize: number): string {
 			indentLevel = Math.max(0, indentLevel - 1);
 		}
 
-		if (trimmed.match(/^JUSQUA\b/i)) {
+		if (trimmed.match(/^JUSQU'A\b/i)) {
 			indentLevel = Math.max(0, indentLevel - 1);
 		}
 

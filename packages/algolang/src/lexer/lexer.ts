@@ -30,7 +30,7 @@ export class Lexer {
 			["DE", TokenType.DE],
 			["A", TokenType.TO],
 			["REPETER", TokenType.REPEAT],
-			["JUSQUA", TokenType.UNTIL],
+			["JUSQU'A", TokenType.UNTIL],
 			["LIRE", TokenType.READ],
 			["ECRIRE", TokenType.WRITE],
 			["VRAI", TokenType.TRUE],

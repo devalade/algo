@@ -83,7 +83,7 @@ fin`;
   expect(result.output).toContain("if ((valeur > 5))");
 });
 
-test("Compilation - Boucle REPETER JUSQUA", async () => {
+test("Compilation - Boucle REPETER JUSQU'A", async () => {
   const compiler = new AlgoLangCompiler();
   const source = `
 programme BoucleRepeter;
@@ -94,7 +94,7 @@ debut
   repeter
     ecrire("Compteur: ", compteur);
     compteur := compteur + 1;
-  JUSQUA compteur > 3;
+  JUSQU'A compteur > 3;
   ecrire("Fin de la boucle");
 fin`;
 

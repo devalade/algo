@@ -16,7 +16,7 @@ describe("LSP Server - Completion", () => {
 			"SI", "ALORS", "SINON", "FINSI",
 			"TANTQUE", "FAIRE", "FINTANTQUE",
 			"POUR", "ALLANT", "DE", "A", "FINPOUR",
-			"REPETER", "JUSQUA",
+			"REPETER", "JUSQU'A",
 			"LIRE", "ECRIRE",
 			"VRAI", "FAUX",
 			"ET", "OU", "NON"
@@ -67,7 +67,7 @@ describe("LSP Server - Completion", () => {
 			structure: ["PROGRAMME", "DEBUT", "FIN", "VAR"],
 			types: ["ENTIER", "REEL", "BOOLEEN", "CHAINE"],
 			conditionals: ["SI", "ALORS", "SINON", "FINSI"],
-			loops: ["TANTQUE", "FAIRE", "FINTANTQUE", "POUR", "ALLANT", "DE", "A", "FINPOUR", "REPETER", "JUSQUA"],
+			loops: ["TANTQUE", "FAIRE", "FINTANTQUE", "POUR", "ALLANT", "DE", "A", "FINPOUR", "REPETER", "JUSQU'A"],
 			io: ["LIRE", "ECRIRE"],
 			boolean: ["VRAI", "FAUX", "ET", "OU", "NON"]
 		};

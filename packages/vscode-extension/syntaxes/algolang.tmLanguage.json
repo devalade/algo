@@ -35,7 +35,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.algo",
-                    "match": "(?i)\\b(PROGRAMME|DEBUT|FIN|VAR|SI|ALORS|SINON|FINSI|TANTQUE|FAIRE|POUR|ALLANT|DE|REPETER|JUSQUA|FINPOUR|FINTANTQUE)\\b"
+                    "match": "(?i)\\b(PROGRAMME|DEBUT|FIN|VAR|SI|ALORS|SINON|FINSI|TANTQUE|FAIRE|POUR|ALLANT|DE|REPETER|FINPOUR|FINTANTQUE)\\b|(?i)\\bJUSQU'A\\b"
                 },
                 {
                     "name": "storage.type.algo",

@@ -37,7 +37,7 @@ export class Parser {
 		"a",
 		"finpour",
 		"repeter",
-		"jusqua",
+		"jusqu'a",
 		// Entrées/sorties
 		"lire",
 		"ecrire",
@@ -959,7 +959,7 @@ export class Parser {
 
 		this.expect(
 			TokenType.UNTIL,
-			'"jusqua" attendu à la fin de la boucle repeter',
+			'"jusqu\'a" attendu à la fin de la boucle repeter',
 		);
 
 		// Parser la condition

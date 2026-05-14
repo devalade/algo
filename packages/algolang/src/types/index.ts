@@ -19,7 +19,7 @@ export enum TokenType {
 	DE = "DE",
 	TO = "A",
 	REPEAT = "REPETER",
-	UNTIL = "JUSQUA",
+	UNTIL = "JUSQU'A",
 	READ = "LIRE",
 	WRITE = "ECRIRE",
 	TRUE = "VRAI",

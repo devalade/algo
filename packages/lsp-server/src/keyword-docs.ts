@@ -83,9 +83,9 @@ export const KEYWORD_DOCS: Record<string, { detail: string; documentation: strin
 		detail: "Mot-clé REPETER",
 		documentation: "**REPETER** : Boucle exécutée au moins une fois."
 	},
-	JUSQUA: {
-		detail: "Mot-clé JUSQUA",
-		documentation: "**JUSQUA** : Condition de fin d'une boucle REPETER."
+	"JUSQU'A": {
+		detail: "Mot-clé JUSQU'A",
+		documentation: "**JUSQU'A** : Condition de fin d'une boucle REPETER."
 	},
 	LIRE: {
 		detail: "Fonction LIRE",

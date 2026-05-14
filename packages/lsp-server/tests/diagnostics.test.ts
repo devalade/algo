@@ -44,12 +44,12 @@ describe("LSP Server - Diagnostics", () => {
 	});
 
 	it("should handle identifier with accents", () => {
-		const doc = TextDocument.create("file://test.algo", "algolang", 1, "JUSQUA 10");
+		const doc = TextDocument.create("file://test.algo", "algolang", 1, "JUSQU'A 10");
 
-		// Error at "JUSQUA"
+		// Error at "JUSQU'A"
 		const endChar = computeErrorEndCharacter(doc, 0, 0);
 
-		expect(endChar).toBe(6);
+		expect(endChar).toBe(7);
 	});
 
 	it("should handle invalid line gracefully", () => {

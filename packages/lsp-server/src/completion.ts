@@ -45,7 +45,7 @@ function getCompletionItems(params: TextDocumentPositionParams, documents: TextD
 		{ label: "A", kind: CompletionItemKind.Keyword },
 		{ label: "FINPOUR", kind: CompletionItemKind.Keyword },
 		{ label: "REPETER", kind: CompletionItemKind.Keyword },
-		{ label: "JUSQUA", kind: CompletionItemKind.Keyword },
+		{ label: "JUSQU'A", kind: CompletionItemKind.Keyword },
 		{ label: "LIRE", kind: CompletionItemKind.Function },
 		{ label: "ECRIRE", kind: CompletionItemKind.Function },
 		{ label: "VRAI", kind: CompletionItemKind.Constant },

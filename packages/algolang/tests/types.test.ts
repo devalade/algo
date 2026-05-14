@@ -33,7 +33,7 @@ test("TokenType - Enum values", () => {
   expect(TokenType.FOR).toBe("POUR");
   expect(TokenType.TO).toBe("A");
   expect(TokenType.REPEAT).toBe("REPETER");
-  expect(TokenType.UNTIL).toBe("JUSQUA");
+  expect(TokenType.UNTIL).toBe("JUSQU'A");
   expect(TokenType.READ).toBe("LIRE");
   expect(TokenType.WRITE).toBe("ECRIRE");
   expect(TokenType.TRUE).toBe("VRAI");

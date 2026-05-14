@@ -4,7 +4,7 @@ import { AlgoLangCompiler } from "../src/compiler";
 const reservedKeywords = [
   "ENTIER", "REEL", "BOOLEEN", "CHAINE",
   "FINSI", "FINTANTQUE", "FINPOUR",
-  "REPETER", "JUSQUA", "A",
+  "REPETER", "JUSQU'A", "A",
   "LIRE", "ECRIRE",
   "VRAI", "FAUX",
   "ET", "OU", "NON"
