@@ -25,6 +25,11 @@
     "french",
     "programmation"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devalade/algo",
+    "directory": "packages/algolang"
+  },
   "author": "AlgoLang Team",
   "license": "MIT",
   "scripts": {
