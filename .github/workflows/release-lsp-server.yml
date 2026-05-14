@@ -63,6 +63,10 @@ jobs:
           "
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
 
+      - name: Install with pinned compiler dep
+        run: bun install
+        working-directory: .
+
       - name: Build
         run: bun run build
 
