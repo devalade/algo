@@ -12,7 +12,7 @@ on:
           - minor
           - major
       compiler_version:
-        description: '@algolang/compiler version to depend on (e.g. 1.2.0)'
+        description: '@devalade/algolang version to depend on (e.g. 1.2.0)'
         required: true
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
             const fs = require('fs');
             const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
             pkg.version = '${NEW_VERSION}';
-            pkg.dependencies['@algolang/compiler'] = '^${{ github.event.inputs.compiler_version }}';
+            pkg.dependencies['@devalade/algolang'] = '^${{ github.event.inputs.compiler_version }}';
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
@@ -81,7 +81,7 @@ jobs:
           node -e "
             const fs = require('fs');
             const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            pkg.dependencies['@algolang/compiler'] = 'workspace:*';
+            pkg.dependencies['@devalade/algolang'] = 'workspace:*';
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           git config user.name "github-actions[bot]"
