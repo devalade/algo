@@ -9,7 +9,7 @@ import {
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
-import { clearDocumentCache } from "./cache.js";
+import { documentStore } from "./document-store.js";
 import { register as registerDiagnostics, setDiagnosticCapability } from "./diagnostics.js";
 import { register as registerCompletion } from "./completion.js";
 import { register as registerHover } from "./hover.js";
@@ -85,7 +85,7 @@ connection.onInitialized(() => {
 
 // B3: Add onDidClose handler to clean up maps
 documents.onDidClose((event) => {
-	clearDocumentCache(event.document.uri);
+	documentStore.delete(event.document.uri);
 });
 
 connection.onDidChangeWatchedFiles((_change) => {
