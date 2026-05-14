@@ -1,6 +1,6 @@
 {
   "name": "@devalade/algolang",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Compilateur AlgoLang — langage de programmation éducatif pour l'algorithmique",
   "type": "module",
   "main": "./dist/index.js",
