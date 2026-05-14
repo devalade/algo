@@ -63,11 +63,10 @@ jobs:
       - name: Make bin executable
         run: chmod +x bin/algolang-lsp
 
-      - name: Configure npm auth
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Publish to npm
         run: bun publish --access public
+        env:
+          BUN_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore workspace dep and commit
         run: |
