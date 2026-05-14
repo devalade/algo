@@ -49,7 +49,7 @@ programme BouclePour;
 var
   compteur: entier;
 debut
-  pour compteur := 1 à 3 faire
+  pour compteur := 1 A 3 faire
     ecrire("i = ", compteur);
   finpour;
 fin`;
@@ -94,7 +94,7 @@ debut
   repeter
     ecrire("Compteur: ", compteur);
     compteur := compteur + 1;
-  jusqu'à compteur > 3;
+  JUSQUA compteur > 3;
   ecrire("Fin de la boucle");
 fin`;
 
@@ -200,9 +200,9 @@ var
   ligne: entier;
   colonne: entier;
 debut
-  pour ligne := 1 à 2 faire
+  pour ligne := 1 A 2 faire
     ecrire("Ligne ", ligne);
-    pour colonne := 1 à 2 faire
+    pour colonne := 1 A 2 faire
       ecrire("  Colonne ", colonne);
     finpour;
   finpour;

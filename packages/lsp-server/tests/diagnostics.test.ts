@@ -34,7 +34,7 @@ describe("LSP Server - Diagnostics", () => {
 	});
 
 	it("should handle end-of-line errors", () => {
-		const doc = TextDocument.create("file://test.algo", "algolang", 1, "programme");
+		const doc = TextDocument.create("file://test.algo", "algolang", 1, "PROGRAMME");
 
 		// Error at end of line
 		const endChar = computeErrorEndCharacter(doc, 0, 9);
@@ -44,17 +44,16 @@ describe("LSP Server - Diagnostics", () => {
 	});
 
 	it("should handle identifier with accents", () => {
-		const doc = TextDocument.create("file://test.algo", "algolang", 1, "jusqu'à 10");
+		const doc = TextDocument.create("file://test.algo", "algolang", 1, "JUSQUA 10");
 
-		// Error at "jusqu'à"
+		// Error at "JUSQUA"
 		const endChar = computeErrorEndCharacter(doc, 0, 0);
 
-		// Should span the entire word including apostrophe
-		expect(endChar).toBe(7);
+		expect(endChar).toBe(6);
 	});
 
 	it("should handle invalid line gracefully", () => {
-		const doc = TextDocument.create("file://test.algo", "algolang", 1, "programme Test");
+		const doc = TextDocument.create("file://test.algo", "algolang", 1, "PROGRAMME Test");
 
 		// Error at non-existent line
 		const endChar = computeErrorEndCharacter(doc, 99, 0);

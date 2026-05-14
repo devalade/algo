@@ -3,38 +3,38 @@ import { Lexer } from "../src/lexer/lexer";
 import { TokenType } from "../src/types";
 
 test("Lexer - Tokenize basic keywords", () => {
-  const lexer = new Lexer("programme debut fin var entier reel booleen chaine");
+  const lexer = new Lexer("PROGRAMME DEBUT FIN VAR ENTIER REEL BOOLEEN CHAINE");
   const tokens = lexer.tokenize();
 
   expect(tokens).toHaveLength(9); // 8 keywords + EOF
 
   expect(tokens[0].type).toBe(TokenType.PROGRAM);
-  expect(tokens[0].value).toBe("programme");
+  expect(tokens[0].value).toBe("PROGRAMME");
 
   expect(tokens[1].type).toBe(TokenType.BEGIN);
-  expect(tokens[1].value).toBe("debut");
+  expect(tokens[1].value).toBe("DEBUT");
 
   expect(tokens[2].type).toBe(TokenType.END);
-  expect(tokens[2].value).toBe("fin");
+  expect(tokens[2].value).toBe("FIN");
 
   expect(tokens[3].type).toBe(TokenType.VAR);
-  expect(tokens[3].value).toBe("var");
+  expect(tokens[3].value).toBe("VAR");
 
   expect(tokens[4].type).toBe(TokenType.INTEGER);
-  expect(tokens[4].value).toBe("entier");
+  expect(tokens[4].value).toBe("ENTIER");
 
   expect(tokens[5].type).toBe(TokenType.REAL);
-  expect(tokens[5].value).toBe("reel");
+  expect(tokens[5].value).toBe("REEL");
 
   expect(tokens[6].type).toBe(TokenType.BOOLEAN);
-  expect(tokens[6].value).toBe("booleen");
+  expect(tokens[6].value).toBe("BOOLEEN");
 
   expect(tokens[7].type).toBe(TokenType.STRING);
-  expect(tokens[7].value).toBe("chaine");
+  expect(tokens[7].value).toBe("CHAINE");
 });
 
 test("Lexer - Tokenize control flow keywords", () => {
-  const lexer = new Lexer("si alors sinon tantque faire pour à repeter jusqu'à lire ecrire vrai faux et ou non finpour finsi fintantque");
+  const lexer = new Lexer("SI ALORS SINON TANTQUE FAIRE POUR A REPETER JUSQUA LIRE ECRIRE VRAI FAUX ET OU NON FINPOUR FINSI FINTANTQUE");
   const tokens = lexer.tokenize();
 
   const expectedTokens = [

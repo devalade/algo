@@ -9,16 +9,16 @@ debut
   
   compteur := 1;
   
-  // Boucle qui s'exécute jusqu'à ce que l'utilisateur dise 'non'
+  // Boucle qui s'exécute JUSQUA ce que l'utilisateur dise 'non'
   repeter
     ecrire("C'est l'itération numéro ", compteur);
     ecrire("Voulez-vous continuer ? (oui/non)");
     lire(reponse);
     
     compteur := compteur + 1;
-  jusqu'à reponse = "non";
+  JUSQUA reponse = "non";
   
   ecrire("");
   ecrire("La boucle s'est terminée après ", compteur - 1, " itérations.");
-  ecrire("Merci d'avoir testé la boucle REPETER...JUSQU'À !");
+  ecrire("Merci d'avoir testé la boucle REPETER...JUSQUA !");
 fin

@@ -5,13 +5,13 @@ debut
   ecrire("TABLE DE MULTIPLICATION COMPLÈTE");
   ecrire("================================");
   
-  // Boucle pour les lignes (1 à 10)
-  pour i allant de 1 à 10 faire
+  // Boucle pour les lignes (1 A 10)
+  pour i ALLANT DE 1 A 10 faire
     ecrire("");  // Ligne vide pour la lisibilité
     ecrire("Table de ", i, " :");
     
-    // Boucle pour les colonnes (1 à 10)
-    pour j := 1 à 10 faire
+    // Boucle pour les colonnes (1 A 10)
+    pour j := 1 A 10 faire
       // Afficher le résultat formaté
       si i * j < 10 alors
         ecrire(i, " × ", j, " =  ", i * j, "  ");

@@ -15,10 +15,10 @@ irm https://raw.githubusercontent.com/devalade/algo/main/install.ps1 | iex
 
 **2. Créer votre premier programme** (`bonjour.algo`)
 ```algo
-programme Bonjour;
-debut
-  ecrire("Bonjour le monde !");
-fin
+PROGRAMME Bonjour;
+DEBUT
+  ECRIRE("Bonjour le monde !");
+FIN
 ```
 
 **3. Exécuter**
@@ -106,64 +106,64 @@ Ce guide est conçu pour vous aider à maîtriser AlgoLang pas à pas.
 Apprenez à structurer un programme et à afficher du texte.
 
 ```algo
-programme BonjourMonde;
-var
-  message: chaine;
-debut
+PROGRAMME BonjourMonde;
+VAR
+  message: CHAINE;
+DEBUT
   message := "Bonjour, bienvenue dans l'apprentissage de l'algorithmique !";
-  ecrire(message);
-fin
+  ECRIRE(message);
+FIN
 ```
 
 ### Niveau 2 : Variables et Calculs
 Manipulez des nombres et effectuez des opérations arithmétiques.
 
 ```algo
-programme CalculSimple;
-var
-  nombre1, nombre2, resultat: entier;
-debut
+PROGRAMME CalculSimple;
+VAR
+  nombre1, nombre2, resultat: ENTIER;
+DEBUT
   nombre1 := 15;
   nombre2 := 10;
   resultat := (nombre1 + nombre2) * 2;
-  ecrire("Le résultat de (15 + 10) * 2 est : ", resultat);
-fin
+  ECRIRE("Le résultat de (15 + 10) * 2 est : ", resultat);
+FIN
 ```
 
-### Niveau 3 : Conditions (Si/Sinon)
+### Niveau 3 : Conditions (SI/SINON)
 Apprenez à prendre des décisions dans votre code.
 
 ```algo
-programme VerifAge;
-var
-  age: entier;
-debut
-  ecrire("Entrez votre âge : ");
-  lire(age);
+PROGRAMME VerifAge;
+VAR
+  age: ENTIER;
+DEBUT
+  ECRIRE("Entrez votre âge : ");
+  LIRE(age);
   
-  si age >= 18 alors
-    ecrire("Vous êtes majeur.");
-  sinon
-    ecrire("Vous êtes mineur.");
-  finsi;
-fin
+  SI age >= 18 ALORS
+    ECRIRE("Vous êtes majeur.");
+  SINON
+    ECRIRE("Vous êtes mineur.");
+  FINSI;
+FIN
 ```
 
 ### Niveau 4 : Boucles (Répétition)
-Automatisez des tâches répétitives avec `pour` et `tantque`.
+Automatisez des tâches répétitives avec `POUR` et `TANTQUE`.
 
 ```algo
-programme TableMultiplication;
-var
-  i, nombre: entier;
-debut
+PROGRAMME TableMultiplication;
+VAR
+  i, nombre: ENTIER;
+DEBUT
   nombre := 7;
-  ecrire("Table de ", nombre, " :");
+  ECRIRE("Table de ", nombre, " :");
   
-  pour i := 1 à 10 faire
-    ecrire(i, " x ", nombre, " = ", i * nombre);
-  finpour;
-fin
+  POUR i := 1 A 10 FAIRE
+    ECRIRE(i, " x ", nombre, " = ", i * nombre);
+  FINPOUR;
+FIN
 ```
 
 ---
@@ -214,21 +214,21 @@ bun run packages/compiler/src/cli.ts check examples/bonjour.algo --verbose
 ## 📝 Référence de Syntaxe
 
 ### Types de données
-- `entier` : Nombres entiers (ex: 10, -5)
-- `reel` : Nombres à virgule (ex: 3.14)
-- `chaine` : Texte (ex: "Bonjour")
-- `booleen` : Logique (`vrai` ou `faux`)
+- `ENTIER` : Nombres entiers (ex: 10, -5)
+- `REEL` : Nombres à virgule (ex: 3.14)
+- `CHAINE` : Texte (ex: "Bonjour")
+- `BOOLEEN` : Logique (`VRAI` ou `FAUX`)
 
 ### Opérateurs
 | Type | Opérateurs |
 | :--- | :--- |
 | **Calcul** | `+`, `-`, `*`, `/` |
 | **Comparaison** | `=`, `<>`, `<`, `<=`, `>`, `>=` |
-| **Logique** | `et`, `ou`, `non` |
+| **Logique** | `ET`, `OU`, `NON` |
 
 ### Mots-clés réservés
 Ne les utilisez pas comme noms de variables !
-`programme`, `debut`, `fin`, `var`, `si`, `alors`, `sinon`, `finsi`, `tantque`, `faire`, `pour`, `à`, `finpour`, `repeter`, `jusqu'à`, `lire`, `ecrire`.
+`PROGRAMME`, `DEBUT`, `FIN`, `VAR`, `SI`, `ALORS`, `SINON`, `FINSI`, `TANTQUE`, `FAIRE`, `POUR`, `A`, `FINPOUR`, `REPETER`, `JUSQUA`, `LIRE`, `ECRIRE`.
 
 ---
 

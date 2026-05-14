@@ -117,8 +117,8 @@ test("AlgoLangCompiler - Performance tracking", () => {
     var
       i, j: entier;
     debut
-      pour i := 1 à 1000 faire
-        pour j := 1 à 1000 faire
+      pour i := 1 A 1000 faire
+        pour j := 1 A 1000 faire
           i := i + j;
         finpour;
       finpour;

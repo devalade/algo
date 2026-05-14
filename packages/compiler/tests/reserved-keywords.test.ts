@@ -7,12 +7,12 @@ test("Erreur - Mot-clé réservé utilisé comme nom de variable", async () => {
   // Test avec seulement les mots-clés qui peuvent être testés comme variables
   // sans conflit immédiat avec la structure du programme
   const reservedKeywords = [
-    "entier", "reel", "booleen", "chaine",
-    "finsi", "fintantque", "finpour",
-    "repeter", "jusqu'à", "à",
-    "lire", "ecrire",
-    "vrai", "faux",
-    "et", "ou", "non"
+    "ENTIER", "REEL", "BOOLEEN", "CHAINE",
+    "FINSI", "FINTANTQUE", "FINPOUR",
+    "REPETER", "JUSQUA", "A",
+    "LIRE", "ECRIRE",
+    "VRAI", "FAUX",
+    "ET", "OU", "NON"
   ];
 
   for (const keyword of reservedKeywords) {

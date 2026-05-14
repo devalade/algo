@@ -280,7 +280,7 @@ test("Parser - Parse for statements", () => {
     programme Test;
     var i: entier;
     debut
-      pour i := 1 à 10 faire
+      pour i := 1 A 10 faire
         ecrire(i);
       finpour;
     fin
@@ -299,7 +299,7 @@ test("Parser - Parse repeat statements", () => {
     debut
       repeter
         ecrire(1);
-      jusqu'à vrai;
+      JUSQUA VRAI;
     fin
   `);
   const result = parser.parse();
@@ -355,7 +355,7 @@ test("Parser - Nested control structures", () => {
     programme Test;
     var i, j: entier;
     debut
-      pour i := 1 à 10 faire
+      pour i := 1 A 10 faire
         si i > 5 alors
           tantque j < 5 faire
             j := j + 1;

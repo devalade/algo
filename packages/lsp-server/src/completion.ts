@@ -24,35 +24,35 @@ function getCompletionItems(params: TextDocumentPositionParams, documents: TextD
 
 	// D1: Add all keywords (including missing ones: fintantque, finpour, et, ou, non)
 	const keywords = [
-		{ label: "programme", kind: CompletionItemKind.Keyword },
-		{ label: "debut", kind: CompletionItemKind.Keyword },
-		{ label: "fin", kind: CompletionItemKind.Keyword },
-		{ label: "var", kind: CompletionItemKind.Keyword },
-		{ label: "entier", kind: CompletionItemKind.Class },
-		{ label: "reel", kind: CompletionItemKind.Class },
-		{ label: "booleen", kind: CompletionItemKind.Class },
-		{ label: "chaine", kind: CompletionItemKind.Class },
-		{ label: "si", kind: CompletionItemKind.Keyword },
-		{ label: "alors", kind: CompletionItemKind.Keyword },
-		{ label: "sinon", kind: CompletionItemKind.Keyword },
-		{ label: "finsi", kind: CompletionItemKind.Keyword },
-		{ label: "tantque", kind: CompletionItemKind.Keyword },
-		{ label: "faire", kind: CompletionItemKind.Keyword },
-		{ label: "fintantque", kind: CompletionItemKind.Keyword },
-		{ label: "pour", kind: CompletionItemKind.Keyword },
-		{ label: "allant", kind: CompletionItemKind.Keyword },
-		{ label: "de", kind: CompletionItemKind.Keyword },
-		{ label: "à", kind: CompletionItemKind.Keyword },
-		{ label: "finpour", kind: CompletionItemKind.Keyword },
-		{ label: "repeter", kind: CompletionItemKind.Keyword },
-		{ label: "jusqu'à", kind: CompletionItemKind.Keyword },
-		{ label: "lire", kind: CompletionItemKind.Function },
-		{ label: "ecrire", kind: CompletionItemKind.Function },
-		{ label: "vrai", kind: CompletionItemKind.Constant },
-		{ label: "faux", kind: CompletionItemKind.Constant },
-		{ label: "et", kind: CompletionItemKind.Operator },
-		{ label: "ou", kind: CompletionItemKind.Operator },
-		{ label: "non", kind: CompletionItemKind.Operator },
+		{ label: "PROGRAMME", kind: CompletionItemKind.Keyword },
+		{ label: "DEBUT", kind: CompletionItemKind.Keyword },
+		{ label: "FIN", kind: CompletionItemKind.Keyword },
+		{ label: "VAR", kind: CompletionItemKind.Keyword },
+		{ label: "ENTIER", kind: CompletionItemKind.Class },
+		{ label: "REEL", kind: CompletionItemKind.Class },
+		{ label: "BOOLEEN", kind: CompletionItemKind.Class },
+		{ label: "CHAINE", kind: CompletionItemKind.Class },
+		{ label: "SI", kind: CompletionItemKind.Keyword },
+		{ label: "ALORS", kind: CompletionItemKind.Keyword },
+		{ label: "SINON", kind: CompletionItemKind.Keyword },
+		{ label: "FINSI", kind: CompletionItemKind.Keyword },
+		{ label: "TANTQUE", kind: CompletionItemKind.Keyword },
+		{ label: "FAIRE", kind: CompletionItemKind.Keyword },
+		{ label: "FINTANTQUE", kind: CompletionItemKind.Keyword },
+		{ label: "POUR", kind: CompletionItemKind.Keyword },
+		{ label: "ALLANT", kind: CompletionItemKind.Keyword },
+		{ label: "DE", kind: CompletionItemKind.Keyword },
+		{ label: "A", kind: CompletionItemKind.Keyword },
+		{ label: "FINPOUR", kind: CompletionItemKind.Keyword },
+		{ label: "REPETER", kind: CompletionItemKind.Keyword },
+		{ label: "JUSQUA", kind: CompletionItemKind.Keyword },
+		{ label: "LIRE", kind: CompletionItemKind.Function },
+		{ label: "ECRIRE", kind: CompletionItemKind.Function },
+		{ label: "VRAI", kind: CompletionItemKind.Constant },
+		{ label: "FAUX", kind: CompletionItemKind.Constant },
+		{ label: "ET", kind: CompletionItemKind.Operator },
+		{ label: "OU", kind: CompletionItemKind.Operator },
+		{ label: "NON", kind: CompletionItemKind.Operator },
 	];
 
 	items.push(...keywords);
@@ -74,7 +74,7 @@ function getCompletionItems(params: TextDocumentPositionParams, documents: TextD
 
 function resolveCompletionItem(item: CompletionItem): CompletionItem {
 	// D3: Complete onCompletionResolve for all keywords
-	const keyword = item.label.toLowerCase();
+	const keyword = item.label.toUpperCase();
 	const docs = KEYWORD_DOCS[keyword];
 
 	if (docs) {

@@ -1,25 +1,25 @@
-programme TestLSP;
+PROGRAMME TestLSP;
 
-var
-    age, score : entier;
-    nom : chaine;
-    estActif : booleen;
+VAR
+    age, score : ENTIER;
+    nom : CHAINE;
+    estActif : BOOLEEN;
 
-debut
-    // Test : survoler 'ecrire' ou 'score'
-    ecrire("Bienvenue dans le test d'AlgoLang LSP");
+DEBUT
+    // Test : survoler 'ECRIRE' ou 'score'
+    ECRIRE("Bienvenue dans le test d'AlgoLang LSP");
     
     score := 10 + 5;
     
-    // Test : faire une erreur de syntaxe (enlever le finsi par exemple)
-    si score > 10 alors
-        ecrire("Bravo !");
-    finsi;
+    // Test : FAIRE une erreur de syntaxe (enlever le FINSI par exemple)
+    SI score > 10 ALORS
+        ECRIRE("Bravo !");
+    FINSI;
     
-    // Test : Auto-complétion (taper 'tan' ou 'pou')
-    tantque score < 20 faire
+    // Test : Auto-complétion (taper 'TAN' ou 'POU')
+    TANTQUE score < 20 FAIRE
         score := score + 1;
-    fintantque;
+    FINTANTQUE;
     
-    ecrire("Fin du test. Valeur finale du score : ", score);
-fin
+    ECRIRE("FIN du test. Valeur finale du score : ", score);
+FIN

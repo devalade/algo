@@ -11,15 +11,15 @@ describe("LSP Server - Completion", () => {
 	it("should include all 29 keywords in completion", () => {
 		// Expected keywords
 		const expectedKeywords = [
-			"programme", "debut", "fin", "var",
-			"entier", "reel", "booleen", "chaine",
-			"si", "alors", "sinon", "finsi",
-			"tantque", "faire", "fintantque",
-			"pour", "allant", "de", "à", "finpour",
-			"repeter", "jusqu'à",
-			"lire", "ecrire",
-			"vrai", "faux",
-			"et", "ou", "non"
+			"PROGRAMME", "DEBUT", "FIN", "VAR",
+			"ENTIER", "REEL", "BOOLEEN", "CHAINE",
+			"SI", "ALORS", "SINON", "FINSI",
+			"TANTQUE", "FAIRE", "FINTANTQUE",
+			"POUR", "ALLANT", "DE", "A", "FINPOUR",
+			"REPETER", "JUSQUA",
+			"LIRE", "ECRIRE",
+			"VRAI", "FAUX",
+			"ET", "OU", "NON"
 		];
 
 		expect(expectedKeywords.length).toBe(29);
@@ -33,10 +33,10 @@ describe("LSP Server - Completion", () => {
 	});
 
 	it("should have proper kind for each keyword type", () => {
-		const types = ["entier", "reel", "booleen", "chaine"];
-		const functions = ["lire", "ecrire"];
-		const constants = ["vrai", "faux"];
-		const operators = ["et", "ou", "non"];
+		const types = ["ENTIER", "REEL", "BOOLEEN", "CHAINE"];
+		const functions = ["LIRE", "ECRIRE"];
+		const constants = ["VRAI", "FAUX"];
+		const operators = ["ET", "OU", "NON"];
 
 		// All should have documentation
 		for (const keyword of [...types, ...functions, ...constants, ...operators]) {
@@ -48,8 +48,8 @@ describe("LSP Server - Completion", () => {
 		// Mock symbol table
 		const mockTable = {
 			symbols: new Map([
-				["x", { name: "x", type: "entier", scope: "main", line: 2, column: 3 }],
-				["nom", { name: "nom", type: "chaine", scope: "main", line: 3, column: 3 }]
+				["x", { name: "x", type: "ENTIER", scope: "main", line: 2, column: 3 }],
+				["nom", { name: "nom", type: "CHAINE", scope: "main", line: 3, column: 3 }]
 			]),
 			parent: undefined,
 			children: [],
@@ -64,12 +64,12 @@ describe("LSP Server - Completion", () => {
 
 	it("should have documentation for all keyword groups", () => {
 		const keywordGroups = {
-			structure: ["programme", "debut", "fin", "var"],
-			types: ["entier", "reel", "booleen", "chaine"],
-			conditionals: ["si", "alors", "sinon", "finsi"],
-			loops: ["tantque", "faire", "fintantque", "pour", "allant", "de", "à", "finpour", "repeter", "jusqu'à"],
-			io: ["lire", "ecrire"],
-			boolean: ["vrai", "faux", "et", "ou", "non"]
+			structure: ["PROGRAMME", "DEBUT", "FIN", "VAR"],
+			types: ["ENTIER", "REEL", "BOOLEEN", "CHAINE"],
+			conditionals: ["SI", "ALORS", "SINON", "FINSI"],
+			loops: ["TANTQUE", "FAIRE", "FINTANTQUE", "POUR", "ALLANT", "DE", "A", "FINPOUR", "REPETER", "JUSQUA"],
+			io: ["LIRE", "ECRIRE"],
+			boolean: ["VRAI", "FAUX", "ET", "OU", "NON"]
 		};
 
 		for (const [group, keywords] of Object.entries(keywordGroups)) {
@@ -80,8 +80,8 @@ describe("LSP Server - Completion", () => {
 		}
 	});
 
-	it("should include reserved keyword 'a' in documentation", () => {
-		expect(KEYWORD_DOCS["a"]).toBeDefined();
-		expect(KEYWORD_DOCS["a"].documentation).toContain("réservé");
+	it("should include reserved keyword 'A' in documentation", () => {
+		expect(KEYWORD_DOCS["A"]).toBeDefined();
+		expect(KEYWORD_DOCS["A"].documentation).toBeTruthy();
 	});
 });

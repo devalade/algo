@@ -4,10 +4,10 @@ import { KEYWORD_DOCS } from "../src/keyword-docs";
 describe("LSP Server - Hover", () => {
 	it("should have hover docs for all control flow keywords", () => {
 		const controlFlow = [
-			"si", "alors", "sinon", "finsi",
-			"tantque", "faire", "fintantque",
-			"pour", "allant", "de", "à", "finpour",
-			"repeter", "jusqu'à"
+			"SI", "ALORS", "SINON", "FINSI",
+			"TANTQUE", "FAIRE", "FINTANTQUE",
+			"POUR", "ALLANT", "DE", "A", "FINPOUR",
+			"REPETER", "JUSQUA"
 		];
 
 		for (const keyword of controlFlow) {
@@ -17,7 +17,7 @@ describe("LSP Server - Hover", () => {
 	});
 
 	it("should have hover docs for type keywords", () => {
-		const types = ["entier", "reel", "booleen", "chaine"];
+		const types = ["ENTIER", "REEL", "BOOLEEN", "CHAINE"];
 
 		for (const type of types) {
 			expect(KEYWORD_DOCS[type]).toBeDefined();
@@ -27,15 +27,15 @@ describe("LSP Server - Hover", () => {
 	});
 
 	it("should have hover docs for I/O functions", () => {
-		expect(KEYWORD_DOCS["lire"]).toBeDefined();
-		expect(KEYWORD_DOCS["lire"].documentation).toContain("lire");
+		expect(KEYWORD_DOCS["LIRE"]).toBeDefined();
+		expect(KEYWORD_DOCS["LIRE"].documentation).toContain("LIRE");
 
-		expect(KEYWORD_DOCS["ecrire"]).toBeDefined();
-		expect(KEYWORD_DOCS["ecrire"].documentation).toContain("ecrire");
+		expect(KEYWORD_DOCS["ECRIRE"]).toBeDefined();
+		expect(KEYWORD_DOCS["ECRIRE"].documentation).toContain("ECRIRE");
 	});
 
 	it("should have hover docs for boolean literals and operators", () => {
-		const booleanKeywords = ["vrai", "faux", "et", "ou", "non"];
+		const booleanKeywords = ["VRAI", "FAUX", "ET", "OU", "NON"];
 
 		for (const keyword of booleanKeywords) {
 			expect(KEYWORD_DOCS[keyword]).toBeDefined();
@@ -44,7 +44,7 @@ describe("LSP Server - Hover", () => {
 	});
 
 	it("should have hover docs for loop-specific keywords", () => {
-		const loopKeywords = ["allant", "de", "à"];
+		const loopKeywords = ["ALLANT", "DE", "A"];
 
 		for (const keyword of loopKeywords) {
 			expect(KEYWORD_DOCS[keyword]).toBeDefined();
@@ -52,15 +52,15 @@ describe("LSP Server - Hover", () => {
 		}
 	});
 
-	it("should have hover docs for reserved keyword 'a'", () => {
-		expect(KEYWORD_DOCS["a"]).toBeDefined();
-		expect(KEYWORD_DOCS["a"].documentation).toContain("réservé");
+	it("should have hover docs for keyword 'A'", () => {
+		expect(KEYWORD_DOCS["A"]).toBeDefined();
+		expect(KEYWORD_DOCS["A"].documentation).toBeTruthy();
 	});
 
 	it("should format variable hover info correctly", () => {
 		const mockSymbol = {
 			name: "compteur",
-			type: "entier",
+			type: "ENTIER",
 			scope: "main",
 			line: 5,
 			column: 3
@@ -69,7 +69,7 @@ describe("LSP Server - Hover", () => {
 		const expectedFormat = `(variable) **${mockSymbol.name}** : ${mockSymbol.type}\n\nDéclarée à la ligne ${mockSymbol.line}.`;
 
 		expect(expectedFormat).toContain("compteur");
-		expect(expectedFormat).toContain("entier");
+		expect(expectedFormat).toContain("ENTIER");
 		expect(expectedFormat).toContain("ligne 5");
 	});
 

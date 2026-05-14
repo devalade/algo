@@ -40,30 +40,25 @@ export function formatAlgoLangSource(text: string, tabSize: number): string {
 		if (!trimmed) return "";
 
 		// Decrease indent for closing keywords
-		if (trimmed.match(/^(debut|fin|finsi|fintantque|finpour|sinon)\b/i)) {
+		if (trimmed.match(/^(DEBUT|FIN|FINSI|FINTANTQUE|FINPOUR|SINON)\b/i)) {
 			indentLevel = Math.max(0, indentLevel - 1);
 		}
 
-		// 'jusqu'à' closes 'repeter' block (no \b because of apostrophe)
-		if (trimmed.match(/^jusqu'à/i)) {
+		if (trimmed.match(/^JUSQUA\b/i)) {
 			indentLevel = Math.max(0, indentLevel - 1);
 		}
 
 		const newLine = indent.repeat(indentLevel) + trimmed;
 
-		// Increase indent after opening keywords
-		// For tantque/pour: only increase if 'faire' is on the same line
-		if (trimmed.match(/^(var|debut|si|sinon|repeter)\b/i)) {
+		if (trimmed.match(/^(VAR|DEBUT|SI|SINON|REPETER)\b/i)) {
 			indentLevel++;
 		}
 
-		// Special handling for tantque/pour with faire
-		if (trimmed.match(/^(tantque|pour)\b.*\bfaire\b/i)) {
+		if (trimmed.match(/^(TANTQUE|POUR)\b.*\bFAIRE\b/i)) {
 			indentLevel++;
 		}
 
-		// 'faire' on its own line increases indent
-		if (trimmed.match(/^faire\b/i)) {
+		if (trimmed.match(/^FAIRE\b/i)) {
 			indentLevel++;
 		}
 

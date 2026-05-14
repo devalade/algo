@@ -11,35 +11,35 @@ export class Lexer {
 	constructor(source: string) {
 		this.source = source;
 		this.keywords = new Map([
-			["programme", TokenType.PROGRAM],
-			["debut", TokenType.BEGIN],
-			["fin", TokenType.END],
-			["var", TokenType.VAR],
-			["entier", TokenType.INTEGER],
-			["reel", TokenType.REAL],
-			["booleen", TokenType.BOOLEAN],
-			["chaine", TokenType.STRING],
-			["si", TokenType.IF],
-			["alors", TokenType.THEN],
-			["sinon", TokenType.ELSE],
-			["finsi", TokenType.ENDIF],
-			["tantque", TokenType.WHILE],
-			["faire", TokenType.DO],
-			["pour", TokenType.FOR],
-			["allant", TokenType.ALLANT],
-			["de", TokenType.DE],
-			["à", TokenType.TO],
-			["repeter", TokenType.REPEAT],
-			["jusqu'à", TokenType.UNTIL],
-			["lire", TokenType.READ],
-			["ecrire", TokenType.WRITE],
-			["vrai", TokenType.TRUE],
-			["faux", TokenType.FALSE],
-			["et", TokenType.AND],
-			["ou", TokenType.OR],
-			["non", TokenType.NOT],
-			["finpour", TokenType.ENDFOR],
-			["fintantque", TokenType.ENDWHILE],
+			["PROGRAMME", TokenType.PROGRAM],
+			["DEBUT", TokenType.BEGIN],
+			["FIN", TokenType.END],
+			["VAR", TokenType.VAR],
+			["ENTIER", TokenType.INTEGER],
+			["REEL", TokenType.REAL],
+			["BOOLEEN", TokenType.BOOLEAN],
+			["CHAINE", TokenType.STRING],
+			["SI", TokenType.IF],
+			["ALORS", TokenType.THEN],
+			["SINON", TokenType.ELSE],
+			["FINSI", TokenType.ENDIF],
+			["TANTQUE", TokenType.WHILE],
+			["FAIRE", TokenType.DO],
+			["POUR", TokenType.FOR],
+			["ALLANT", TokenType.ALLANT],
+			["DE", TokenType.DE],
+			["A", TokenType.TO],
+			["REPETER", TokenType.REPEAT],
+			["JUSQUA", TokenType.UNTIL],
+			["LIRE", TokenType.READ],
+			["ECRIRE", TokenType.WRITE],
+			["VRAI", TokenType.TRUE],
+			["FAUX", TokenType.FALSE],
+			["ET", TokenType.AND],
+			["OU", TokenType.OR],
+			["NON", TokenType.NOT],
+			["FINPOUR", TokenType.ENDFOR],
+			["FINTANTQUE", TokenType.ENDWHILE],
 		]);
 	}
 
@@ -171,7 +171,7 @@ export class Lexer {
 		}
 
 		const value = this.source.substring(start, this.position);
-		const type = this.keywords.get(value.toLowerCase()) || TokenType.IDENTIFIER;
+		const type = this.keywords.get(value.toUpperCase()) || TokenType.IDENTIFIER;
 
 		return {
 			type,

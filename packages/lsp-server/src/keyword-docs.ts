@@ -1,122 +1,118 @@
 export const KEYWORD_DOCS: Record<string, { detail: string; documentation: string }> = {
-	programme: {
-		detail: "Mot-clé programme",
-		documentation: "**programme** : Début d'un programme AlgoLang."
+	PROGRAMME: {
+		detail: "Mot-clé PROGRAMME",
+		documentation: "**PROGRAMME** : Début d'un programme AlgoLang."
 	},
-	debut: {
-		detail: "Mot-clé debut",
-		documentation: "**debut** : Début du bloc d'instructions principal."
+	DEBUT: {
+		detail: "Mot-clé DEBUT",
+		documentation: "**DEBUT** : Début du bloc d'instructions principal."
 	},
-	fin: {
-		detail: "Mot-clé fin",
-		documentation: "**fin** : Fin du bloc d'instructions ou du programme."
+	FIN: {
+		detail: "Mot-clé FIN",
+		documentation: "**FIN** : Fin du bloc d'instructions ou du programme."
 	},
-	var: {
-		detail: "Mot-clé var",
-		documentation: "**var** : Section de déclaration des variables."
+	VAR: {
+		detail: "Mot-clé VAR",
+		documentation: "**VAR** : Section de déclaration des variables."
 	},
-	entier: {
-		detail: "Type entier",
-		documentation: "**entier** : Type de donnée pour les nombres entiers."
+	ENTIER: {
+		detail: "Type ENTIER",
+		documentation: "**ENTIER** : Type de donnée pour les nombres entiers."
 	},
-	reel: {
-		detail: "Type reel",
-		documentation: "**reel** : Type de donnée pour les nombres à virgule."
+	REEL: {
+		detail: "Type REEL",
+		documentation: "**REEL** : Type de donnée pour les nombres à virgule."
 	},
-	booleen: {
-		detail: "Type booleen",
-		documentation: "**booleen** : Type de donnée logique (vrai/faux)."
+	BOOLEEN: {
+		detail: "Type BOOLEEN",
+		documentation: "**BOOLEEN** : Type de donnée logique (VRAI/FAUX)."
 	},
-	chaine: {
-		detail: "Type chaine",
-		documentation: "**chaine** : Type de donnée pour le texte."
+	CHAINE: {
+		detail: "Type CHAINE",
+		documentation: "**CHAINE** : Type de donnée pour le texte."
 	},
-	si: {
-		detail: "Mot-clé si",
-		documentation: "**si** : Structure conditionnelle."
+	SI: {
+		detail: "Mot-clé SI",
+		documentation: "**SI** : Structure conditionnelle."
 	},
-	alors: {
-		detail: "Mot-clé alors",
-		documentation: "**alors** : Début du bloc exécuté si la condition est vraie."
+	ALORS: {
+		detail: "Mot-clé ALORS",
+		documentation: "**ALORS** : Début du bloc exécuté si la condition est vraie."
 	},
-	sinon: {
-		detail: "Mot-clé sinon",
-		documentation: "**sinon** : Début du bloc exécuté si la condition est fausse."
+	SINON: {
+		detail: "Mot-clé SINON",
+		documentation: "**SINON** : Début du bloc exécuté si la condition est fausse."
 	},
-	finsi: {
-		detail: "Mot-clé finsi",
-		documentation: "**finsi** : Fin d'une structure conditionnelle."
+	FINSI: {
+		detail: "Mot-clé FINSI",
+		documentation: "**FINSI** : Fin d'une structure conditionnelle."
 	},
-	tantque: {
-		detail: "Mot-clé tantque",
-		documentation: "**tantque** : Boucle répétitive tant qu'une condition est vraie."
+	TANTQUE: {
+		detail: "Mot-clé TANTQUE",
+		documentation: "**TANTQUE** : Boucle répétitive tant qu'une condition est vraie."
 	},
-	faire: {
-		detail: "Mot-clé faire",
-		documentation: "**faire** : Début du corps d'une boucle."
+	FAIRE: {
+		detail: "Mot-clé FAIRE",
+		documentation: "**FAIRE** : Début du corps d'une boucle."
 	},
-	fintantque: {
-		detail: "Mot-clé fintantque",
-		documentation: "**fintantque** : Fin d'une boucle tantque."
+	FINTANTQUE: {
+		detail: "Mot-clé FINTANTQUE",
+		documentation: "**FINTANTQUE** : Fin d'une boucle TANTQUE."
 	},
-	pour: {
-		detail: "Mot-clé pour",
-		documentation: "**pour** : Boucle avec compteur."
+	POUR: {
+		detail: "Mot-clé POUR",
+		documentation: "**POUR** : Boucle avec compteur."
 	},
-	allant: {
-		detail: "Mot-clé allant",
-		documentation: "**allant** : Utilisé dans une boucle pour pour spécifier la plage."
+	ALLANT: {
+		detail: "Mot-clé ALLANT",
+		documentation: "**ALLANT** : Utilisé dans une boucle POUR pour spécifier la plage."
 	},
-	de: {
-		detail: "Mot-clé de",
-		documentation: "**de** : Spécifie le début d'une plage dans une boucle pour."
+	DE: {
+		detail: "Mot-clé DE",
+		documentation: "**DE** : Spécifie le début d'une plage dans une boucle POUR."
 	},
-	à: {
-		detail: "Mot-clé à",
-		documentation: "**à** : Spécifie la fin d'une plage dans une boucle pour."
+	A: {
+		detail: "Mot-clé A",
+		documentation: "**A** : Spécifie la fin d'une plage dans une boucle POUR."
 	},
-	a: {
-		detail: "Mot-clé réservé a",
-		documentation: "**a** : Mot-clé réservé utilisé dans les boucles pour (version sans accent)."
+	FINPOUR: {
+		detail: "Mot-clé FINPOUR",
+		documentation: "**FINPOUR** : Fin d'une boucle POUR."
 	},
-	finpour: {
-		detail: "Mot-clé finpour",
-		documentation: "**finpour** : Fin d'une boucle pour."
+	REPETER: {
+		detail: "Mot-clé REPETER",
+		documentation: "**REPETER** : Boucle exécutée au moins une fois."
 	},
-	repeter: {
-		detail: "Mot-clé repeter",
-		documentation: "**repeter** : Boucle exécutée au moins une fois."
+	JUSQUA: {
+		detail: "Mot-clé JUSQUA",
+		documentation: "**JUSQUA** : Condition de fin d'une boucle REPETER."
 	},
-	"jusqu'à": {
-		detail: "Mot-clé jusqu'à",
-		documentation: "**jusqu'à** : Condition de fin d'une boucle repeter."
+	LIRE: {
+		detail: "Fonction LIRE",
+		documentation: "**LIRE(variable)** : Lit une valeur depuis l'entrée standard."
 	},
-	lire: {
-		detail: "Fonction lire",
-		documentation: "**lire(variable)** : Lit une valeur depuis l'entrée standard."
+	ECRIRE: {
+		detail: "Fonction ECRIRE",
+		documentation: "**ECRIRE(...)** : Affiche des valeurs dans la console."
 	},
-	ecrire: {
-		detail: "Fonction ecrire",
-		documentation: "**ecrire(...)** : Affiche des valeurs dans la console."
+	VRAI: {
+		detail: "Constante VRAI",
+		documentation: "**VRAI** : Valeur booléenne vraie."
 	},
-	vrai: {
-		detail: "Constante vrai",
-		documentation: "**vrai** : Valeur booléenne vraie."
+	FAUX: {
+		detail: "Constante FAUX",
+		documentation: "**FAUX** : Valeur booléenne fausse."
 	},
-	faux: {
-		detail: "Constante faux",
-		documentation: "**faux** : Valeur booléenne fausse."
+	ET: {
+		detail: "Opérateur ET",
+		documentation: "**ET** : Opérateur logique ET (AND)."
 	},
-	et: {
-		detail: "Opérateur et",
-		documentation: "**et** : Opérateur logique ET (AND)."
+	OU: {
+		detail: "Opérateur OU",
+		documentation: "**OU** : Opérateur logique OU (OR)."
 	},
-	ou: {
-		detail: "Opérateur ou",
-		documentation: "**ou** : Opérateur logique OU (OR)."
-	},
-	non: {
-		detail: "Opérateur non",
-		documentation: "**non** : Opérateur logique NON (NOT)."
+	NON: {
+		detail: "Opérateur NON",
+		documentation: "**NON** : Opérateur logique NON (NOT)."
 	}
 };

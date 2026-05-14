@@ -7,26 +7,25 @@ import { TextDocument } from "vscode-languageserver-textdocument";
 
 describe("LSP Server - Integration", () => {
 	it("should handle a complete program end-to-end", () => {
-		const source = `programme Calculatrice;
-var
-  x: entier;
-  y: entier;
-  resultat: entier;
-debut
-  ecrire("Entrez deux nombres:");
-  lire(x);
-  lire(y);
+		const source = `PROGRAMME Calculatrice;
+VAR
+  x: ENTIER;
+  y: ENTIER;
+  resultat: ENTIER;
+DEBUT
+  ECRIRE("Entrez deux nombres:");
+  LIRE(x);
+  LIRE(y);
 
-  si x > y alors
+  SI x > y ALORS
     resultat := x - y;
-  sinon
+  SINON
     resultat := y - x;
-  finsi;
+  FINSI;
 
-  ecrire("Résultat:", resultat)
-fin`;
+  ECRIRE("Résultat:", resultat)
+FIN`;
 
-		// Test lexer and parser work
 		const lexer = new Lexer(source);
 		const tokens = lexer.tokenize();
 		expect(tokens.length).toBeGreaterThan(0);
@@ -37,29 +36,27 @@ fin`;
 		expect(result.ast).toBeDefined();
 		expect(result.symbolTable).toBeDefined();
 
-		// Test symbol table has variables
 		expect(result.symbolTable.symbols.size).toBeGreaterThanOrEqual(3);
 		expect(result.symbolTable.symbols.has("x")).toBe(true);
 		expect(result.symbolTable.symbols.has("y")).toBe(true);
 		expect(result.symbolTable.symbols.has("resultat")).toBe(true);
 
-		// Test formatter produces valid output
 		const formatted = formatAlgoLangSource(source, 2);
-		expect(formatted).toContain("programme Calculatrice");
+		expect(formatted).toContain("PROGRAMME Calculatrice");
 		expect(formatted.split("\n").length).toBeGreaterThan(10);
 	});
 
 	it("should provide keyword documentation for all keywords", () => {
 		const allKeywords = [
-			"programme", "debut", "fin", "var",
-			"entier", "reel", "booleen", "chaine",
-			"si", "alors", "sinon", "finsi",
-			"tantque", "faire", "fintantque",
-			"pour", "allant", "de", "à", "a", "finpour",
-			"repeter", "jusqu'à",
-			"lire", "ecrire",
-			"vrai", "faux",
-			"et", "ou", "non"
+			"PROGRAMME", "DEBUT", "FIN", "VAR",
+			"ENTIER", "REEL", "BOOLEEN", "CHAINE",
+			"SI", "ALORS", "SINON", "FINSI",
+			"TANTQUE", "FAIRE", "FINTANTQUE",
+			"POUR", "ALLANT", "DE", "A", "FINPOUR",
+			"REPETER", "JUSQUA",
+			"LIRE", "ECRIRE",
+			"VRAI", "FAUX",
+			"ET", "OU", "NON"
 		];
 
 		for (const keyword of allKeywords) {
@@ -74,16 +71,14 @@ fin`;
 			"file://test.algo",
 			"algolang",
 			1,
-			"programme Test\nvar x: entier"
+			"PROGRAMME Test\nVAR x: ENTIER"
 		);
 
-		// Get "programme" at position (0, 5)
 		const word1 = getWordAtPosition(doc, { line: 0, character: 5 });
-		expect(word1).toBe("programme");
+		expect(word1).toBe("PROGRAMME");
 
-		// Get "entier" at position (1, 10)
 		const word2 = getWordAtPosition(doc, { line: 1, character: 10 });
-		expect(word2).toBe("entier");
+		expect(word2).toBe("ENTIER");
 
 		// Get "x" at position (1, 4)
 		const word3 = getWordAtPosition(doc, { line: 1, character: 4 });
@@ -95,7 +90,7 @@ fin`;
 			"file://test.algo",
 			"algolang",
 			1,
-			"programme Test\nvar x := 123"
+			"PROGRAMME Test\nVAR x := 123"
 		);
 
 		// Error at "x" (position 1, 4)
@@ -108,45 +103,43 @@ fin`;
 	});
 
 	it("should handle programs with errors", () => {
-		const sourceWithError = `programme Test;
-var
-  x: entier;
-debut
-  si x > 10
-    ecrire(x)
-  finsi
-fin`;
+		const sourceWithError = `PROGRAMME Test;
+VAR
+  x: ENTIER;
+DEBUT
+  SI x > 10
+    ECRIRE(x)
+  FINSI
+FIN`;
 
 		const lexer = new Lexer(sourceWithError);
 		const tokens = lexer.tokenize();
 		const parser = new Parser(tokens);
 		const result = parser.parse();
 
-		// Should have an error (missing 'alors')
 		expect(result.errors.length).toBeGreaterThan(0);
 
-		// Formatter should still work
 		const formatted = formatAlgoLangSource(sourceWithError, 2);
-		expect(formatted).toContain("programme Test");
+		expect(formatted).toContain("PROGRAMME Test");
 	});
 
 	it("should handle loop constructs correctly", () => {
-		const loopSource = `programme Boucles;
-var
-  i: entier;
-debut
-  pour i allant de 1 à 10 faire
-    ecrire(i);
-  finpour;
+		const loopSource = `PROGRAMME Boucles;
+VAR
+  i: ENTIER;
+DEBUT
+  POUR i ALLANT DE 1 A 10 FAIRE
+    ECRIRE(i);
+  FINPOUR;
 
-  tantque i < 20 faire
+  TANTQUE i < 20 FAIRE
     i := i + 1;
-  fintantque;
+  FINTANTQUE;
 
-  repeter
+  REPETER
     i := i - 1
-  jusqu'à i = 0
-fin`;
+  JUSQUA i = 0
+FIN`;
 
 		const lexer = new Lexer(loopSource);
 		const tokens = lexer.tokenize();
@@ -155,11 +148,10 @@ fin`;
 
 		expect(result.errors.length).toBe(0);
 
-		// Test formatting maintains structure
 		const formatted = formatAlgoLangSource(loopSource, 2);
-		expect(formatted).toContain("pour i allant de 1 à 10 faire");
-		expect(formatted).toContain("tantque i < 20 faire");
-		expect(formatted).toContain("repeter");
-		expect(formatted).toContain("jusqu'à i = 0");
+		expect(formatted).toContain("POUR i ALLANT DE 1 A 10 FAIRE");
+		expect(formatted).toContain("TANTQUE i < 20 FAIRE");
+		expect(formatted).toContain("REPETER");
+		expect(formatted).toContain("JUSQUA i = 0");
 	});
 });
