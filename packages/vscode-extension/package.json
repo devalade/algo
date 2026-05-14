@@ -3,7 +3,7 @@
     "displayName": "AlgoLang",
     "description": "Prise en charge du langage AlgoLang pour VS Code",
     "version": "1.0.0",
-    "publisher": "algolang-team",
+    "publisher": "devalade",
     "license": "MIT",
     "icon": "resources/icon.png",
     "repository": {
