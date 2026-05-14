@@ -21,6 +21,11 @@
         "algorithmique",
         "education"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/devalade/algo",
+        "directory": "packages/lsp-server"
+    },
     "author": "AlgoLang Team",
     "license": "MIT",
     "scripts": {
