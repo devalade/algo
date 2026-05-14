@@ -8,7 +8,7 @@
     ".": "./dist/index.js"
   },
   "bin": {
-    "algolang": "./bin/algolang"
+    "algolang": "./bin/algolang.js"
   },
   "files": [
     "dist",
