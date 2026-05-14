@@ -15,16 +15,16 @@ DEBUT
     ECRIRE("Entrez la note ", i, " :");
     LIRE(note);
     somme := somme + note;
-  FINPOUR;
-  
+  FINPOUR
+
   // Calculer et afficher la moyenne
   moyenne := somme / nbNotes;
   ECRIRE("La moyenne est : ", moyenne);
-  
+
   // Afficher la mention
   SI moyenne >= 10 ALORS
     ECRIRE("Passable");
   SINON
     ECRIRE("Insuffisant");
-  FINSI;
+  FINSI
 FIN

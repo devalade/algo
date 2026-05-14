@@ -17,9 +17,9 @@ DEBUT
         ECRIRE(i, " × ", j, " =  ", i * j, "  ");
       SINON
         ECRIRE(i, " × ", j, " = ", i * j, " ");
-      FINSI;
-    FINPOUR;
-  FINPOUR;
+      FINSI
+    FINPOUR
+  FINPOUR
   
   ECRIRE("");
   ECRIRE("Tables de multiplication terminées !");

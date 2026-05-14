@@ -7,17 +7,17 @@ DEBUT
   y := 5;
   resultat := x + y;
   ECRIRE("Addition: ", x, " + ", y, " = ", resultat);
-  
+
   // Boucle POUR
   ECRIRE("Table de multiplication de 3:");
   POUR i ALLANT DE 1 A 5 FAIRE
     ECRIRE("3 × ", i, " = ", 3 * i);
-  FINPOUR;
+  FINPOUR
 
   // Condition SI-ALORS-SINON
   SI resultat > 15 ALORS
     ECRIRE("Le résultat est grand");
   SINON
     ECRIRE("Le résultat est petit");
-  FINSI;
+  FINSI
 FIN

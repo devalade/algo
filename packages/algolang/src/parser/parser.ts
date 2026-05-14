@@ -318,16 +318,24 @@ export class Parser {
 			const statement = this.parseStatement();
 			statements.push(statement);
 
-			// Après une instruction, vérifier s'il y a un point-virgule
-			// Mais ne pas en exiger si le token suivant est END, ENDIF, ou ENDWHILE
+			// Block statements end with their own closing keyword — no trailing semicolon needed
+			const isBlockStatement = [
+				NodeType.IF_STATEMENT,
+				NodeType.WHILE_STATEMENT,
+				NodeType.FOR_STATEMENT,
+				NodeType.REPEAT_STATEMENT,
+				NodeType.COMPOUND_STATEMENT,
+			].includes(statement.type);
+
 			if (this.check(TokenType.SEMICOLON)) {
 				this.advance();
 			} else if (
+				!isBlockStatement &&
 				!this.check(TokenType.END) &&
 				!this.check(TokenType.ENDIF) &&
-				!this.check(TokenType.ENDWHILE)
+				!this.check(TokenType.ENDWHILE) &&
+				!this.check(TokenType.ENDFOR)
 			) {
-				// Si ce n'est pas END, ENDIF, ou ENDWHILE, on attend un point-virgule
 				this.errors.push({
 					type: "ERROR",
 					message: "Point-virgule attendu après l'instruction",

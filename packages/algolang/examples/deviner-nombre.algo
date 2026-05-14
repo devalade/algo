@@ -19,8 +19,8 @@ DEBUT
     
     SI essai = secret ALORS
       trouve := VRAI;
-    FINSI;
-  FINTANTQUE;
+    FINSI
+  FINTANTQUE
   
   ECRIRE("Bravo ! Trouvé en ", compteur, " essais !");
 FIN

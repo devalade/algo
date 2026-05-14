@@ -48,10 +48,10 @@ DEBUT
           ECRIRE(nombre1, " ÷ ", nombre2, " = ", resultat);
         SINON
           ECRIRE("Erreur : Division par zéro !");
-        FINSI;
-      FINSI;
+        FINSI
+      FINSI
     SINON
       ECRIRE("Choix invalide !");
-    FINSI;
-  FINTANTQUE;
+    FINSI
+  FINTANTQUE
 FIN

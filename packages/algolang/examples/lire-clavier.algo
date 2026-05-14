@@ -26,5 +26,5 @@ DEBUT
     ECRIRE("Félicitations, vous avez réussi !");
   SINON
     ECRIRE("Dommage, vous devez travailler davantage.");
-  FINSI;
+  FINSI
 FIN
