@@ -187,7 +187,7 @@ var
   x: entier;
 debut
   x := 5;
-fin.`;
+fin`;
   const lexer = new Lexer(source);
   const tokens = lexer.tokenize();
 
@@ -260,7 +260,7 @@ debut
   sinon
     ecrire("Petit");
   finsi;
-fin.`;
+fin`;
 
   const lexer = new Lexer(source);
   const tokens = lexer.tokenize();

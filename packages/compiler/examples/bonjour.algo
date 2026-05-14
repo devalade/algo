@@ -4,4 +4,4 @@ var
 debut
   message := "Bonjour, AlgoLang en français!";
   ecrire(message);
-fin.
+fin

@@ -12,7 +12,7 @@ var
 debut
   ${keyword} := 10;
   ecrire(${keyword});
-fin.`;
+fin`;
 
   console.log("Testing keyword:", keyword);
   const result = compiler.compile(source);

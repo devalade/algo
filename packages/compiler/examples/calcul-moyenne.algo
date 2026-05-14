@@ -27,4 +27,4 @@ debut
    sinon
      ecrire("Insuffisant");
    finsi;
-fin.
+fin

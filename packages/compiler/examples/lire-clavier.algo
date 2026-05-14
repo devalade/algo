@@ -27,4 +27,4 @@ debut
   sinon
     ecrire("Dommage, vous devez travailler davantage.");
   finsi;
-fin.
+fin

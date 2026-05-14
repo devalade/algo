@@ -23,7 +23,7 @@ var
 debut
   ${keyword} := 10;
   ecrire(${keyword});
-fin.`;
+fin`;
 
     const result = compiler.compile(source);
 
@@ -57,7 +57,7 @@ debut
   compteur := 0;
   resultat := nombre + compteur;
   ecrire(resultat);
-fin.`;
+fin`;
 
   const result = compiler.compile(source);
 
@@ -80,7 +80,7 @@ debut
   x := 10;
   resultat := x + pour; // 'pour' est un mot-clé réservé
   ecrire(resultat);
-fin.`;
+fin`;
 
   const result = compiler.compile(source);
 
@@ -106,7 +106,7 @@ debut
   valeurSi := 20;
   compteurPour := nombrePour + valeurSi;
   ecrire(compteurPour);
-fin.`;
+fin`;
 
   const result = compiler.compile(source);
 

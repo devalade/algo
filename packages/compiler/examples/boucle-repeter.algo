@@ -21,4 +21,4 @@ debut
   ecrire("");
   ecrire("La boucle s'est terminée après ", compteur - 1, " itérations.");
   ecrire("Merci d'avoir testé la boucle REPETER...JUSQU'À !");
-fin.
+fin

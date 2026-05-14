@@ -18,7 +18,7 @@ irm https://raw.githubusercontent.com/devalade/algo/main/install.ps1 | iex
 programme Bonjour;
 debut
   ecrire("Bonjour le monde !");
-fin.
+fin
 ```
 
 **3. Exécuter**
@@ -112,7 +112,7 @@ var
 debut
   message := "Bonjour, bienvenue dans l'apprentissage de l'algorithmique !";
   ecrire(message);
-fin.
+fin
 ```
 
 ### Niveau 2 : Variables et Calculs
@@ -127,7 +127,7 @@ debut
   nombre2 := 10;
   resultat := (nombre1 + nombre2) * 2;
   ecrire("Le résultat de (15 + 10) * 2 est : ", resultat);
-fin.
+fin
 ```
 
 ### Niveau 3 : Conditions (Si/Sinon)
@@ -146,7 +146,7 @@ debut
   sinon
     ecrire("Vous êtes mineur.");
   finsi;
-fin.
+fin
 ```
 
 ### Niveau 4 : Boucles (Répétition)
@@ -163,7 +163,7 @@ debut
   pour i := 1 à 10 faire
     ecrire(i, " x ", nombre, " = ", i * nombre);
   finpour;
-fin.
+fin
 ```
 
 ---

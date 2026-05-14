@@ -217,7 +217,7 @@ test("CompilationContext interface", () => {
   };
 
   const compilationContext: CompilationContext = {
-    sourceCode: "programme Test; debut fin.",
+    sourceCode: "programme Test; debut fin",
     filePath: "test.algo",
     symbolTable,
     currentScope: symbolTable,
@@ -225,7 +225,7 @@ test("CompilationContext interface", () => {
     warnings: []
   };
 
-  expect(compilationContext.sourceCode).toBe("programme Test; debut fin.");
+  expect(compilationContext.sourceCode).toBe("programme Test; debut fin");
   expect(compilationContext.filePath).toBe("test.algo");
   expect(compilationContext.symbolTable).toBe(symbolTable);
   expect(compilationContext.currentScope).toBe(symbolTable);

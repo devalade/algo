@@ -22,4 +22,4 @@ debut
     fintantque;
     
     ecrire("Fin du test. Valeur finale du score : ", score);
-fin.
+fin

@@ -21,7 +21,7 @@ var
 debut
   ${keyword} := 10;
   ecrire(${keyword});
-fin.`;
+fin`;
 
     const result = compiler.compile(source);
 

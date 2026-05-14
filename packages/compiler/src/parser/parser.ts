@@ -175,7 +175,6 @@ export class Parser {
 
 		const block = this.parseBlock();
 
-		this.expect(TokenType.DOT, "Le programme doit se terminer par un point");
 
 		return {
 			type: NodeType.PROGRAM,

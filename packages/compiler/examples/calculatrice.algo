@@ -20,4 +20,4 @@ debut
   sinon
     ecrire("Le résultat est petit");
   finsi;
-fin.
+fin

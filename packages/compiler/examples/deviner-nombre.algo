@@ -23,4 +23,4 @@ debut
   fintantque;
   
   ecrire("Bravo ! Trouve en ", compteur, " essais !");
-fin.
+fin

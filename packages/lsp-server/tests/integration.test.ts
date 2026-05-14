@@ -24,7 +24,7 @@ debut
   finsi;
 
   ecrire("Résultat:", resultat)
-fin.`;
+fin`;
 
 		// Test lexer and parser work
 		const lexer = new Lexer(source);
@@ -115,7 +115,7 @@ debut
   si x > 10
     ecrire(x)
   finsi
-fin.`;
+fin`;
 
 		const lexer = new Lexer(sourceWithError);
 		const tokens = lexer.tokenize();
@@ -146,7 +146,7 @@ debut
   repeter
     i := i - 1
   jusqu'à i = 0
-fin.`;
+fin`;
 
 		const lexer = new Lexer(loopSource);
 		const tokens = lexer.tokenize();

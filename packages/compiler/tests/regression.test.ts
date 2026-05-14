@@ -11,7 +11,7 @@ var
 debut
   message := "Bonjour, AlgoLang!";
   ecrire(message);
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -33,7 +33,7 @@ debut
   nombre2 := 5;
   resultat := nombre1 + nombre2;
   ecrire("Résultat: ", resultat);
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -52,7 +52,7 @@ debut
   pour compteur := 1 à 3 faire
     ecrire("i = ", compteur);
   finpour;
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -74,7 +74,7 @@ debut
   sinon
     ecrire("x est petit");
   finsi;
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -96,7 +96,7 @@ debut
     compteur := compteur + 1;
   jusqu'à compteur > 3;
   ecrire("Fin de la boucle");
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -122,7 +122,7 @@ debut
   ecrire("Nombre: ", nombre);
   ecrire("Texte: ", texte);
   ecrire("Booléen: ", drapeau);
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -141,7 +141,7 @@ var
   x: entier
 debut
   x := 5
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -159,7 +159,7 @@ debut
   x := 5;
   y := x + 1;  // y n'est pas déclarée
   ecrire(y);
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -183,7 +183,7 @@ debut
   valeur3 := 2;
   resultat := (valeur1 + valeur2) * valeur3;
   ecrire("Résultat: ", resultat);
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 
@@ -206,7 +206,7 @@ debut
       ecrire("  Colonne ", colonne);
     finpour;
   finpour;
-fin.`;
+fin`;
 
   const result = await compiler.compile(source);
 

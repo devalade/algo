@@ -10,7 +10,7 @@ function createParser(source: string): Parser {
 }
 
 test("Parser - Parse basic program structure", () => {
-  const parser = createParser("programme Test; debut fin.");
+  const parser = createParser("programme Test; debut fin");
   const result = parser.parse();
 
   expect(result.errors).toHaveLength(0);
@@ -26,7 +26,7 @@ test("Parser - Parse simple variable declaration", () => {
     var
       x: entier;
     debut
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -56,7 +56,7 @@ test("Parser - Parse assignment statements", () => {
       x: entier;
     debut
       x := 42;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -85,7 +85,7 @@ test("Parser - Parse multiple variable declarations", () => {
     var
       x, y, z: entier;
     debut
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -110,7 +110,7 @@ test("Parser - Parse arithmetic expressions", () => {
     debut
       x := 1 + 2;
       y := x * 3;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -141,7 +141,7 @@ test("Parser - Parse literals", () => {
       ecrire(vrai);
       ecrire(faux);
       ecrire("Hello");
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -168,7 +168,7 @@ test("Parser - Parse literals", () => {
 });
 
 test("Parser - Error on missing program keyword", () => {
-  const parser = createParser("Test; debut fin.");
+  const parser = createParser("Test; debut fin");
   const result = parser.parse();
 
   expect(result.errors.length).toBeGreaterThan(0);
@@ -176,7 +176,7 @@ test("Parser - Error on missing program keyword", () => {
 });
 
 test("Parser - Error on missing semicolon after program name", () => {
-  const parser = createParser("programme Test debut fin.");
+  const parser = createParser("programme Test debut fin");
   const result = parser.parse();
 
   expect(result.errors.length).toBeGreaterThan(0);
@@ -184,7 +184,7 @@ test("Parser - Error on missing semicolon after program name", () => {
 });
 
 test("Parser - Error on missing begin keyword", () => {
-  const parser = createParser("programme Test; var x: entier; fin.");
+  const parser = createParser("programme Test; var x: entier; fin");
   const result = parser.parse();
 
   expect(result.errors.length).toBeGreaterThan(0);
@@ -197,14 +197,6 @@ test("Parser - Error on missing end keyword", () => {
   expect(result.errors.length).toBeGreaterThan(0);
 });
 
-test("Parser - Error on missing program terminator", () => {
-  const parser = createParser("programme Test; debut fin");
-  const result = parser.parse();
-
-  expect(result.errors.length).toBeGreaterThan(0);
-  expect(result.errors[0].message).toContain("Le programme doit se terminer par un point");
-});
-
 test("Parser - Error on duplicate variable declaration", () => {
   const parser = createParser(`
     programme Test;
@@ -212,7 +204,7 @@ test("Parser - Error on duplicate variable declaration", () => {
       x: entier;
       x: reel;
     debut
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -228,7 +220,7 @@ test("Parser - Reserved keyword as variable name", () => {
       si: entier;
     debut
       si := 5;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -247,7 +239,7 @@ test("Parser - Parse if statements", () => {
       sinon
         ecrire(2);
       finsi;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -273,7 +265,7 @@ test("Parser - Parse while statements", () => {
       tantque vrai faire
         ecrire(1);
       fintantque;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -291,7 +283,7 @@ test("Parser - Parse for statements", () => {
       pour i := 1 à 10 faire
         ecrire(i);
       finpour;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -308,7 +300,7 @@ test("Parser - Parse repeat statements", () => {
       repeter
         ecrire(1);
       jusqu'à vrai;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -325,7 +317,7 @@ test("Parser - Parse read/write statements", () => {
     debut
       lire(x);
       ecrire(x, " hello");
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -338,7 +330,7 @@ test("Parser - Parse logical expressions", () => {
     var res: booleen;
     debut
       res := vrai et faux ou non vrai;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -351,7 +343,7 @@ test("Parser - Parse comparison expressions", () => {
     var res: booleen;
     debut
       res := 1 < 2 et 3 <= 4 ou 5 > 6 et 7 >= 8 ou 9 = 10 et 11 <> 12;
-    fin.
+    fin
   `);
   const result = parser.parse();
 
@@ -370,7 +362,7 @@ test("Parser - Nested control structures", () => {
           fintantque;
         finsi;
       finpour;
-    fin.
+    fin
   `);
   const result = parser.parse();
 

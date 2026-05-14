@@ -12,7 +12,7 @@ test("AlgoLangCompiler - Compile valid program", () => {
     debut
       x := 42;
       ecrire(x);
-    fin.
+    fin
   `;
 
   const result = compiler.compile(sourceCode);
@@ -62,7 +62,7 @@ test("AlgoLangCompiler - Custom compiler options", () => {
       x: entier;
     debut
       x := 42;
-    fin.
+    fin
   `;
 
   const result = compiler.compile(sourceCode, "test.algo");
@@ -80,7 +80,7 @@ test("AlgoLangCompiler - File path tracking", () => {
       x: entier;
     debut
       x := 42;
-    fin.
+    fin
   `;
 
   const result = compiler.compile(sourceCode, "my_program.algo");
@@ -98,7 +98,7 @@ test("AlgoLangCompiler - Symbol table with errors", () => {
       x: entier;
     debut
       x := 42
-    fin.
+    fin
   `;
 
   const symbolTable = compiler.getSymbolTable(sourceCode);
@@ -122,7 +122,7 @@ test("AlgoLangCompiler - Performance tracking", () => {
           i := i + j;
         finpour;
       finpour;
-    fin.
+    fin
   `;
 
   const result = compiler.compile(sourceCode);
