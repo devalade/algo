@@ -309,3 +309,10 @@ export const KEYWORDS: Record<string, KeywordEntry> = {
 		documentation: "**reel_en_entier(x)** : Convertit un réel en entier (troncature).",
 	},
 };
+
+/** Names of built-in functions that cannot be used as variable names. */
+export const BUILTIN_NAMES: ReadonlySet<string> = new Set(
+	Object.entries(KEYWORDS)
+		.filter(([, e]) => e.tokenType === null)
+		.map(([label]) => label),
+);

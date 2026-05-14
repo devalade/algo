@@ -92,6 +92,67 @@ fin`;
   expect(reservedKeywordError?.message).toContain("'pour' est un mot-clé réservé");
 });
 
+test("Erreur - Fonction intégrée utilisée comme nom de variable", () => {
+  const compiler = new AlgoLangCompiler();
+
+  const builtins = ["abs", "max", "min", "mod", "racine_carree", "taille", "sous_chaine", "concat", "entier_en_reel", "reel_en_entier"];
+
+  for (const name of builtins) {
+    const source = `
+programme TestBuiltin;
+var
+  ${name}: entier;
+debut
+  ${name} := 0
+fin`;
+
+    const result = compiler.compile(source);
+
+    expect(result.success).toBe(false);
+    const err = result.errors.find((e: any) => e.code === "BUILTIN_SHADOWING");
+    expect(err).toBeDefined();
+    expect(err?.message).toContain(`'${name}' est une fonction intégrée`);
+    expect(err?.suggestion).toContain("Choisissez un autre nom");
+  }
+});
+
+test("Erreur - Fonction intégrée utilisée dans un tableau", () => {
+  const compiler = new AlgoLangCompiler();
+
+  const source = `
+programme TestBuiltinTab;
+var
+  taille: tableau[5] de entier;
+debut
+  taille[0] := 1
+fin`;
+
+  const result = compiler.compile(source);
+  expect(result.success).toBe(false);
+  const err = result.errors.find((e: any) => e.code === "BUILTIN_SHADOWING");
+  expect(err).toBeDefined();
+  expect(err?.message).toContain("'taille' est une fonction intégrée");
+});
+
+test("Succès - Noms similaires aux fonctions intégrées mais valides", () => {
+  const compiler = new AlgoLangCompiler();
+
+  const source = `
+programme TestSimilaireBuiltin;
+var
+  absValeur: entier;
+  maxTemp: entier;
+debut
+  absValeur := 5;
+  maxTemp := 10;
+  ecrire(absValeur, maxTemp)
+fin`;
+
+  const result = compiler.compile(source);
+  expect(result.success).toBe(true);
+  expect(result.errors).toHaveLength(0);
+});
+
 test("Succès - Noms similaires mais valides", async () => {
   const compiler = new AlgoLangCompiler();
 
