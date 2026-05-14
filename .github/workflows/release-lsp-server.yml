@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     defaults:
       run:
         working-directory: packages/lsp-server
@@ -69,9 +70,7 @@ jobs:
         run: chmod +x bin/algolang-lsp
 
       - name: Publish to npm
-        run: npm publish --access public --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --ignore-scripts --provenance
 
       - name: Restore workspace dep and commit
         run: |
