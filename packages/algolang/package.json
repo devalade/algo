@@ -28,7 +28,7 @@
   "author": "AlgoLang Team",
   "license": "MIT",
   "scripts": {
-    "build": "bun build src/cli.ts --outdir dist --outfile=cli.js --target=node && bun build src/index.ts --outdir dist --outfile=index.js --target=node && node -e \"const fs=require('fs');const f='dist/cli.js';fs.writeFileSync(f,'#!/usr/bin/env node\\n'+fs.readFileSync(f,'utf8'))\" && chmod +x dist/cli.js",
+    "build": "bun build src/cli.ts --outdir dist --outfile=cli.js --target=node && bun build src/index.ts --outdir dist --outfile=index.js --target=node && node -e \"const fs=require('fs');const f='dist/cli.js';let c=fs.readFileSync(f,'utf8');if(c.startsWith('#!')){c=c.slice(c.indexOf('\\n')+1);}fs.writeFileSync(f,'#!/usr/bin/env node\\n'+c);\" && chmod +x dist/cli.js",
     "prepublishOnly": "bun run build",
     "dev": "bun --watch src/index.ts",
     "test": "bun test",
