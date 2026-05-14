@@ -30,6 +30,11 @@ jobs:
         with:
           bun-version: latest
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
         working-directory: .
@@ -60,9 +65,9 @@ jobs:
         run: node bin/algolang --version
 
       - name: Publish to npm
-        run: bun publish --access public
+        run: npm publish --access public --ignore-scripts
         env:
-          BUN_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit, tag and push
         run: |
