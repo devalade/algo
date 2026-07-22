@@ -10,9 +10,11 @@ export class CodeGenerator {
 	private symbolTable: SymbolTable;
 	private errors: CompilationError[] = [];
 	private indentLevel: number = 0;
+	private options: CompilerOptions;
 
-	constructor(symbolTable: SymbolTable, _options: CompilerOptions) {
+	constructor(symbolTable: SymbolTable, options: CompilerOptions) {
 		this.symbolTable = symbolTable;
+		this.options = options;
 	}
 
 	public generate(ast: ASTNode): CompiledOutput {
@@ -51,6 +53,13 @@ export class CodeGenerator {
 	}
 
 	private generateJavaScript(ast: ASTNode): string {
+		if (this.options.target === "browser") {
+			return this.generateBrowserJavaScript(ast);
+		}
+		return this.generateNodeJavaScript(ast);
+	}
+
+	private generateNodeJavaScript(ast: ASTNode): string {
 		const lines: string[] = [];
 
 		// En-tête du code JavaScript
@@ -85,6 +94,47 @@ export class CodeGenerator {
 		lines.push("// Point d'entrée principal");
 		lines.push("main().then(() => {");
 		lines.push("  rl.close();");
+		lines.push("});");
+
+		return lines.join("\n");
+	}
+
+	/** Browser / playground: no Node APIs; host injects globalThis.__algoLire / __algoEcrire. */
+	private generateBrowserJavaScript(ast: ASTNode): string {
+		const lines: string[] = [];
+
+		lines.push("// Code généré par AlgoLang (navigateur)");
+		lines.push("");
+		lines.push("async function lire(prompt) {");
+		lines.push("  if (typeof globalThis.__algoLire === 'function') {");
+		lines.push("    return String(await globalThis.__algoLire(prompt ?? '')).trim();");
+		lines.push("  }");
+		lines.push("  const answer = globalThis.prompt(prompt ?? '', '');");
+		lines.push("  return String(answer ?? '').trim();");
+		lines.push("}");
+		lines.push("");
+		lines.push("function ecrire(...args) {");
+		lines.push("  if (typeof globalThis.__algoEcrire === 'function') {");
+		lines.push("    globalThis.__algoEcrire(...args);");
+		lines.push("    return;");
+		lines.push("  }");
+		lines.push("  console.log(...args);");
+		lines.push("}");
+		lines.push("");
+
+		const programCode = this.generateNode(ast);
+		lines.push(programCode);
+		lines.push("");
+		lines.push("main().then(() => {");
+		lines.push("  if (typeof globalThis.__algoDone === 'function') {");
+		lines.push("    globalThis.__algoDone();");
+		lines.push("  }");
+		lines.push("}).catch((err) => {");
+		lines.push("  if (typeof globalThis.__algoError === 'function') {");
+		lines.push("    globalThis.__algoError(err);");
+		lines.push("  } else {");
+		lines.push("    console.error(err);");
+		lines.push("  }");
 		lines.push("});");
 
 		return lines.join("\n");

@@ -188,7 +188,8 @@ export interface CompilationWarning {
 }
 
 export interface CompilerOptions {
-	target: "javascript";
+	/** `javascript` = Node (readline/CLI). `browser` = playground (injected lire/ecrire). */
+	target: "javascript" | "browser";
 	optimizationLevel: 0 | 1 | 2 | 3;
 	debugMode: boolean;
 	pedagogicalMode: boolean;
