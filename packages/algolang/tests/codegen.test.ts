@@ -87,6 +87,17 @@ describe("CodeGenerator - expressions", () => {
 		expect(result.output).toContain("a = ((true || false) && !(true));");
 	});
 
+	test("logical operators keep their meaning when written in upper case", () => {
+		// The lexer classifies keywords case-insensitively but stores the source
+		// spelling, so codegen must not compare against the lower-case form only.
+		const expr = binaryOp("ET",
+			binaryOp("OU", lit(true), lit(false)),
+			unaryOp("NON", lit(true)),
+		);
+		const result = gen(program("Test", compound(assign(variable("a"), expr))));
+		expect(result.output).toContain("a = ((true || false) && !(true));");
+	});
+
 	test("modulo", () => {
 		const result = gen(program("Test", compound(
 			assign(variable("r"), binaryOp("%", variable("n"), lit(2))),

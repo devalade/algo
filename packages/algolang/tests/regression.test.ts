@@ -215,3 +215,67 @@ fin`;
   expect(result.output).toContain("for (let ligne = 1; ligne <= 2; ligne++)");
   expect(result.output).toContain("for (let colonne = 1; colonne <= 2; colonne++)");
 });
+test("Compilation - Opérateurs logiques en majuscules", async () => {
+  // Les supports pédagogiques écrivent AlgoLang en majuscules. ET, OU et NON
+  // étaient alors recopiés tels quels dans le JavaScript (ET/OU) ou perdus
+  // silencieusement (NON), ce que la compilation ne signalait pas.
+  const compiler = new AlgoLangCompiler();
+  const source = `
+PROGRAMME Conditions;
+VAR
+  majeur: BOOLEEN;
+  membre: BOOLEEN;
+  tarifReduit: BOOLEEN;
+DEBUT
+  majeur := FAUX;
+  membre := VRAI;
+  tarifReduit := NON majeur OU membre;
+  SI majeur ET membre ALORS
+    ECRIRE("plein tarif");
+  FINSI
+FIN`;
+
+  const result = await compiler.compile(source);
+
+  expect(result.success).toBe(true);
+  expect(result.errors).toHaveLength(0);
+  expect(result.output).toContain("tarifReduit = (!(majeur) || membre);");
+  expect(result.output).toContain("if ((majeur && membre))");
+  expect(result.output).not.toContain(" OU ");
+  expect(result.output).not.toContain(" ET ");
+});
+
+test("Compilation - Le JavaScript généré s'exécute vraiment", async () => {
+  // Un mot-clé recopié tel quel produisait du JavaScript invalide sans qu'aucune
+  // erreur de compilation ne soit levée : seule l'exécution le révélait.
+  const compiler = new AlgoLangCompiler({ target: "browser" });
+  const source = `
+PROGRAMME Portes;
+VAR
+  ouverte: BOOLEEN;
+  verrouillee: BOOLEEN;
+DEBUT
+  ouverte := FAUX;
+  verrouillee := FAUX;
+  SI NON ouverte ET NON verrouillee ALORS
+    ECRIRE("entrez");
+  SINON
+    ECRIRE("attendez");
+  FINSI
+FIN`;
+
+  const result = await compiler.compile(source);
+  expect(result.success).toBe(true);
+
+  const lines: string[] = [];
+  const scope = globalThis as Record<string, unknown>;
+  scope.__algoEcrire = (...args: unknown[]) => lines.push(args.join(""));
+  scope.__algoDone = () => {};
+  scope.__algoError = (err: Error) => {
+    throw err;
+  };
+  new Function(result.output as string)();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  expect(lines).toEqual(["entrez"]);
+});

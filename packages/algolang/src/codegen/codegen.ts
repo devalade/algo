@@ -597,7 +597,9 @@ export class CodeGenerator {
 		}
 
 		const operand = node.children[0];
-		const operator = node.value as string;
+		// Le lexer conserve l'orthographe de la source, donc NON, Non et non
+		// arrivent ici tels quels : comparer sans tenir compte de la casse.
+		const operator = (node.value as string).toLowerCase();
 
 		if (!operand) {
 			return "";
@@ -657,7 +659,8 @@ export class CodeGenerator {
 	}
 
 	private mapOperator(operator: string): string {
-		switch (operator) {
+		// Idem : ET, Et et et désignent le même opérateur.
+		switch (operator.toLowerCase()) {
 			case ":=":
 				return "=";
 			case "=":
