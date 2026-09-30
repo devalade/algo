@@ -19,12 +19,14 @@ var __toESM = (mod, isNodeMode, target) => {
   }
   target = mod != null ? __create(__getProtoOf(mod)) : {};
   const to = isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target;
-  for (let key of __getOwnPropNames(mod))
-    if (!__hasOwnProp.call(to, key))
-      __defProp(to, key, {
-        get: __accessProp.bind(mod, key),
-        enumerable: true
-      });
+  if (mod && typeof mod === "object" || typeof mod === "function") {
+    for (let key of __getOwnPropNames(mod))
+      if (!__hasOwnProp.call(to, key))
+        __defProp(to, key, {
+          get: __accessProp.bind(mod, key),
+          enumerable: true
+        });
+  }
   if (canCache)
     cache.set(mod, to);
   return to;
@@ -33,7 +35,7 @@ var __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, 
 var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/utils/is.js
-var require_is = __commonJS((exports) => {
+var require_is = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.thenable = exports.typedArray = exports.stringArray = exports.array = exports.func = exports.error = exports.number = exports.string = exports.boolean = undefined;
   function boolean(value) {
@@ -75,7 +77,7 @@ var require_is = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/is.js
-var require_is2 = __commonJS((exports) => {
+var require_is2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.stringArray = exports.array = exports.func = exports.error = exports.number = exports.string = exports.boolean = undefined;
   function boolean(value) {
@@ -109,7 +111,7 @@ var require_is2 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/messages.js
-var require_messages = __commonJS((exports) => {
+var require_messages = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.Message = exports.NotificationType9 = exports.NotificationType8 = exports.NotificationType7 = exports.NotificationType6 = exports.NotificationType5 = exports.NotificationType4 = exports.NotificationType3 = exports.NotificationType2 = exports.NotificationType1 = exports.NotificationType0 = exports.NotificationType = exports.RequestType9 = exports.RequestType8 = exports.RequestType7 = exports.RequestType6 = exports.RequestType5 = exports.RequestType4 = exports.RequestType3 = exports.RequestType2 = exports.RequestType1 = exports.RequestType = exports.RequestType0 = exports.AbstractMessageSignature = exports.ParameterStructures = exports.ResponseError = exports.ErrorCodes = undefined;
   var is = require_is2();
@@ -369,7 +371,7 @@ var require_messages = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/linkedMap.js
-var require_linkedMap = __commonJS((exports) => {
+var require_linkedMap = __commonJS(function(exports) {
   var _a;
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.LRUCache = exports.LinkedMap = exports.Touch = undefined;
@@ -738,7 +740,7 @@ var require_linkedMap = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/disposable.js
-var require_disposable = __commonJS((exports) => {
+var require_disposable = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.Disposable = undefined;
   var Disposable;
@@ -753,7 +755,7 @@ var require_disposable = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/ral.js
-var require_ral = __commonJS((exports) => {
+var require_ral = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var _ral;
   function RAL() {
@@ -775,7 +777,7 @@ var require_ral = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/events.js
-var require_events = __commonJS((exports) => {
+var require_events = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.Emitter = exports.Event = undefined;
   var ral_1 = require_ral();
@@ -893,7 +895,7 @@ var require_events = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/cancellation.js
-var require_cancellation = __commonJS((exports) => {
+var require_cancellation = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.CancellationTokenSource = exports.CancellationToken = undefined;
   var ral_1 = require_ral();
@@ -981,7 +983,7 @@ var require_cancellation = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/sharedArrayCancellation.js
-var require_sharedArrayCancellation = __commonJS((exports) => {
+var require_sharedArrayCancellation = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.SharedArrayReceiverStrategy = exports.SharedArraySenderStrategy = undefined;
   var cancellation_1 = require_cancellation();
@@ -1058,7 +1060,7 @@ var require_sharedArrayCancellation = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/semaphore.js
-var require_semaphore = __commonJS((exports) => {
+var require_semaphore = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.Semaphore = undefined;
   var ral_1 = require_ral();
@@ -1124,7 +1126,7 @@ var require_semaphore = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/messageReader.js
-var require_messageReader = __commonJS((exports) => {
+var require_messageReader = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ReadableStreamMessageReader = exports.AbstractMessageReader = exports.MessageReader = undefined;
   var ral_1 = require_ral();
@@ -1312,7 +1314,7 @@ ${JSON.stringify(Object.fromEntries(headers))}`));
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/messageWriter.js
-var require_messageWriter = __commonJS((exports) => {
+var require_messageWriter = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.WriteableStreamMessageWriter = exports.AbstractMessageWriter = exports.MessageWriter = undefined;
   var ral_1 = require_ral();
@@ -1424,7 +1426,7 @@ var require_messageWriter = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/messageBuffer.js
-var require_messageBuffer = __commonJS((exports) => {
+var require_messageBuffer = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.AbstractMessageBuffer = undefined;
   var CR = 13;
@@ -1573,7 +1575,7 @@ ${header}`);
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/connection.js
-var require_connection = __commonJS((exports) => {
+var require_connection = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.createMessageConnection = exports.ConnectionOptions = exports.MessageStrategy = exports.CancellationStrategy = exports.CancellationSenderStrategy = exports.CancellationReceiverStrategy = exports.RequestCancellationReceiverStrategy = exports.IdCancellationReceiverStrategy = exports.ConnectionStrategy = exports.ConnectionError = exports.ConnectionErrors = exports.LogTraceNotification = exports.SetTraceNotification = exports.TraceFormat = exports.TraceValues = exports.Trace = exports.NullLogger = exports.ProgressType = exports.ProgressToken = undefined;
   var ral_1 = require_ral();
@@ -2702,7 +2704,7 @@ ${JSON.stringify(message, null, 4)}`);
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/common/api.js
-var require_api = __commonJS((exports) => {
+var require_api = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ProgressType = exports.ProgressToken = exports.createMessageConnection = exports.NullLogger = exports.ConnectionOptions = exports.ConnectionStrategy = exports.AbstractMessageBuffer = exports.WriteableStreamMessageWriter = exports.AbstractMessageWriter = exports.MessageWriter = exports.ReadableStreamMessageReader = exports.AbstractMessageReader = exports.MessageReader = exports.SharedArrayReceiverStrategy = exports.SharedArraySenderStrategy = exports.CancellationToken = exports.CancellationTokenSource = exports.Emitter = exports.Event = exports.Disposable = exports.LRUCache = exports.Touch = exports.LinkedMap = exports.ParameterStructures = exports.NotificationType9 = exports.NotificationType8 = exports.NotificationType7 = exports.NotificationType6 = exports.NotificationType5 = exports.NotificationType4 = exports.NotificationType3 = exports.NotificationType2 = exports.NotificationType1 = exports.NotificationType0 = exports.NotificationType = exports.ErrorCodes = exports.ResponseError = exports.RequestType9 = exports.RequestType8 = exports.RequestType7 = exports.RequestType6 = exports.RequestType5 = exports.RequestType4 = exports.RequestType3 = exports.RequestType2 = exports.RequestType1 = exports.RequestType0 = exports.RequestType = exports.Message = exports.RAL = undefined;
   exports.MessageStrategy = exports.CancellationStrategy = exports.CancellationSenderStrategy = exports.CancellationReceiverStrategy = exports.ConnectionError = exports.ConnectionErrors = exports.LogTraceNotification = exports.SetTraceNotification = exports.TraceFormat = exports.TraceValues = exports.Trace = undefined;
@@ -2901,7 +2903,7 @@ var require_api = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/node/ril.js
-var require_ril = __commonJS((exports) => {
+var require_ril = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   var util_1 = __require("util");
   var api_1 = require_api();
@@ -3057,7 +3059,7 @@ var require_ril = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-jsonrpc@8.2.0/node_modules/vscode-jsonrpc/lib/node/main.js
-var require_main = __commonJS((exports) => {
+var require_main = __commonJS(function(exports) {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -3324,7 +3326,7 @@ var require_main = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-types@3.17.5/node_modules/vscode-languageserver-types/lib/umd/main.js
-var require_main2 = __commonJS((exports, module) => {
+var require_main2 = __commonJS(function(exports, module) {
   (function(factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
       var v = factory(__require, exports);
@@ -4827,7 +4829,7 @@ var require_main2 = __commonJS((exports, module) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/messages.js
-var require_messages2 = __commonJS((exports) => {
+var require_messages2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ProtocolNotificationType = exports.ProtocolNotificationType0 = exports.ProtocolRequestType = exports.ProtocolRequestType0 = exports.RegistrationType = exports.MessageDirection = undefined;
   var vscode_jsonrpc_1 = require_main();
@@ -4875,7 +4877,7 @@ var require_messages2 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/utils/is.js
-var require_is3 = __commonJS((exports) => {
+var require_is3 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.objectLiteral = exports.typedArray = exports.stringArray = exports.array = exports.func = exports.error = exports.number = exports.string = exports.boolean = undefined;
   function boolean(value) {
@@ -4917,7 +4919,7 @@ var require_is3 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.implementation.js
-var require_protocol_implementation = __commonJS((exports) => {
+var require_protocol_implementation = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ImplementationRequest = undefined;
   var messages_1 = require_messages2();
@@ -4930,7 +4932,7 @@ var require_protocol_implementation = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.typeDefinition.js
-var require_protocol_typeDefinition = __commonJS((exports) => {
+var require_protocol_typeDefinition = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.TypeDefinitionRequest = undefined;
   var messages_1 = require_messages2();
@@ -4943,7 +4945,7 @@ var require_protocol_typeDefinition = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.workspaceFolder.js
-var require_protocol_workspaceFolder = __commonJS((exports) => {
+var require_protocol_workspaceFolder = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DidChangeWorkspaceFoldersNotification = exports.WorkspaceFoldersRequest = undefined;
   var messages_1 = require_messages2();
@@ -4962,7 +4964,7 @@ var require_protocol_workspaceFolder = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.configuration.js
-var require_protocol_configuration = __commonJS((exports) => {
+var require_protocol_configuration = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ConfigurationRequest = undefined;
   var messages_1 = require_messages2();
@@ -4975,7 +4977,7 @@ var require_protocol_configuration = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.colorProvider.js
-var require_protocol_colorProvider = __commonJS((exports) => {
+var require_protocol_colorProvider = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ColorPresentationRequest = exports.DocumentColorRequest = undefined;
   var messages_1 = require_messages2();
@@ -4994,7 +4996,7 @@ var require_protocol_colorProvider = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.foldingRange.js
-var require_protocol_foldingRange = __commonJS((exports) => {
+var require_protocol_foldingRange = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.FoldingRangeRefreshRequest = exports.FoldingRangeRequest = undefined;
   var messages_1 = require_messages2();
@@ -5013,7 +5015,7 @@ var require_protocol_foldingRange = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.declaration.js
-var require_protocol_declaration = __commonJS((exports) => {
+var require_protocol_declaration = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DeclarationRequest = undefined;
   var messages_1 = require_messages2();
@@ -5026,7 +5028,7 @@ var require_protocol_declaration = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.selectionRange.js
-var require_protocol_selectionRange = __commonJS((exports) => {
+var require_protocol_selectionRange = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.SelectionRangeRequest = undefined;
   var messages_1 = require_messages2();
@@ -5039,7 +5041,7 @@ var require_protocol_selectionRange = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.progress.js
-var require_protocol_progress = __commonJS((exports) => {
+var require_protocol_progress = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.WorkDoneProgressCancelNotification = exports.WorkDoneProgressCreateRequest = exports.WorkDoneProgress = undefined;
   var vscode_jsonrpc_1 = require_main();
@@ -5067,7 +5069,7 @@ var require_protocol_progress = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.callHierarchy.js
-var require_protocol_callHierarchy = __commonJS((exports) => {
+var require_protocol_callHierarchy = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.CallHierarchyOutgoingCallsRequest = exports.CallHierarchyIncomingCallsRequest = exports.CallHierarchyPrepareRequest = undefined;
   var messages_1 = require_messages2();
@@ -5092,7 +5094,7 @@ var require_protocol_callHierarchy = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.semanticTokens.js
-var require_protocol_semanticTokens = __commonJS((exports) => {
+var require_protocol_semanticTokens = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.SemanticTokensRefreshRequest = exports.SemanticTokensRangeRequest = exports.SemanticTokensDeltaRequest = exports.SemanticTokensRequest = exports.SemanticTokensRegistrationType = exports.TokenFormat = undefined;
   var messages_1 = require_messages2();
@@ -5135,7 +5137,7 @@ var require_protocol_semanticTokens = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.showDocument.js
-var require_protocol_showDocument = __commonJS((exports) => {
+var require_protocol_showDocument = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ShowDocumentRequest = undefined;
   var messages_1 = require_messages2();
@@ -5148,7 +5150,7 @@ var require_protocol_showDocument = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.linkedEditingRange.js
-var require_protocol_linkedEditingRange = __commonJS((exports) => {
+var require_protocol_linkedEditingRange = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.LinkedEditingRangeRequest = undefined;
   var messages_1 = require_messages2();
@@ -5161,7 +5163,7 @@ var require_protocol_linkedEditingRange = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.fileOperations.js
-var require_protocol_fileOperations = __commonJS((exports) => {
+var require_protocol_fileOperations = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.WillDeleteFilesRequest = exports.DidDeleteFilesNotification = exports.DidRenameFilesNotification = exports.WillRenameFilesRequest = exports.DidCreateFilesNotification = exports.WillCreateFilesRequest = exports.FileOperationPatternKind = undefined;
   var messages_1 = require_messages2();
@@ -5209,7 +5211,7 @@ var require_protocol_fileOperations = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.moniker.js
-var require_protocol_moniker = __commonJS((exports) => {
+var require_protocol_moniker = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.MonikerRequest = exports.MonikerKind = exports.UniquenessLevel = undefined;
   var messages_1 = require_messages2();
@@ -5236,7 +5238,7 @@ var require_protocol_moniker = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.typeHierarchy.js
-var require_protocol_typeHierarchy = __commonJS((exports) => {
+var require_protocol_typeHierarchy = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.TypeHierarchySubtypesRequest = exports.TypeHierarchySupertypesRequest = exports.TypeHierarchyPrepareRequest = undefined;
   var messages_1 = require_messages2();
@@ -5261,7 +5263,7 @@ var require_protocol_typeHierarchy = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.inlineValue.js
-var require_protocol_inlineValue = __commonJS((exports) => {
+var require_protocol_inlineValue = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlineValueRefreshRequest = exports.InlineValueRequest = undefined;
   var messages_1 = require_messages2();
@@ -5280,7 +5282,7 @@ var require_protocol_inlineValue = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.inlayHint.js
-var require_protocol_inlayHint = __commonJS((exports) => {
+var require_protocol_inlayHint = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlayHintRefreshRequest = exports.InlayHintResolveRequest = exports.InlayHintRequest = undefined;
   var messages_1 = require_messages2();
@@ -5305,7 +5307,7 @@ var require_protocol_inlayHint = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.diagnostic.js
-var require_protocol_diagnostic = __commonJS((exports) => {
+var require_protocol_diagnostic = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DiagnosticRefreshRequest = exports.WorkspaceDiagnosticRequest = exports.DocumentDiagnosticRequest = exports.DocumentDiagnosticReportKind = exports.DiagnosticServerCancellationData = undefined;
   var vscode_jsonrpc_1 = require_main();
@@ -5347,7 +5349,7 @@ var require_protocol_diagnostic = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.notebook.js
-var require_protocol_notebook = __commonJS((exports) => {
+var require_protocol_notebook = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DidCloseNotebookDocumentNotification = exports.DidSaveNotebookDocumentNotification = exports.DidChangeNotebookDocumentNotification = exports.NotebookCellArrayChange = exports.DidOpenNotebookDocumentNotification = exports.NotebookDocumentSyncRegistrationType = exports.NotebookDocument = exports.NotebookCell = exports.ExecutionSummary = exports.NotebookCellKind = undefined;
   var vscode_languageserver_types_1 = require_main2();
@@ -5533,7 +5535,7 @@ var require_protocol_notebook = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.inlineCompletion.js
-var require_protocol_inlineCompletion = __commonJS((exports) => {
+var require_protocol_inlineCompletion = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlineCompletionRequest = undefined;
   var messages_1 = require_messages2();
@@ -5546,7 +5548,7 @@ var require_protocol_inlineCompletion = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/protocol.js
-var require_protocol = __commonJS((exports) => {
+var require_protocol = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.WorkspaceSymbolRequest = exports.CodeActionResolveRequest = exports.CodeActionRequest = exports.DocumentSymbolRequest = exports.DocumentHighlightRequest = exports.ReferencesRequest = exports.DefinitionRequest = exports.SignatureHelpRequest = exports.SignatureHelpTriggerKind = exports.HoverRequest = exports.CompletionResolveRequest = exports.CompletionRequest = exports.CompletionTriggerKind = exports.PublishDiagnosticsNotification = exports.WatchKind = exports.RelativePattern = exports.FileChangeType = exports.DidChangeWatchedFilesNotification = exports.WillSaveTextDocumentWaitUntilRequest = exports.WillSaveTextDocumentNotification = exports.TextDocumentSaveReason = exports.DidSaveTextDocumentNotification = exports.DidCloseTextDocumentNotification = exports.DidChangeTextDocumentNotification = exports.TextDocumentContentChangeEvent = exports.DidOpenTextDocumentNotification = exports.TextDocumentSyncKind = exports.TelemetryEventNotification = exports.LogMessageNotification = exports.ShowMessageRequest = exports.ShowMessageNotification = exports.MessageType = exports.DidChangeConfigurationNotification = exports.ExitNotification = exports.ShutdownRequest = exports.InitializedNotification = exports.InitializeErrorCodes = exports.InitializeRequest = exports.WorkDoneProgressOptions = exports.TextDocumentRegistrationOptions = exports.StaticRegistrationOptions = exports.PositionEncodingKind = exports.FailureHandlingKind = exports.ResourceOperationKind = exports.UnregistrationRequest = exports.RegistrationRequest = exports.DocumentSelector = exports.NotebookCellTextDocumentFilter = exports.NotebookDocumentFilter = exports.TextDocumentFilter = undefined;
   exports.MonikerRequest = exports.MonikerKind = exports.UniquenessLevel = exports.WillDeleteFilesRequest = exports.DidDeleteFilesNotification = exports.WillRenameFilesRequest = exports.DidRenameFilesNotification = exports.WillCreateFilesRequest = exports.DidCreateFilesNotification = exports.FileOperationPatternKind = exports.LinkedEditingRangeRequest = exports.ShowDocumentRequest = exports.SemanticTokensRegistrationType = exports.SemanticTokensRefreshRequest = exports.SemanticTokensRangeRequest = exports.SemanticTokensDeltaRequest = exports.SemanticTokensRequest = exports.TokenFormat = exports.CallHierarchyPrepareRequest = exports.CallHierarchyOutgoingCallsRequest = exports.CallHierarchyIncomingCallsRequest = exports.WorkDoneProgressCancelNotification = exports.WorkDoneProgressCreateRequest = exports.WorkDoneProgress = exports.SelectionRangeRequest = exports.DeclarationRequest = exports.FoldingRangeRefreshRequest = exports.FoldingRangeRequest = exports.ColorPresentationRequest = exports.DocumentColorRequest = exports.ConfigurationRequest = exports.DidChangeWorkspaceFoldersNotification = exports.WorkspaceFoldersRequest = exports.TypeDefinitionRequest = exports.ImplementationRequest = exports.ApplyWorkspaceEditRequest = exports.ExecuteCommandRequest = exports.PrepareRenameRequest = exports.RenameRequest = exports.PrepareSupportDefaultBehavior = exports.DocumentOnTypeFormattingRequest = exports.DocumentRangesFormattingRequest = exports.DocumentRangeFormattingRequest = exports.DocumentFormattingRequest = exports.DocumentLinkResolveRequest = exports.DocumentLinkRequest = exports.CodeLensRefreshRequest = exports.CodeLensResolveRequest = exports.CodeLensRequest = exports.WorkspaceSymbolResolveRequest = undefined;
@@ -6179,7 +6181,7 @@ var require_protocol = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/connection.js
-var require_connection2 = __commonJS((exports) => {
+var require_connection2 = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.createProtocolConnection = undefined;
   var vscode_jsonrpc_1 = require_main();
@@ -6193,7 +6195,7 @@ var require_connection2 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/common/api.js
-var require_api2 = __commonJS((exports) => {
+var require_api2 = __commonJS(function(exports) {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -6236,7 +6238,7 @@ var require_api2 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver-protocol@3.17.5/node_modules/vscode-languageserver-protocol/lib/node/main.js
-var require_main3 = __commonJS((exports) => {
+var require_main3 = __commonJS(function(exports) {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -6269,7 +6271,7 @@ var require_main3 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/utils/uuid.js
-var require_uuid = __commonJS((exports) => {
+var require_uuid = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.generateUuid = exports.parse = exports.isUUID = exports.v4 = exports.empty = undefined;
 
@@ -6359,7 +6361,7 @@ var require_uuid = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/progress.js
-var require_progress = __commonJS((exports) => {
+var require_progress = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.attachPartialResult = exports.ProgressFeature = exports.attachWorkDone = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6515,7 +6517,7 @@ var require_progress = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/configuration.js
-var require_configuration = __commonJS((exports) => {
+var require_configuration = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ConfigurationFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6549,7 +6551,7 @@ var require_configuration = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/workspaceFolder.js
-var require_workspaceFolder = __commonJS((exports) => {
+var require_workspaceFolder = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.WorkspaceFoldersFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6592,7 +6594,7 @@ var require_workspaceFolder = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/callHierarchy.js
-var require_callHierarchy = __commonJS((exports) => {
+var require_callHierarchy = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.CallHierarchyFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6625,7 +6627,7 @@ var require_callHierarchy = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/semanticTokens.js
-var require_semanticTokens = __commonJS((exports) => {
+var require_semanticTokens = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.SemanticTokensBuilder = exports.SemanticTokensDiff = exports.SemanticTokensFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6772,7 +6774,7 @@ var require_semanticTokens = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/showDocument.js
-var require_showDocument = __commonJS((exports) => {
+var require_showDocument = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ShowDocumentFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6787,7 +6789,7 @@ var require_showDocument = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/fileOperations.js
-var require_fileOperations = __commonJS((exports) => {
+var require_fileOperations = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.FileOperationsFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6829,7 +6831,7 @@ var require_fileOperations = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/linkedEditingRange.js
-var require_linkedEditingRange = __commonJS((exports) => {
+var require_linkedEditingRange = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.LinkedEditingRangeFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6846,7 +6848,7 @@ var require_linkedEditingRange = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/typeHierarchy.js
-var require_typeHierarchy = __commonJS((exports) => {
+var require_typeHierarchy = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.TypeHierarchyFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6879,7 +6881,7 @@ var require_typeHierarchy = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/inlineValue.js
-var require_inlineValue = __commonJS((exports) => {
+var require_inlineValue = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlineValueFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6903,7 +6905,7 @@ var require_inlineValue = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/foldingRange.js
-var require_foldingRange = __commonJS((exports) => {
+var require_foldingRange = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.FoldingRangeFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6928,7 +6930,7 @@ var require_foldingRange = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/inlayHint.js
-var require_inlayHint = __commonJS((exports) => {
+var require_inlayHint = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlayHintFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6957,7 +6959,7 @@ var require_inlayHint = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/diagnostic.js
-var require_diagnostic = __commonJS((exports) => {
+var require_diagnostic = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.DiagnosticFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -6986,7 +6988,7 @@ var require_diagnostic = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/textDocuments.js
-var require_textDocuments = __commonJS((exports) => {
+var require_textDocuments = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.TextDocuments = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -7092,7 +7094,7 @@ var require_textDocuments = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/notebook.js
-var require_notebook = __commonJS((exports) => {
+var require_notebook = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.NotebookDocuments = exports.NotebookSyncFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -7338,7 +7340,7 @@ var require_notebook = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/moniker.js
-var require_moniker = __commonJS((exports) => {
+var require_moniker = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.MonikerFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -7360,7 +7362,7 @@ var require_moniker = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/server.js
-var require_server = __commonJS((exports) => {
+var require_server = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.createConnection = exports.combineFeatures = exports.combineNotebooksFeatures = exports.combineLanguagesFeatures = exports.combineWorkspaceFeatures = exports.combineWindowFeatures = exports.combineClientFeatures = exports.combineTracerFeatures = exports.combineTelemetryFeatures = exports.combineConsoleFeatures = exports._NotebooksImpl = exports._LanguagesImpl = exports.BulkUnregistration = exports.BulkRegistration = exports.ErrorMessageTracker = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -8082,7 +8084,7 @@ var require_server = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/node/files.js
-var require_files = __commonJS((exports) => {
+var require_files = __commonJS(function(exports) {
   var __filename = "/Users/macuser/Works/personal/algo/node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/node/files.js";
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.resolveModulePath = exports.FileSystem = exports.resolveGlobalYarnPath = exports.resolveGlobalNodePath = exports.resolve = exports.uriToFilePath = undefined;
@@ -8308,7 +8310,7 @@ var require_files = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/inlineCompletion.proposed.js
-var require_inlineCompletion_proposed = __commonJS((exports) => {
+var require_inlineCompletion_proposed = __commonJS(function(exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.InlineCompletionFeature = undefined;
   var vscode_languageserver_protocol_1 = require_main3();
@@ -8329,7 +8331,7 @@ var require_inlineCompletion_proposed = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/common/api.js
-var require_api3 = __commonJS((exports) => {
+var require_api3 = __commonJS(function(exports) {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -8377,7 +8379,7 @@ var require_api3 = __commonJS((exports) => {
 });
 
 // node_modules/.bun/vscode-languageserver@9.0.1/node_modules/vscode-languageserver/lib/node/main.js
-var require_main4 = __commonJS((exports) => {
+var require_main4 = __commonJS(function(exports) {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -8857,18 +8859,296 @@ function getWellformedEdit(textEdit) {
   return textEdit;
 }
 
-// packages/lsp-server/src/cache.ts
-var symbolTables = new Map;
-var documentAsts = new Map;
-function clearDocumentCache(uri) {
-  symbolTables.delete(uri);
-  documentAsts.delete(uri);
+// packages/lsp-server/src/document-store.ts
+class DocumentStore {
+  store = new Map;
+  set(uri, result) {
+    this.store.set(uri, result);
+  }
+  get(uri) {
+    return this.store.get(uri);
+  }
+  getSymbolTable(uri) {
+    return this.store.get(uri)?.symbolTable;
+  }
+  getAst(uri) {
+    return this.store.get(uri)?.ast;
+  }
+  getErrors(uri) {
+    return this.store.get(uri)?.errors;
+  }
+  delete(uri) {
+    this.store.delete(uri);
+  }
 }
+var documentStore = new DocumentStore;
 
 // packages/lsp-server/src/diagnostics.ts
 var import_node = __toESM(require_main4(), 1);
 
-// packages/compiler/src/lexer/lexer.ts
+// packages/algolang/dist/index.js
+var KEYWORDS = {
+  PROGRAMME: {
+    tokenType: "PROGRAMME",
+    kind: "control",
+    detail: "Mot-clé PROGRAMME",
+    documentation: "**PROGRAMME** : Début d'un programme AlgoLang."
+  },
+  DEBUT: {
+    tokenType: "DEBUT",
+    kind: "control",
+    detail: "Mot-clé DEBUT",
+    documentation: "**DEBUT** : Début du bloc d'instructions principal."
+  },
+  FIN: {
+    tokenType: "FIN",
+    kind: "control",
+    detail: "Mot-clé FIN",
+    documentation: "**FIN** : Fin du bloc d'instructions ou du programme."
+  },
+  VAR: {
+    tokenType: "VAR",
+    kind: "declaration",
+    detail: "Mot-clé VAR",
+    documentation: "**VAR** : Section de déclaration des variables."
+  },
+  ENTIER: {
+    tokenType: "ENTIER",
+    kind: "type",
+    detail: "Type ENTIER",
+    documentation: "**ENTIER** : Type de donnée pour les nombres entiers."
+  },
+  REEL: {
+    tokenType: "REEL",
+    kind: "type",
+    detail: "Type REEL",
+    documentation: "**REEL** : Type de donnée pour les nombres à virgule."
+  },
+  BOOLEEN: {
+    tokenType: "BOOLEEN",
+    kind: "type",
+    detail: "Type BOOLEEN",
+    documentation: "**BOOLEEN** : Type de donnée logique (VRAI/FAUX)."
+  },
+  CHAINE: {
+    tokenType: "CHAINE",
+    kind: "type",
+    detail: "Type CHAINE",
+    documentation: "**CHAINE** : Type de donnée pour le texte."
+  },
+  SI: {
+    tokenType: "SI",
+    kind: "control",
+    detail: "Mot-clé SI",
+    documentation: "**SI** : Structure conditionnelle."
+  },
+  ALORS: {
+    tokenType: "ALORS",
+    kind: "control",
+    detail: "Mot-clé ALORS",
+    documentation: "**ALORS** : Début du bloc exécuté si la condition est vraie."
+  },
+  SINON: {
+    tokenType: "SINON",
+    kind: "control",
+    detail: "Mot-clé SINON",
+    documentation: "**SINON** : Début du bloc exécuté si la condition est fausse."
+  },
+  FINSI: {
+    tokenType: "FINIF",
+    kind: "control",
+    detail: "Mot-clé FINSI",
+    documentation: "**FINSI** : Fin d'une structure conditionnelle."
+  },
+  TANTQUE: {
+    tokenType: "TANTQUE",
+    kind: "control",
+    detail: "Mot-clé TANTQUE",
+    documentation: "**TANTQUE** : Boucle répétitive tant qu'une condition est vraie."
+  },
+  FAIRE: {
+    tokenType: "FAIRE",
+    kind: "control",
+    detail: "Mot-clé FAIRE",
+    documentation: "**FAIRE** : Début du corps d'une boucle."
+  },
+  FINTANTQUE: {
+    tokenType: "FINTANTQUE",
+    kind: "control",
+    detail: "Mot-clé FINTANTQUE",
+    documentation: "**FINTANTQUE** : Fin d'une boucle TANTQUE."
+  },
+  POUR: {
+    tokenType: "POUR",
+    kind: "control",
+    detail: "Mot-clé POUR",
+    documentation: "**POUR** : Boucle avec compteur."
+  },
+  ALLANT: {
+    tokenType: "ALLANT",
+    kind: "control",
+    detail: "Mot-clé ALLANT",
+    documentation: "**ALLANT** : Utilisé dans une boucle POUR pour spécifier la plage."
+  },
+  DE: {
+    tokenType: "DE",
+    kind: "control",
+    detail: "Mot-clé DE",
+    documentation: "**DE** : Spécifie le début d'une plage dans une boucle POUR."
+  },
+  A: {
+    tokenType: "A",
+    kind: "control",
+    detail: "Mot-clé A",
+    documentation: "**A** : Spécifie la fin d'une plage dans une boucle POUR."
+  },
+  FINPOUR: {
+    tokenType: "FINPOUR",
+    kind: "control",
+    detail: "Mot-clé FINPOUR",
+    documentation: "**FINPOUR** : Fin d'une boucle POUR."
+  },
+  REPETER: {
+    tokenType: "REPETER",
+    kind: "control",
+    detail: "Mot-clé REPETER",
+    documentation: "**REPETER** : Boucle exécutée au moins une fois."
+  },
+  "JUSQU'A": {
+    tokenType: "JUSQU'A",
+    kind: "control",
+    detail: "Mot-clé JUSQU'A",
+    documentation: "**JUSQU'A** : Condition de fin d'une boucle REPETER."
+  },
+  LIRE: {
+    tokenType: "LIRE",
+    kind: "io",
+    detail: "Fonction LIRE",
+    documentation: "**LIRE(variable)** : Lit une valeur depuis l'entrée standard."
+  },
+  ECRIRE: {
+    tokenType: "ECRIRE",
+    kind: "io",
+    detail: "Fonction ECRIRE",
+    documentation: "**ECRIRE(...)** : Affiche des valeurs dans la console."
+  },
+  VRAI: {
+    tokenType: "VRAI",
+    kind: "literal",
+    detail: "Constante VRAI",
+    documentation: "**VRAI** : Valeur booléenne vraie."
+  },
+  FAUX: {
+    tokenType: "FAUX",
+    kind: "literal",
+    detail: "Constante FAUX",
+    documentation: "**FAUX** : Valeur booléenne fausse."
+  },
+  ET: {
+    tokenType: "ET",
+    kind: "operator",
+    detail: "Opérateur ET",
+    documentation: "**ET** : Opérateur logique ET (AND)."
+  },
+  OU: {
+    tokenType: "OU",
+    kind: "operator",
+    detail: "Opérateur OU",
+    documentation: "**OU** : Opérateur logique OU (OR)."
+  },
+  NON: {
+    tokenType: "NON",
+    kind: "operator",
+    detail: "Opérateur NON",
+    documentation: "**NON** : Opérateur logique NON (NOT)."
+  },
+  TABLEAU: {
+    tokenType: "TABLEAU",
+    kind: "declaration",
+    detail: "Type TABLEAU",
+    documentation: "**TABLEAU** : Déclare un tableau de n éléments.\nSyntaxe : `t: TABLEAU[10] DE ENTIER`"
+  },
+  FONCTION: {
+    tokenType: "FONCTION",
+    kind: "declaration",
+    detail: "Mot-clé FONCTION",
+    documentation: "**FONCTION** nom(params): TYPE : Déclare une fonction qui retourne une valeur.\nExemple : `FONCTION carre(n: ENTIER): ENTIER`"
+  },
+  PROCEDURE: {
+    tokenType: "PROCEDURE",
+    kind: "declaration",
+    detail: "Mot-clé PROCEDURE",
+    documentation: "**PROCEDURE** nom(params) : Déclare une procédure (sans valeur de retour).\nExemple : `PROCEDURE afficher(s: CHAINE)`"
+  },
+  RETOURNER: {
+    tokenType: "RETOURNER",
+    kind: "declaration",
+    detail: "Mot-clé RETOURNER",
+    documentation: "**RETOURNER** expr : Retourne une valeur depuis une fonction."
+  },
+  abs: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction abs(x)",
+    documentation: "**abs(x)** : Retourne la valeur absolue de x."
+  },
+  max: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction max(a, b)",
+    documentation: "**max(a, b)** : Retourne le plus grand des deux nombres."
+  },
+  min: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction min(a, b)",
+    documentation: "**min(a, b)** : Retourne le plus petit des deux nombres."
+  },
+  mod: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction mod(a, b)",
+    documentation: "**mod(a, b)** : Retourne le reste de la division de a par b. Équivalent à `a % b`."
+  },
+  racine_carree: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction racine_carree(x)",
+    documentation: "**racine_carree(x)** : Retourne la racine carrée de x."
+  },
+  taille: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction taille(x)",
+    documentation: "**taille(x)** : Retourne la taille d'un tableau ou la longueur d'une chaîne."
+  },
+  sous_chaine: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction sous_chaine(s, i, n)",
+    documentation: "**sous_chaine(s, i, n)** : Retourne n caractères de la chaîne s à partir de l'indice i."
+  },
+  concat: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction concat(a, b)",
+    documentation: "**concat(a, b)** : Concatène deux chaînes de caractères."
+  },
+  entier_en_reel: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction entier_en_reel(x)",
+    documentation: "**entier_en_reel(x)** : Convertit un entier en réel."
+  },
+  reel_en_entier: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction reel_en_entier(x)",
+    documentation: "**reel_en_entier(x)** : Convertit un réel en entier (troncature)."
+  }
+};
+var BUILTIN_NAMES = new Set(Object.entries(KEYWORDS).filter(([, e]) => e.tokenType === null).map(([label]) => label));
+
 class Lexer {
   source;
   position = 0;
@@ -8877,48 +9157,18 @@ class Lexer {
   keywords;
   constructor(source) {
     this.source = source;
-    this.keywords = new Map([
-      ["PROGRAMME", "PROGRAMME" /* PROGRAM */],
-      ["DEBUT", "DEBUT" /* BEGIN */],
-      ["FIN", "FIN" /* END */],
-      ["VAR", "VAR" /* VAR */],
-      ["ENTIER", "ENTIER" /* INTEGER */],
-      ["REEL", "REEL" /* REAL */],
-      ["BOOLEEN", "BOOLEEN" /* BOOLEAN */],
-      ["CHAINE", "CHAINE" /* STRING */],
-      ["SI", "SI" /* IF */],
-      ["ALORS", "ALORS" /* THEN */],
-      ["SINON", "SINON" /* ELSE */],
-      ["FINSI", "FINIF" /* ENDIF */],
-      ["TANTQUE", "TANTQUE" /* WHILE */],
-      ["FAIRE", "FAIRE" /* DO */],
-      ["POUR", "POUR" /* FOR */],
-      ["ALLANT", "ALLANT" /* ALLANT */],
-      ["DE", "DE" /* DE */],
-      ["A", "A" /* TO */],
-      ["REPETER", "REPETER" /* REPEAT */],
-      ["JUSQUA", "JUSQUA" /* UNTIL */],
-      ["LIRE", "LIRE" /* READ */],
-      ["ECRIRE", "ECRIRE" /* WRITE */],
-      ["VRAI", "VRAI" /* TRUE */],
-      ["FAUX", "FAUX" /* FALSE */],
-      ["ET", "ET" /* AND */],
-      ["OU", "OU" /* OR */],
-      ["NON", "NON" /* NOT */],
-      ["FINPOUR", "FINPOUR" /* ENDFOR */],
-      ["FINTANTQUE", "FINTANTQUE" /* ENDWHILE */]
-    ]);
+    this.keywords = new Map(Object.entries(KEYWORDS).filter(([, e]) => e.tokenType !== null).map(([label, e]) => [label, e.tokenType]));
   }
   tokenize() {
     const tokens = [];
     while (!this.isAtEnd()) {
       const token = this.scanToken();
-      if (token.type !== "COMMENT" /* COMMENT */) {
+      if (token.type !== "COMMENT") {
         tokens.push(token);
       }
     }
     tokens.push({
-      type: "EOF" /* EOF */,
+      type: "EOF",
       value: "",
       line: this.line,
       column: this.column,
@@ -8929,7 +9179,7 @@ class Lexer {
   scanToken() {
     this.skipWhitespace();
     if (this.isAtEnd()) {
-      return this.createToken("EOF" /* EOF */, "");
+      return this.createToken("EOF", "");
     }
     const char = this.currentChar();
     if (char === "/" && this.peek() === "/") {
@@ -8948,56 +9198,62 @@ class Lexer {
       return this.scanIdentifier();
     }
     if (char === ":" && this.peek() === "=") {
-      const token = this.createToken("ASSIGN" /* ASSIGN */, ":=");
+      const token = this.createToken("ASSIGN", ":=");
       this.advance();
       this.advance();
       return token;
     }
     if (char === "<" && this.peek() === "=") {
-      const token = this.createToken("LESS_EQUAL" /* LESS_EQUAL */, "<=");
+      const token = this.createToken("LESS_EQUAL", "<=");
       this.advance();
       this.advance();
       return token;
     }
     if (char === ">" && this.peek() === "=") {
-      const token = this.createToken("GREATER_EQUAL" /* GREATER_EQUAL */, ">=");
+      const token = this.createToken("GREATER_EQUAL", ">=");
       this.advance();
       this.advance();
       return token;
     }
     if (char === "<" && this.peek() === ">") {
-      const token = this.createToken("NOT_EQUAL" /* NOT_EQUAL */, "<>");
+      const token = this.createToken("NOT_EQUAL", "<>");
       this.advance();
       this.advance();
       return token;
     }
     switch (char) {
       case "+":
-        return this.createToken("PLUS" /* PLUS */, this.advance());
+        return this.createToken("PLUS", this.advance());
       case "-":
-        return this.createToken("MINUS" /* MINUS */, this.advance());
+        return this.createToken("MINUS", this.advance());
       case "*":
-        return this.createToken("MULTIPLY" /* MULTIPLY */, this.advance());
+        return this.createToken("MULTIPLY", this.advance());
       case "/":
-        return this.createToken("DIVIDE" /* DIVIDE */, this.advance());
+        return this.createToken("DIVIDE", this.advance());
+      case "%":
+        return this.createToken("MODULO", this.advance());
       case "=":
-        return this.createToken("EQUAL" /* EQUAL */, this.advance());
+        return this.createToken("EQUAL", this.advance());
       case "<":
-        return this.createToken("LESS_THAN" /* LESS_THAN */, this.advance());
+        return this.createToken("LESS_THAN", this.advance());
       case ">":
-        return this.createToken("GREATER_THAN" /* GREATER_THAN */, this.advance());
+        return this.createToken("GREATER_THAN", this.advance());
       case ";":
-        return this.createToken("SEMICOLON" /* SEMICOLON */, this.advance());
+        return this.createToken("SEMICOLON", this.advance());
       case ":":
-        return this.createToken("COLON" /* COLON */, this.advance());
+        return this.createToken("COLON", this.advance());
       case ",":
-        return this.createToken("COMMA" /* COMMA */, this.advance());
+        return this.createToken("COMMA", this.advance());
       case ".":
-        return this.createToken("DOT" /* DOT */, this.advance());
+        return this.createToken("DOT", this.advance());
       case "(":
-        return this.createToken("LEFT_PAREN" /* LEFT_PAREN */, this.advance());
+        return this.createToken("LEFT_PAREN", this.advance());
       case ")":
-        return this.createToken("RIGHT_PAREN" /* RIGHT_PAREN */, this.advance());
+        return this.createToken("RIGHT_PAREN", this.advance());
+      case "[":
+        return this.createToken("LEFT_BRACKET", this.advance());
+      case "]":
+        return this.createToken("RIGHT_BRACKET", this.advance());
       default:
         throw new Error(`Caractère non reconnu '${char}' à la ligne ${this.line}, colonne ${this.column}`);
     }
@@ -9009,7 +9265,7 @@ class Lexer {
       this.advance();
     }
     const value = this.source.substring(start, this.position);
-    const type = this.keywords.get(value.toUpperCase()) || "IDENTIFIER" /* IDENTIFIER */;
+    const type = this.keywords.get(value.toUpperCase()) || "IDENTIFIER";
     return {
       type,
       value,
@@ -9033,7 +9289,7 @@ class Lexer {
     }
     const value = this.source.substring(start, this.position);
     return {
-      type: "NUMBER" /* NUMBER */,
+      type: "NUMBER",
       value,
       line: this.line,
       column: startColumn,
@@ -9084,7 +9340,7 @@ class Lexer {
     }
     this.advance();
     return {
-      type: "STRING_LITERAL" /* STRING_LITERAL */,
+      type: "STRING_LITERAL",
       value,
       line: this.line,
       column: startColumn,
@@ -9100,7 +9356,7 @@ class Lexer {
     }
     const value = this.source.substring(start, this.position);
     return {
-      type: "COMMENT" /* COMMENT */,
+      type: "COMMENT",
       value,
       line: this.line,
       column: startColumn,
@@ -9128,7 +9384,7 @@ class Lexer {
     this.advance();
     const value = this.source.substring(start, this.position);
     return {
-      type: "COMMENT" /* COMMENT */,
+      type: "COMMENT",
       value,
       line: this.line,
       column: startColumn,
@@ -9189,87 +9445,123 @@ class Lexer {
 ` || char === "\r";
   }
 }
-// packages/compiler/src/parser/parser.ts
+
+class SemanticAnalyzer {
+  symbolTable = {
+    symbols: new Map,
+    children: [],
+    scopeName: "global"
+  };
+  errors = [];
+  analyze(ast) {
+    this.walk(ast);
+    return { symbolTable: this.symbolTable, errors: this.errors };
+  }
+  walk(node) {
+    switch (node.type) {
+      case "VAR_DECLARATION":
+        this.collectVarDeclaration(node);
+        break;
+      case "ARRAY_DECLARATION":
+        this.collectArrayDeclaration(node);
+        break;
+      default:
+        node.children?.forEach((child) => this.walk(child));
+        break;
+    }
+  }
+  collectVarDeclaration(node) {
+    const algoType = node.value;
+    const line = node.token?.line ?? 0;
+    const column = node.token?.column ?? 0;
+    const position = node.token?.position ?? 0;
+    for (const child of node.children ?? []) {
+      if (child.type !== "VARIABLE")
+        continue;
+      const name = child.value;
+      if (this.validateName(name, line, column, position)) {
+        this.defineSymbol(name, algoType, line, column);
+      }
+    }
+  }
+  collectArrayDeclaration(node) {
+    const elemType = node.value;
+    const sizeNode = node.children?.[0];
+    const size = sizeNode?.value;
+    const typeLabel = `TABLEAU[${size}] DE ${elemType}`;
+    const line = node.token?.line ?? 0;
+    const column = node.token?.column ?? 0;
+    const position = node.token?.position ?? 0;
+    for (const child of (node.children ?? []).slice(1)) {
+      if (child.type !== "VARIABLE")
+        continue;
+      const name = child.value;
+      if (this.validateName(name, line, column, position)) {
+        this.defineSymbol(name, typeLabel, line, column);
+      }
+    }
+  }
+  validateName(name, line, column, position) {
+    if (BUILTIN_NAMES.has(name)) {
+      this.errors.push({
+        type: "ERROR",
+        message: `Le nom '${name}' est une fonction intégrée et ne peut pas être utilisé comme nom de variable`,
+        line,
+        column,
+        position,
+        code: "BUILTIN_SHADOWING",
+        explanation: `'${name}' est une fonction intégrée d'AlgoLang`,
+        suggestion: `Choisissez un autre nom, par exemple '${name}Valeur' ou 'mon${name.charAt(0).toUpperCase()}${name.slice(1)}'`
+      });
+      return false;
+    }
+    if (this.symbolTable.symbols.has(name)) {
+      this.errors.push({
+        type: "ERROR",
+        message: `La variable '${name}' est déjà déclarée`,
+        line,
+        column,
+        position,
+        code: "DUPLICATE_VARIABLE",
+        explanation: "Chaque variable doit avoir un nom unique dans son scope",
+        suggestion: `Choisissez un autre nom pour la variable '${name}'`
+      });
+      return false;
+    }
+    return true;
+  }
+  defineSymbol(name, type, line, column) {
+    const info = {
+      name,
+      type,
+      scope: this.symbolTable.scopeName,
+      line,
+      column
+    };
+    this.symbolTable.symbols.set(name, info);
+  }
+}
+var SELF_TERMINATED = [
+  "IF_STATEMENT",
+  "WHILE_STATEMENT",
+  "FOR_STATEMENT",
+  "REPEAT_STATEMENT",
+  "COMPOUND_STATEMENT"
+];
+
 class Parser {
   tokens;
   current = 0;
   errors = [];
-  symbolTable;
-  reservedKeywords = new Set([
-    "programme",
-    "debut",
-    "fin",
-    "var",
-    "entier",
-    "reel",
-    "booleen",
-    "chaine",
-    "si",
-    "alors",
-    "sinon",
-    "finsi",
-    "tantque",
-    "faire",
-    "fintantque",
-    "pour",
-    "a",
-    "finpour",
-    "repeter",
-    "jusqua",
-    "lire",
-    "ecrire",
-    "vrai",
-    "faux",
-    "et",
-    "ou",
-    "non",
-    "fonction",
-    "procedure",
-    "retourner"
-  ]);
+  reservedKeywords = new Set(Object.entries(KEYWORDS).filter(([, e]) => e.tokenType !== null).map(([label]) => label.toLowerCase()));
   constructor(tokens) {
     this.tokens = tokens;
-    this.symbolTable = {
-      symbols: new Map,
-      children: [],
-      scopeName: "global"
-    };
   }
   isReservedKeyword(identifier) {
     return this.reservedKeywords.has(identifier.toLowerCase());
   }
   isKeywordToken(tokenType) {
-    return [
-      "PROGRAMME" /* PROGRAM */,
-      "DEBUT" /* BEGIN */,
-      "FIN" /* END */,
-      "VAR" /* VAR */,
-      "ENTIER" /* INTEGER */,
-      "REEL" /* REAL */,
-      "BOOLEEN" /* BOOLEAN */,
-      "CHAINE" /* STRING */,
-      "SI" /* IF */,
-      "ALORS" /* THEN */,
-      "SINON" /* ELSE */,
-      "TANTQUE" /* WHILE */,
-      "FAIRE" /* DO */,
-      "POUR" /* FOR */,
-      "ALLANT" /* ALLANT */,
-      "DE" /* DE */,
-      "A" /* TO */,
-      "REPETER" /* REPEAT */,
-      "JUSQUA" /* UNTIL */,
-      "LIRE" /* READ */,
-      "ECRIRE" /* WRITE */,
-      "VRAI" /* TRUE */,
-      "FAUX" /* FALSE */,
-      "ET" /* AND */,
-      "OU" /* OR */,
-      "NON" /* NOT */,
-      "FINPOUR" /* ENDFOR */,
-      "FINIF" /* ENDIF */,
-      "FINTANTQUE" /* ENDWHILE */
-    ].includes(tokenType);
+    return Object.values(KEYWORDS).some((e) => e.tokenType === tokenType);
   }
   createReservedKeywordError(identifier, token) {
     this.errors.push({
@@ -9284,38 +9576,30 @@ class Parser {
     });
   }
   parse() {
+    let ast;
     try {
-      const program = this.parseProgram();
-      return {
-        ast: program,
-        errors: this.errors,
-        symbolTable: this.symbolTable
-      };
+      ast = this.parseProgram();
     } catch (error) {
-      return {
-        ast: { type: "PROGRAM" /* PROGRAM */, children: [] },
-        errors: [
-          ...this.errors,
-          {
-            type: "ERROR",
-            message: error instanceof Error ? error.message : "Erreur de parsing inconnue",
-            line: 1,
-            column: 1,
-            position: 0,
-            code: "PARSE_ERROR"
-          }
-        ],
-        symbolTable: this.symbolTable
-      };
+      ast = { type: "PROGRAM", children: [] };
+      this.errors.push({
+        type: "ERROR",
+        message: error instanceof Error ? error.message : "Erreur de parsing inconnue",
+        line: 1,
+        column: 1,
+        position: 0,
+        code: "PARSE_ERROR"
+      });
     }
+    const { symbolTable, errors: semanticErrors } = new SemanticAnalyzer().analyze(ast);
+    return { ast, errors: [...this.errors, ...semanticErrors], symbolTable };
   }
   parseProgram() {
-    const programToken = this.expect("PROGRAMME" /* PROGRAM */, 'Le programme doit commencer par le mot-clé "programme"');
-    const identifier = this.expect("IDENTIFIER" /* IDENTIFIER */, "Le programme doit avoir un nom");
-    this.expect("SEMICOLON" /* SEMICOLON */, "Le nom du programme doit être suivi d'un point-virgule");
+    const programToken = this.expect("PROGRAMME", 'Le programme doit commencer par le mot-clé "programme"');
+    const identifier = this.expect("IDENTIFIER", "Le programme doit avoir un nom");
+    this.expect("SEMICOLON", "Le nom du programme doit être suivi d'un point-virgule");
     const block = this.parseBlock();
     return {
-      type: "PROGRAM" /* PROGRAM */,
+      type: "PROGRAM",
       value: identifier.value,
       children: [block],
       token: programToken
@@ -9323,27 +9607,35 @@ class Parser {
   }
   parseBlock() {
     const declarations = this.parseDeclarations();
+    const subprograms = [];
+    while (this.check(["FONCTION", "PROCEDURE"])) {
+      if (this.check("FONCTION")) {
+        subprograms.push(this.parseFunctionDeclaration());
+      } else {
+        subprograms.push(this.parseProcedureDeclaration());
+      }
+    }
     const compoundStatement = this.parseCompoundStatement();
     return {
-      type: "BLOCK" /* BLOCK */,
-      children: [declarations, compoundStatement]
+      type: "BLOCK",
+      children: [declarations, ...subprograms, compoundStatement]
     };
   }
   parseDeclarations() {
     const declarations = [];
-    while (this.check("VAR" /* VAR */)) {
+    while (this.check("VAR")) {
       this.advance();
-      while (!this.check("DEBUT" /* BEGIN */) && !this.isAtEnd()) {
+      while (!this.check("DEBUT") && !this.check("FONCTION") && !this.check("PROCEDURE") && !this.isAtEnd()) {
         const declaration = this.parseVariableDeclaration();
         declarations.push(declaration);
-        if (!this.check("SEMICOLON" /* SEMICOLON */)) {
+        if (!this.check("SEMICOLON")) {
           break;
         }
         this.advance();
       }
     }
     return {
-      type: "BLOCK" /* BLOCK */,
+      type: "BLOCK",
       children: declarations
     };
   }
@@ -9351,7 +9643,7 @@ class Parser {
     const identifiers = [];
     do {
       let identifier;
-      if (this.check("IDENTIFIER" /* IDENTIFIER */)) {
+      if (this.check("IDENTIFIER")) {
         identifier = this.advance();
       } else {
         const currentToken = this.peek();
@@ -9359,7 +9651,7 @@ class Parser {
           identifier = this.advance();
           this.createReservedKeywordError(identifier.value, identifier);
         } else {
-          this.expect("IDENTIFIER" /* IDENTIFIER */, "Identificateur attendu dans la déclaration de variable");
+          this.expect("IDENTIFIER", "Identificateur attendu dans la déclaration de variable");
           break;
         }
       }
@@ -9367,148 +9659,152 @@ class Parser {
         this.createReservedKeywordError(identifier.value, identifier);
       }
       identifiers.push(identifier.value);
-      if (this.check("COMMA" /* COMMA */)) {
+      if (this.check("COMMA")) {
         this.advance();
       } else {
         break;
       }
     } while (true);
-    this.expect("COLON" /* COLON */, "Deux-points attendus après les identificateurs");
-    const typeToken = this.expect(["ENTIER" /* INTEGER */, "REEL" /* REAL */, "BOOLEEN" /* BOOLEAN */, "CHAINE" /* STRING */], "Type de variable attendu");
-    const type = this.tokenTypeToDataType(typeToken.type);
-    for (const identifier of identifiers) {
-      if (this.symbolTable.symbols.has(identifier)) {
-        this.errors.push({
-          type: "ERROR",
-          message: `La variable '${identifier}' est déjà déclarée`,
-          line: typeToken.line,
-          column: typeToken.column,
-          position: typeToken.position,
-          code: "DUPLICATE_VARIABLE",
-          explanation: "Chaque variable doit avoir un nom unique dans son scope",
-          suggestion: `Choisissez un autre nom pour la variable '${identifier}'`
-        });
-      } else {
-        const symbolInfo = {
-          name: identifier,
-          type,
-          scope: this.symbolTable.scopeName,
-          line: typeToken.line,
-          column: typeToken.column
-        };
-        this.symbolTable.symbols.set(identifier, symbolInfo);
-      }
+    this.expect("COLON", "Deux-points attendus après les identificateurs");
+    if (this.check("TABLEAU")) {
+      this.advance();
+      this.expect("LEFT_BRACKET", '"[" attendu après TABLEAU');
+      const sizeToken = this.expect("NUMBER", "Taille du tableau attendue");
+      this.expect("RIGHT_BRACKET", '"]" attendu après la taille du tableau');
+      this.expect("DE", '"DE" attendu après la taille du tableau');
+      const elemTypeToken = this.expect(["ENTIER", "REEL", "BOOLEEN", "CHAINE"], "Type des éléments du tableau attendu");
+      const elemType = this.tokenTypeToDataType(elemTypeToken.type);
+      const size = parseInt(sizeToken.value);
+      return {
+        type: "ARRAY_DECLARATION",
+        value: elemType,
+        children: [
+          { type: "LITERAL", value: size },
+          ...identifiers.map((name) => ({ type: "VARIABLE", value: name }))
+        ],
+        token: elemTypeToken
+      };
     }
+    const typeToken = this.expect(["ENTIER", "REEL", "BOOLEEN", "CHAINE"], "Type de variable attendu");
+    const type = this.tokenTypeToDataType(typeToken.type);
     return {
-      type: "VAR_DECLARATION" /* VAR_DECLARATION */,
+      type: "VAR_DECLARATION",
       value: type,
       children: identifiers.map((name) => ({
-        type: "VARIABLE" /* VARIABLE */,
+        type: "VARIABLE",
         value: name
       })),
       token: typeToken
     };
   }
   parseCompoundStatement() {
-    this.expect("DEBUT" /* BEGIN */, `Le bloc d'instructions doit commencer par "debut"`);
+    this.expect("DEBUT", `Le bloc d'instructions doit commencer par "debut"`);
+    const statements = this.parseStatementList(["FIN"]);
+    this.expect("FIN", `Le bloc d'instructions doit se terminer par "fin"`);
+    return {
+      type: "COMPOUND_STATEMENT",
+      children: statements
+    };
+  }
+  parseStatementList(terminators) {
     const statements = [];
-    while (!this.check("FIN" /* END */) && !this.isAtEnd()) {
+    while (!this.check(terminators) && !this.isAtEnd()) {
       const statement = this.parseStatement();
       statements.push(statement);
-      if (this.check("SEMICOLON" /* SEMICOLON */)) {
+      if (this.check("SEMICOLON")) {
         this.advance();
-      } else if (!this.check("FIN" /* END */) && !this.check("FINIF" /* ENDIF */) && !this.check("FINTANTQUE" /* ENDWHILE */)) {
+      } else if (!SELF_TERMINATED.includes(statement.type) && !this.check(terminators) && !this.isAtEnd()) {
+        const token = this.peek();
         this.errors.push({
           type: "ERROR",
           message: "Point-virgule attendu après l'instruction",
-          line: this.peek().line,
-          column: this.peek().column,
-          position: this.peek().position,
+          line: token.line,
+          column: token.column,
+          position: token.position,
           code: "MISSING_SEMICOLON"
         });
         break;
       }
     }
-    this.expect("FIN" /* END */, `Le bloc d'instructions doit se terminer par "fin"`);
-    return {
-      type: "COMPOUND_STATEMENT" /* COMPOUND_STATEMENT */,
-      children: statements
-    };
+    return statements;
   }
   parseStatement() {
-    if (this.check("DEBUT" /* BEGIN */)) {
+    if (this.check("DEBUT")) {
       return this.parseCompoundStatement();
     }
-    if (this.isKeywordToken(this.peek().type) && this.peekAhead(1)?.type === "ASSIGN" /* ASSIGN */) {
+    if (this.isKeywordToken(this.peek().type) && this.peekAhead(1)?.type === "ASSIGN") {
       return this.parseAssignment();
     }
-    if (this.check("SI" /* IF */)) {
+    if (this.check("SI")) {
       return this.parseIfStatement();
     }
-    if (this.check("TANTQUE" /* WHILE */)) {
+    if (this.check("TANTQUE")) {
       return this.parseWhileStatement();
     }
-    if (this.check("POUR" /* FOR */)) {
+    if (this.check("POUR")) {
       return this.parseForStatement();
     }
-    if (this.check("REPETER" /* REPEAT */)) {
+    if (this.check("REPETER")) {
       return this.parseRepeatStatement();
     }
-    if (this.check("LIRE" /* READ */)) {
+    if (this.check("LIRE")) {
       return this.parseReadStatement();
     }
-    if (this.check("ECRIRE" /* WRITE */)) {
+    if (this.check("ECRIRE")) {
       return this.parseWriteStatement();
+    }
+    if (this.check("RETOURNER")) {
+      return this.parseReturnStatement();
+    }
+    if (this.check("IDENTIFIER") && this.peekAhead(1)?.type === "LEFT_PAREN") {
+      const nameToken = this.advance();
+      return this.parseFunctionCall(nameToken);
+    }
+    if (this.check("IDENTIFIER") && this.peekAhead(1)?.type === "LEFT_BRACKET") {
+      return this.parseArrayAssignment();
     }
     return this.parseAssignment();
   }
   parseIfStatement(isElseIf = false) {
     const ifToken = this.advance();
     const condition = this.parseExpression();
-    this.expect("ALORS" /* THEN */, '"alors" attendu après la condition du si');
-    const thenStatements = [];
-    while (!this.check("SINON" /* ELSE */) && !this.check("FINIF" /* ENDIF */) && !this.check("FIN" /* END */) && !this.isAtEnd()) {
-      const statement = this.parseStatement();
-      thenStatements.push(statement);
-      if (this.check("SEMICOLON" /* SEMICOLON */)) {
-        this.advance();
-      }
-    }
+    this.expect("ALORS", '"alors" attendu après la condition du si');
+    const thenStatements = this.parseStatementList([
+      "SINON",
+      "FINIF",
+      "FIN"
+    ]);
     const thenStatement = {
-      type: "COMPOUND_STATEMENT" /* COMPOUND_STATEMENT */,
+      type: "COMPOUND_STATEMENT",
       children: thenStatements
     };
     let elseStatement;
-    if (this.check("SEMICOLON" /* SEMICOLON */) && this.peekAhead(1)?.type === "SINON" /* ELSE */) {
+    if (this.check("SEMICOLON") && this.peekAhead(1)?.type === "SINON") {
       this.advance();
     }
-    if (this.check("SINON" /* ELSE */)) {
+    if (this.check("SINON")) {
       this.advance();
-      if (this.check("SI" /* IF */)) {
+      if (this.check("SI")) {
         elseStatement = this.parseIfStatement(true);
       } else {
-        const elseStatements = [];
-        while (!this.check("FINIF" /* ENDIF */) && !this.check("FIN" /* END */) && !this.isAtEnd()) {
-          const statement = this.parseStatement();
-          elseStatements.push(statement);
-          if (this.check("SEMICOLON" /* SEMICOLON */)) {
-            this.advance();
-          }
-        }
+        const elseStatements = this.parseStatementList([
+          "FINIF",
+          "FIN"
+        ]);
         elseStatement = {
-          type: "COMPOUND_STATEMENT" /* COMPOUND_STATEMENT */,
+          type: "COMPOUND_STATEMENT",
           children: elseStatements
         };
       }
     }
     if (!isElseIf) {
-      if (this.check("SEMICOLON" /* SEMICOLON */) && this.peekAhead(1)?.type === "FINIF" /* ENDIF */) {
+      if (this.check("SEMICOLON") && this.peekAhead(1)?.type === "FINIF") {
         this.advance();
       }
-      this.expect("FINIF" /* ENDIF */, '"finsi" attendu à la fin du bloc si');
+      this.expect("FINIF", '"finsi" attendu à la fin du bloc si');
     }
     return {
-      type: "IF_STATEMENT" /* IF_STATEMENT */,
+      type: "IF_STATEMENT",
       children: [
         condition,
         thenStatement,
@@ -9520,106 +9816,105 @@ class Parser {
   parseWhileStatement() {
     const whileToken = this.advance();
     const condition = this.parseExpression();
-    this.expect("FAIRE" /* DO */, '"faire" attendu après la condition du tantque');
-    const bodyStatements = [];
-    while (!this.check("FINTANTQUE" /* ENDWHILE */) && !this.check("FIN" /* END */) && !this.isAtEnd()) {
-      const statement = this.parseStatement();
-      bodyStatements.push(statement);
-      if (this.check("SEMICOLON" /* SEMICOLON */)) {
-        this.advance();
-      }
-    }
-    this.expect("FINTANTQUE" /* ENDWHILE */, '"fintantque" attendu à la fin de la boucle tantque');
+    this.expect("FAIRE", '"faire" attendu après la condition du tantque');
+    const bodyStatements = this.parseStatementList([
+      "FINTANTQUE",
+      "FIN"
+    ]);
+    this.expect("FINTANTQUE", '"fintantque" attendu à la fin de la boucle tantque');
     return {
-      type: "WHILE_STATEMENT" /* WHILE_STATEMENT */,
+      type: "WHILE_STATEMENT",
       children: [
         condition,
-        { type: "COMPOUND_STATEMENT" /* COMPOUND_STATEMENT */, children: bodyStatements }
+        { type: "COMPOUND_STATEMENT", children: bodyStatements }
       ],
       token: whileToken
     };
   }
   parseForStatement() {
     const forToken = this.advance();
-    const variable = this.expect("IDENTIFIER" /* IDENTIFIER */, 'Identificateur attendu après "pour"');
+    const variable = this.expect("IDENTIFIER", 'Identificateur attendu après "pour"');
     let startValue;
-    if (this.check("ALLANT" /* ALLANT */)) {
+    if (this.check("ALLANT")) {
       this.advance();
-      this.expect("DE" /* DE */, '"de" attendu après "allant" dans la boucle pour');
+      this.expect("DE", '"de" attendu après "allant" dans la boucle pour');
       startValue = this.parseExpression();
-    } else if (this.check("ASSIGN" /* ASSIGN */)) {
+    } else if (this.check("ASSIGN")) {
       this.advance();
       startValue = this.parseExpression();
     } else {
       throw new Error('"allant de" ou ":=" attendu après la variable dans la boucle pour');
     }
-    this.expect("A" /* TO */, '"a" attendu dans la boucle pour');
+    this.expect("A", '"a" attendu dans la boucle pour');
     const endValue = this.parseExpression();
-    this.expect("FAIRE" /* DO */, '"faire" attendu dans la boucle pour');
-    const bodyStatements = [];
-    while (!this.check("FINPOUR" /* ENDFOR */) && !this.check("FIN" /* END */) && !this.isAtEnd()) {
-      const statement = this.parseStatement();
-      bodyStatements.push(statement);
-      if (this.check("SEMICOLON" /* SEMICOLON */)) {
-        this.advance();
-      }
-    }
-    this.expect("FINPOUR" /* ENDFOR */, '"finpour" attendu à la fin de la boucle pour');
+    this.expect("FAIRE", '"faire" attendu dans la boucle pour');
+    const bodyStatements = this.parseStatementList([
+      "FINPOUR",
+      "FIN"
+    ]);
+    this.expect("FINPOUR", '"finpour" attendu à la fin de la boucle pour');
     return {
-      type: "FOR_STATEMENT" /* FOR_STATEMENT */,
+      type: "FOR_STATEMENT",
       children: [
-        { type: "VARIABLE" /* VARIABLE */, value: variable.value, token: variable },
+        { type: "VARIABLE", value: variable.value, token: variable },
         startValue,
         endValue,
-        { type: "COMPOUND_STATEMENT" /* COMPOUND_STATEMENT */, children: bodyStatements }
+        { type: "COMPOUND_STATEMENT", children: bodyStatements }
       ],
       token: forToken
     };
   }
   parseReadStatement() {
     const readToken = this.advance();
-    this.expect("LEFT_PAREN" /* LEFT_PAREN */, 'Parenthèse ouvrante attendue après "lire"');
-    let variable;
-    if (this.check("IDENTIFIER" /* IDENTIFIER */)) {
-      variable = this.advance();
+    this.expect("LEFT_PAREN", 'Parenthèse ouvrante attendue après "lire"');
+    let target;
+    if (this.check("IDENTIFIER")) {
+      const variable = this.advance();
+      if (this.check("LEFT_BRACKET")) {
+        this.advance();
+        const index = this.parseExpression();
+        this.expect("RIGHT_BRACKET", `"]" attendu après l'index`);
+        target = { type: "ARRAY_ACCESS", value: variable.value, children: [index], token: variable };
+      } else {
+        target = { type: "VARIABLE", value: variable.value, token: variable };
+      }
     } else {
       const currentToken = this.peek();
       if (this.isKeywordToken(currentToken.type)) {
-        variable = this.advance();
+        const variable = this.advance();
         this.createReservedKeywordError(variable.value, variable);
+        target = { type: "VARIABLE", value: variable.value, token: variable };
       } else {
-        this.expect("IDENTIFIER" /* IDENTIFIER */, 'Variable attendue dans "lire"');
+        this.expect("IDENTIFIER", 'Variable attendue dans "lire"');
         throw new Error('Variable attendue dans "lire"');
       }
     }
-    this.expect("RIGHT_PAREN" /* RIGHT_PAREN */, 'Parenthèse fermante attendue dans "lire"');
+    this.expect("RIGHT_PAREN", 'Parenthèse fermante attendue dans "lire"');
     return {
-      type: "READ_STATEMENT" /* READ_STATEMENT */,
-      children: [
-        { type: "VARIABLE" /* VARIABLE */, value: variable.value, token: variable }
-      ],
+      type: "READ_STATEMENT",
+      children: [target],
       token: readToken
     };
   }
   parseWriteStatement() {
     const writeToken = this.advance();
-    this.expect("LEFT_PAREN" /* LEFT_PAREN */, 'Parenthèse ouvrante attendue après "ecrire"');
+    this.expect("LEFT_PAREN", 'Parenthèse ouvrante attendue après "ecrire"');
     const expressions = [];
     expressions.push(this.parseExpression());
-    while (this.check("COMMA" /* COMMA */)) {
+    while (this.check("COMMA")) {
       this.advance();
       expressions.push(this.parseExpression());
     }
-    this.expect("RIGHT_PAREN" /* RIGHT_PAREN */, 'Parenthèse fermante attendue dans "ecrire"');
+    this.expect("RIGHT_PAREN", 'Parenthèse fermante attendue dans "ecrire"');
     return {
-      type: "WRITE_STATEMENT" /* WRITE_STATEMENT */,
+      type: "WRITE_STATEMENT",
       children: expressions,
       token: writeToken
     };
   }
   parseAssignment() {
     let variable;
-    if (this.check("IDENTIFIER" /* IDENTIFIER */)) {
+    if (this.check("IDENTIFIER")) {
       variable = this.advance();
     } else {
       const currentToken = this.peek();
@@ -9627,19 +9922,19 @@ class Parser {
         variable = this.advance();
         this.createReservedKeywordError(variable.value, variable);
       } else {
-        this.expect("IDENTIFIER" /* IDENTIFIER */, "Variable attendue dans l'affectation");
+        this.expect("IDENTIFIER", "Variable attendue dans l'affectation");
         throw new Error("Variable attendue dans l'affectation");
       }
     }
     if (this.isReservedKeyword(variable.value)) {
       this.createReservedKeywordError(variable.value, variable);
     }
-    this.expect("ASSIGN" /* ASSIGN */, `":=" attendu dans l'affectation`);
+    this.expect("ASSIGN", `":=" attendu dans l'affectation`);
     const expression = this.parseExpression();
     return {
-      type: "ASSIGNMENT" /* ASSIGNMENT */,
+      type: "ASSIGNMENT",
       children: [
-        { type: "VARIABLE" /* VARIABLE */, value: variable.value, token: variable },
+        { type: "VARIABLE", value: variable.value, token: variable },
         expression
       ],
       token: variable
@@ -9650,11 +9945,11 @@ class Parser {
   }
   parseOrExpression() {
     let left = this.parseAndExpression();
-    while (this.check("OU" /* OR */)) {
+    while (this.check("OU")) {
       const operator = this.advance();
       const right = this.parseAndExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9664,11 +9959,11 @@ class Parser {
   }
   parseAndExpression() {
     let left = this.parseEqualityExpression();
-    while (this.check("ET" /* AND */)) {
+    while (this.check("ET")) {
       const operator = this.advance();
       const right = this.parseEqualityExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9678,11 +9973,11 @@ class Parser {
   }
   parseEqualityExpression() {
     let left = this.parseRelationalExpression();
-    while (this.check(["EQUAL" /* EQUAL */, "NOT_EQUAL" /* NOT_EQUAL */])) {
+    while (this.check(["EQUAL", "NOT_EQUAL"])) {
       const operator = this.advance();
       const right = this.parseRelationalExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9693,15 +9988,15 @@ class Parser {
   parseRelationalExpression() {
     let left = this.parseAdditiveExpression();
     while (this.check([
-      "LESS_THAN" /* LESS_THAN */,
-      "LESS_EQUAL" /* LESS_EQUAL */,
-      "GREATER_THAN" /* GREATER_THAN */,
-      "GREATER_EQUAL" /* GREATER_EQUAL */
+      "LESS_THAN",
+      "LESS_EQUAL",
+      "GREATER_THAN",
+      "GREATER_EQUAL"
     ])) {
       const operator = this.advance();
       const right = this.parseAdditiveExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9711,11 +10006,11 @@ class Parser {
   }
   parseAdditiveExpression() {
     let left = this.parseMultiplicativeExpression();
-    while (this.check(["PLUS" /* PLUS */, "MINUS" /* MINUS */])) {
+    while (this.check(["PLUS", "MINUS"])) {
       const operator = this.advance();
       const right = this.parseMultiplicativeExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9725,11 +10020,11 @@ class Parser {
   }
   parseMultiplicativeExpression() {
     let left = this.parseUnaryExpression();
-    while (this.check(["MULTIPLY" /* MULTIPLY */, "DIVIDE" /* DIVIDE */])) {
+    while (this.check(["MULTIPLY", "DIVIDE", "MODULO"])) {
       const operator = this.advance();
       const right = this.parseUnaryExpression();
       left = {
-        type: "BINARY_OP" /* BINARY_OP */,
+        type: "BINARY_OP",
         value: operator.value,
         children: [left, right],
         token: operator
@@ -9738,22 +10033,22 @@ class Parser {
     return left;
   }
   parseUnaryExpression() {
-    if (this.check("NON" /* NOT */)) {
+    if (this.check("NON")) {
       const nextToken = this.peekAhead();
       if (nextToken && [
-        "RIGHT_PAREN" /* RIGHT_PAREN */,
-        "SEMICOLON" /* SEMICOLON */,
-        "COMMA" /* COMMA */,
-        "EOF" /* EOF */
+        "RIGHT_PAREN",
+        "SEMICOLON",
+        "COMMA",
+        "EOF"
       ].includes(nextToken.type)) {
         return this.parsePrimary();
       }
     }
-    if (this.check(["NON" /* NOT */, "MINUS" /* MINUS */])) {
+    if (this.check(["NON", "MINUS"])) {
       const operator = this.advance();
       const operand = this.parseUnaryExpression();
       return {
-        type: "UNARY_OP" /* UNARY_OP */,
+        type: "UNARY_OP",
         value: operator.value,
         children: [operand],
         token: operator
@@ -9762,37 +10057,51 @@ class Parser {
     return this.parsePrimary();
   }
   parsePrimary() {
-    if (this.check("NUMBER" /* NUMBER */)) {
+    if (this.check("NUMBER")) {
       const token2 = this.advance();
       return {
-        type: "LITERAL" /* LITERAL */,
+        type: "LITERAL",
         value: parseFloat(token2.value),
         token: token2
       };
     }
-    if (this.check(["VRAI" /* TRUE */, "FAUX" /* FALSE */])) {
+    if (this.check(["VRAI", "FAUX"])) {
       const token2 = this.advance();
       return {
-        type: "LITERAL" /* LITERAL */,
-        value: token2.value === "vrai",
+        type: "LITERAL",
+        value: token2.value.toLowerCase() === "vrai",
         token: token2
       };
     }
-    if (this.check("STRING_LITERAL" /* STRING_LITERAL */)) {
+    if (this.check("STRING_LITERAL")) {
       const token2 = this.advance();
       return {
-        type: "LITERAL" /* LITERAL */,
+        type: "LITERAL",
         value: token2.value,
         token: token2
       };
     }
-    if (this.check("IDENTIFIER" /* IDENTIFIER */)) {
+    if (this.check("IDENTIFIER")) {
       const token2 = this.advance();
+      if (this.check("LEFT_PAREN")) {
+        return this.parseFunctionCall(token2);
+      }
+      if (this.check("LEFT_BRACKET")) {
+        this.advance();
+        const index = this.parseExpression();
+        this.expect("RIGHT_BRACKET", `"]" attendu après l'index`);
+        return {
+          type: "ARRAY_ACCESS",
+          value: token2.value,
+          children: [index],
+          token: token2
+        };
+      }
       if (this.isReservedKeyword(token2.value)) {
         this.createReservedKeywordError(token2.value, token2);
       }
       return {
-        type: "VARIABLE" /* VARIABLE */,
+        type: "VARIABLE",
         value: token2.value,
         token: token2
       };
@@ -9802,15 +10111,15 @@ class Parser {
       const token2 = this.advance();
       this.createReservedKeywordError(token2.value, token2);
       return {
-        type: "VARIABLE" /* VARIABLE */,
+        type: "VARIABLE",
         value: token2.value,
         token: token2
       };
     }
-    if (this.check("LEFT_PAREN" /* LEFT_PAREN */)) {
+    if (this.check("LEFT_PAREN")) {
       this.advance();
       const expression = this.parseExpression();
-      this.expect("RIGHT_PAREN" /* RIGHT_PAREN */, "Parenthèse fermante attendue");
+      this.expect("RIGHT_PAREN", "Parenthèse fermante attendue");
       return expression;
     }
     const token = this.peek();
@@ -9824,26 +10133,140 @@ class Parser {
     });
     this.advance();
     return {
-      type: "LITERAL" /* LITERAL */,
+      type: "LITERAL",
       value: 0
     };
   }
   parseRepeatStatement() {
     const repeatToken = this.advance();
-    const statements = [];
-    while (!this.check("JUSQUA" /* UNTIL */) && !this.isAtEnd()) {
-      const statement = this.parseStatement();
-      statements.push(statement);
-      if (this.check("SEMICOLON" /* SEMICOLON */)) {
-        this.advance();
-      }
-    }
-    this.expect("JUSQUA" /* UNTIL */, '"jusqua" attendu à la fin de la boucle repeter');
+    const statements = this.parseStatementList(["JUSQU'A"]);
+    this.expect("JUSQU'A", `"jusqu'a" attendu à la fin de la boucle repeter`);
     const condition = this.parseExpression();
     return {
-      type: "REPEAT_STATEMENT" /* REPEAT_STATEMENT */,
+      type: "REPEAT_STATEMENT",
       children: [...statements, condition],
       token: repeatToken
+    };
+  }
+  parseFunctionCall(nameToken) {
+    this.advance();
+    const args = [];
+    if (!this.check("RIGHT_PAREN")) {
+      args.push(this.parseExpression());
+      while (this.check("COMMA")) {
+        this.advance();
+        args.push(this.parseExpression());
+      }
+    }
+    this.expect("RIGHT_PAREN", '")` attendu après les arguments');
+    return {
+      type: "FUNCTION_CALL",
+      value: nameToken.value,
+      children: args,
+      token: nameToken
+    };
+  }
+  parseArrayAssignment() {
+    const nameToken = this.advance();
+    this.advance();
+    const index = this.parseExpression();
+    this.expect("RIGHT_BRACKET", `"]" attendu après l'index`);
+    this.expect("ASSIGN", `":=" attendu dans l'affectation`);
+    const value = this.parseExpression();
+    return {
+      type: "ASSIGNMENT",
+      children: [
+        { type: "ARRAY_ACCESS", value: nameToken.value, children: [index], token: nameToken },
+        value
+      ],
+      token: nameToken
+    };
+  }
+  parseReturnStatement() {
+    const token = this.advance();
+    const expr = this.parseExpression();
+    return {
+      type: "RETURN_STATEMENT",
+      children: [expr],
+      token
+    };
+  }
+  parseParameterList() {
+    this.expect("LEFT_PAREN", '"(" attendu dans la déclaration');
+    const params = [];
+    if (!this.check("RIGHT_PAREN")) {
+      params.push(this.parseParameter());
+      while (this.check("SEMICOLON") || this.check("COMMA")) {
+        this.advance();
+        if (this.check("RIGHT_PAREN"))
+          break;
+        params.push(this.parseParameter());
+      }
+    }
+    this.expect("RIGHT_PAREN", '")" attendu après les paramètres');
+    return { type: "PARAMETER_LIST", children: params };
+  }
+  parseParameter() {
+    const nameToken = this.expect("IDENTIFIER", "Nom de paramètre attendu");
+    this.expect("COLON", '":" attendu après le nom du paramètre');
+    if (this.check("TABLEAU")) {
+      this.advance();
+      let size;
+      if (this.check("LEFT_BRACKET")) {
+        this.advance();
+        const sizeToken = this.expect("NUMBER", "Taille attendue");
+        this.expect("RIGHT_BRACKET", '"]" attendu');
+        size = parseInt(sizeToken.value);
+      }
+      this.expect("DE", '"DE" attendu après TABLEAU');
+      const elemTypeToken = this.expect(["ENTIER", "REEL", "BOOLEEN", "CHAINE"], "Type des éléments attendu");
+      const elemType = this.tokenTypeToDataType(elemTypeToken.type);
+      const typeLabel = size !== undefined ? `TABLEAU[${size}] DE ${elemType}` : `TABLEAU DE ${elemType}`;
+      return {
+        type: "PARAMETER",
+        value: nameToken.value,
+        token: nameToken,
+        symbolInfo: { name: nameToken.value, type: typeLabel, scope: "param" }
+      };
+    }
+    const typeToken = this.expect(["ENTIER", "REEL", "BOOLEEN", "CHAINE"], "Type du paramètre attendu");
+    const paramType = this.tokenTypeToDataType(typeToken.type);
+    return {
+      type: "PARAMETER",
+      value: nameToken.value,
+      token: nameToken,
+      symbolInfo: { name: nameToken.value, type: paramType, scope: "param" }
+    };
+  }
+  parseFunctionDeclaration() {
+    const token = this.advance();
+    const nameToken = this.expect("IDENTIFIER", "Nom de fonction attendu");
+    const paramList = this.parseParameterList();
+    this.expect("COLON", '":" attendu pour le type de retour');
+    const retTypeToken = this.expect(["ENTIER", "REEL", "BOOLEEN", "CHAINE"], "Type de retour attendu");
+    const retType = this.tokenTypeToDataType(retTypeToken.type);
+    const body = this.parseCompoundStatement();
+    return {
+      type: "FUNCTION_DECLARATION",
+      value: nameToken.value,
+      children: [
+        paramList,
+        { type: "TYPE_SPECIFIER", value: retType },
+        body
+      ],
+      token
+    };
+  }
+  parseProcedureDeclaration() {
+    const token = this.advance();
+    const nameToken = this.expect("IDENTIFIER", "Nom de procédure attendu");
+    const paramList = this.parseParameterList();
+    const body = this.parseCompoundStatement();
+    return {
+      type: "PROCEDURE_DECLARATION",
+      value: nameToken.value,
+      children: [paramList, body],
+      token
     };
   }
   check(type) {
@@ -9864,7 +10287,7 @@ class Parser {
   }
   peek() {
     return this.tokens[this.current] ?? {
-      type: "EOF" /* EOF */,
+      type: "EOF",
       value: "",
       line: 0,
       column: 0,
@@ -9876,7 +10299,7 @@ class Parser {
   }
   previous() {
     return this.tokens[this.current - 1] ?? {
-      type: "EOF" /* EOF */,
+      type: "EOF",
       value: "",
       line: 0,
       column: 0,
@@ -9902,19 +10325,378 @@ class Parser {
   }
   tokenTypeToDataType(tokenType) {
     switch (tokenType) {
-      case "ENTIER" /* INTEGER */:
-        return "ENTIER" /* INTEGER */;
-      case "REEL" /* REAL */:
-        return "REEL" /* REAL */;
-      case "BOOLEEN" /* BOOLEAN */:
-        return "BOOLEEN" /* BOOLEAN */;
-      case "CHAINE" /* STRING */:
-        return "CHAINE" /* STRING */;
+      case "ENTIER":
+        return "ENTIER";
+      case "REEL":
+        return "REEL";
+      case "BOOLEEN":
+        return "BOOLEEN";
+      case "CHAINE":
+        return "CHAINE";
       default:
-        return "VIDE" /* VOID */;
+        return "VIDE";
     }
   }
 }
+var TokenType2;
+((TokenType3) => {
+  TokenType3["PROGRAM"] = "PROGRAMME";
+  TokenType3["BEGIN"] = "DEBUT";
+  TokenType3["END"] = "FIN";
+  TokenType3["VAR"] = "VAR";
+  TokenType3["INTEGER"] = "ENTIER";
+  TokenType3["REAL"] = "REEL";
+  TokenType3["BOOLEAN"] = "BOOLEEN";
+  TokenType3["STRING"] = "CHAINE";
+  TokenType3["IF"] = "SI";
+  TokenType3["THEN"] = "ALORS";
+  TokenType3["ELSE"] = "SINON";
+  TokenType3["WHILE"] = "TANTQUE";
+  TokenType3["DO"] = "FAIRE";
+  TokenType3["FOR"] = "POUR";
+  TokenType3["ALLANT"] = "ALLANT";
+  TokenType3["DE"] = "DE";
+  TokenType3["TO"] = "A";
+  TokenType3["REPEAT"] = "REPETER";
+  TokenType3["UNTIL"] = "JUSQU'A";
+  TokenType3["READ"] = "LIRE";
+  TokenType3["WRITE"] = "ECRIRE";
+  TokenType3["TRUE"] = "VRAI";
+  TokenType3["FALSE"] = "FAUX";
+  TokenType3["AND"] = "ET";
+  TokenType3["OR"] = "OU";
+  TokenType3["NOT"] = "NON";
+  TokenType3["ENDFOR"] = "FINPOUR";
+  TokenType3["ENDIF"] = "FINIF";
+  TokenType3["ENDWHILE"] = "FINTANTQUE";
+  TokenType3["ARRAY"] = "TABLEAU";
+  TokenType3["FUNCTION"] = "FONCTION";
+  TokenType3["PROCEDURE"] = "PROCEDURE";
+  TokenType3["RETURN"] = "RETOURNER";
+  TokenType3["PLUS"] = "PLUS";
+  TokenType3["MINUS"] = "MINUS";
+  TokenType3["MULTIPLY"] = "MULTIPLY";
+  TokenType3["DIVIDE"] = "DIVIDE";
+  TokenType3["MODULO"] = "MODULO";
+  TokenType3["ASSIGN"] = "ASSIGN";
+  TokenType3["EQUAL"] = "EQUAL";
+  TokenType3["NOT_EQUAL"] = "NOT_EQUAL";
+  TokenType3["LESS_THAN"] = "LESS_THAN";
+  TokenType3["LESS_EQUAL"] = "LESS_EQUAL";
+  TokenType3["GREATER_THAN"] = "GREATER_THAN";
+  TokenType3["GREATER_EQUAL"] = "GREATER_EQUAL";
+  TokenType3["SEMICOLON"] = "SEMICOLON";
+  TokenType3["COLON"] = "COLON";
+  TokenType3["COMMA"] = "COMMA";
+  TokenType3["DOT"] = "DOT";
+  TokenType3["LEFT_PAREN"] = "LEFT_PAREN";
+  TokenType3["RIGHT_PAREN"] = "RIGHT_PAREN";
+  TokenType3["LEFT_BRACKET"] = "LEFT_BRACKET";
+  TokenType3["RIGHT_BRACKET"] = "RIGHT_BRACKET";
+  TokenType3["NUMBER"] = "NUMBER";
+  TokenType3["IDENTIFIER"] = "IDENTIFIER";
+  TokenType3["STRING_LITERAL"] = "STRING_LITERAL";
+  TokenType3["EOF"] = "EOF";
+  TokenType3["NEWLINE"] = "NEWLINE";
+  TokenType3["COMMENT"] = "COMMENT";
+})(TokenType2 ||= {});
+var NodeType2;
+((NodeType3) => {
+  NodeType3["PROGRAM"] = "PROGRAM";
+  NodeType3["VAR_DECLARATION"] = "VAR_DECLARATION";
+  NodeType3["TYPE_SPECIFIER"] = "TYPE_SPECIFIER";
+  NodeType3["ASSIGNMENT"] = "ASSIGNMENT";
+  NodeType3["IF_STATEMENT"] = "IF_STATEMENT";
+  NodeType3["WHILE_STATEMENT"] = "WHILE_STATEMENT";
+  NodeType3["FOR_STATEMENT"] = "FOR_STATEMENT";
+  NodeType3["REPEAT_STATEMENT"] = "REPEAT_STATEMENT";
+  NodeType3["READ_STATEMENT"] = "READ_STATEMENT";
+  NodeType3["WRITE_STATEMENT"] = "WRITE_STATEMENT";
+  NodeType3["COMPOUND_STATEMENT"] = "COMPOUND_STATEMENT";
+  NodeType3["BINARY_OP"] = "BINARY_OP";
+  NodeType3["UNARY_OP"] = "UNARY_OP";
+  NodeType3["LITERAL"] = "LITERAL";
+  NodeType3["VARIABLE"] = "VARIABLE";
+  NodeType3["FUNCTION_CALL"] = "FUNCTION_CALL";
+  NodeType3["ARRAY_ACCESS"] = "ARRAY_ACCESS";
+  NodeType3["ARRAY_DECLARATION"] = "ARRAY_DECLARATION";
+  NodeType3["FUNCTION_DECLARATION"] = "FUNCTION_DECLARATION";
+  NodeType3["PROCEDURE_DECLARATION"] = "PROCEDURE_DECLARATION";
+  NodeType3["RETURN_STATEMENT"] = "RETURN_STATEMENT";
+  NodeType3["PARAMETER"] = "PARAMETER";
+  NodeType3["BLOCK"] = "BLOCK";
+  NodeType3["PARAMETER_LIST"] = "PARAMETER_LIST";
+})(NodeType2 ||= {});
+var DataType2;
+((DataType3) => {
+  DataType3["INTEGER"] = "ENTIER";
+  DataType3["REAL"] = "REEL";
+  DataType3["BOOLEAN"] = "BOOLEEN";
+  DataType3["STRING"] = "CHAINE";
+  DataType3["VOID"] = "VIDE";
+})(DataType2 ||= {});
+var KEYWORDS2 = {
+  PROGRAMME: {
+    tokenType: "PROGRAMME",
+    kind: "control",
+    detail: "Mot-clé PROGRAMME",
+    documentation: "**PROGRAMME** : Début d'un programme AlgoLang."
+  },
+  DEBUT: {
+    tokenType: "DEBUT",
+    kind: "control",
+    detail: "Mot-clé DEBUT",
+    documentation: "**DEBUT** : Début du bloc d'instructions principal."
+  },
+  FIN: {
+    tokenType: "FIN",
+    kind: "control",
+    detail: "Mot-clé FIN",
+    documentation: "**FIN** : Fin du bloc d'instructions ou du programme."
+  },
+  VAR: {
+    tokenType: "VAR",
+    kind: "declaration",
+    detail: "Mot-clé VAR",
+    documentation: "**VAR** : Section de déclaration des variables."
+  },
+  ENTIER: {
+    tokenType: "ENTIER",
+    kind: "type",
+    detail: "Type ENTIER",
+    documentation: "**ENTIER** : Type de donnée pour les nombres entiers."
+  },
+  REEL: {
+    tokenType: "REEL",
+    kind: "type",
+    detail: "Type REEL",
+    documentation: "**REEL** : Type de donnée pour les nombres à virgule."
+  },
+  BOOLEEN: {
+    tokenType: "BOOLEEN",
+    kind: "type",
+    detail: "Type BOOLEEN",
+    documentation: "**BOOLEEN** : Type de donnée logique (VRAI/FAUX)."
+  },
+  CHAINE: {
+    tokenType: "CHAINE",
+    kind: "type",
+    detail: "Type CHAINE",
+    documentation: "**CHAINE** : Type de donnée pour le texte."
+  },
+  SI: {
+    tokenType: "SI",
+    kind: "control",
+    detail: "Mot-clé SI",
+    documentation: "**SI** : Structure conditionnelle."
+  },
+  ALORS: {
+    tokenType: "ALORS",
+    kind: "control",
+    detail: "Mot-clé ALORS",
+    documentation: "**ALORS** : Début du bloc exécuté si la condition est vraie."
+  },
+  SINON: {
+    tokenType: "SINON",
+    kind: "control",
+    detail: "Mot-clé SINON",
+    documentation: "**SINON** : Début du bloc exécuté si la condition est fausse."
+  },
+  FINSI: {
+    tokenType: "FINIF",
+    kind: "control",
+    detail: "Mot-clé FINSI",
+    documentation: "**FINSI** : Fin d'une structure conditionnelle."
+  },
+  TANTQUE: {
+    tokenType: "TANTQUE",
+    kind: "control",
+    detail: "Mot-clé TANTQUE",
+    documentation: "**TANTQUE** : Boucle répétitive tant qu'une condition est vraie."
+  },
+  FAIRE: {
+    tokenType: "FAIRE",
+    kind: "control",
+    detail: "Mot-clé FAIRE",
+    documentation: "**FAIRE** : Début du corps d'une boucle."
+  },
+  FINTANTQUE: {
+    tokenType: "FINTANTQUE",
+    kind: "control",
+    detail: "Mot-clé FINTANTQUE",
+    documentation: "**FINTANTQUE** : Fin d'une boucle TANTQUE."
+  },
+  POUR: {
+    tokenType: "POUR",
+    kind: "control",
+    detail: "Mot-clé POUR",
+    documentation: "**POUR** : Boucle avec compteur."
+  },
+  ALLANT: {
+    tokenType: "ALLANT",
+    kind: "control",
+    detail: "Mot-clé ALLANT",
+    documentation: "**ALLANT** : Utilisé dans une boucle POUR pour spécifier la plage."
+  },
+  DE: {
+    tokenType: "DE",
+    kind: "control",
+    detail: "Mot-clé DE",
+    documentation: "**DE** : Spécifie le début d'une plage dans une boucle POUR."
+  },
+  A: {
+    tokenType: "A",
+    kind: "control",
+    detail: "Mot-clé A",
+    documentation: "**A** : Spécifie la fin d'une plage dans une boucle POUR."
+  },
+  FINPOUR: {
+    tokenType: "FINPOUR",
+    kind: "control",
+    detail: "Mot-clé FINPOUR",
+    documentation: "**FINPOUR** : Fin d'une boucle POUR."
+  },
+  REPETER: {
+    tokenType: "REPETER",
+    kind: "control",
+    detail: "Mot-clé REPETER",
+    documentation: "**REPETER** : Boucle exécutée au moins une fois."
+  },
+  "JUSQU'A": {
+    tokenType: "JUSQU'A",
+    kind: "control",
+    detail: "Mot-clé JUSQU'A",
+    documentation: "**JUSQU'A** : Condition de fin d'une boucle REPETER."
+  },
+  LIRE: {
+    tokenType: "LIRE",
+    kind: "io",
+    detail: "Fonction LIRE",
+    documentation: "**LIRE(variable)** : Lit une valeur depuis l'entrée standard."
+  },
+  ECRIRE: {
+    tokenType: "ECRIRE",
+    kind: "io",
+    detail: "Fonction ECRIRE",
+    documentation: "**ECRIRE(...)** : Affiche des valeurs dans la console."
+  },
+  VRAI: {
+    tokenType: "VRAI",
+    kind: "literal",
+    detail: "Constante VRAI",
+    documentation: "**VRAI** : Valeur booléenne vraie."
+  },
+  FAUX: {
+    tokenType: "FAUX",
+    kind: "literal",
+    detail: "Constante FAUX",
+    documentation: "**FAUX** : Valeur booléenne fausse."
+  },
+  ET: {
+    tokenType: "ET",
+    kind: "operator",
+    detail: "Opérateur ET",
+    documentation: "**ET** : Opérateur logique ET (AND)."
+  },
+  OU: {
+    tokenType: "OU",
+    kind: "operator",
+    detail: "Opérateur OU",
+    documentation: "**OU** : Opérateur logique OU (OR)."
+  },
+  NON: {
+    tokenType: "NON",
+    kind: "operator",
+    detail: "Opérateur NON",
+    documentation: "**NON** : Opérateur logique NON (NOT)."
+  },
+  TABLEAU: {
+    tokenType: "TABLEAU",
+    kind: "declaration",
+    detail: "Type TABLEAU",
+    documentation: "**TABLEAU** : Déclare un tableau de n éléments.\nSyntaxe : `t: TABLEAU[10] DE ENTIER`"
+  },
+  FONCTION: {
+    tokenType: "FONCTION",
+    kind: "declaration",
+    detail: "Mot-clé FONCTION",
+    documentation: "**FONCTION** nom(params): TYPE : Déclare une fonction qui retourne une valeur.\nExemple : `FONCTION carre(n: ENTIER): ENTIER`"
+  },
+  PROCEDURE: {
+    tokenType: "PROCEDURE",
+    kind: "declaration",
+    detail: "Mot-clé PROCEDURE",
+    documentation: "**PROCEDURE** nom(params) : Déclare une procédure (sans valeur de retour).\nExemple : `PROCEDURE afficher(s: CHAINE)`"
+  },
+  RETOURNER: {
+    tokenType: "RETOURNER",
+    kind: "declaration",
+    detail: "Mot-clé RETOURNER",
+    documentation: "**RETOURNER** expr : Retourne une valeur depuis une fonction."
+  },
+  abs: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction abs(x)",
+    documentation: "**abs(x)** : Retourne la valeur absolue de x."
+  },
+  max: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction max(a, b)",
+    documentation: "**max(a, b)** : Retourne le plus grand des deux nombres."
+  },
+  min: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction min(a, b)",
+    documentation: "**min(a, b)** : Retourne le plus petit des deux nombres."
+  },
+  mod: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction mod(a, b)",
+    documentation: "**mod(a, b)** : Retourne le reste de la division de a par b. Équivalent à `a % b`."
+  },
+  racine_carree: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction racine_carree(x)",
+    documentation: "**racine_carree(x)** : Retourne la racine carrée de x."
+  },
+  taille: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction taille(x)",
+    documentation: "**taille(x)** : Retourne la taille d'un tableau ou la longueur d'une chaîne."
+  },
+  sous_chaine: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction sous_chaine(s, i, n)",
+    documentation: "**sous_chaine(s, i, n)** : Retourne n caractères de la chaîne s à partir de l'indice i."
+  },
+  concat: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction concat(a, b)",
+    documentation: "**concat(a, b)** : Concatène deux chaînes de caractères."
+  },
+  entier_en_reel: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction entier_en_reel(x)",
+    documentation: "**entier_en_reel(x)** : Convertit un entier en réel."
+  },
+  reel_en_entier: {
+    tokenType: null,
+    kind: "builtin-function",
+    detail: "Fonction reel_en_entier(x)",
+    documentation: "**reel_en_entier(x)** : Convertit un réel en entier (troncature)."
+  }
+};
+var BUILTIN_NAMES2 = new Set(Object.entries(KEYWORDS2).filter(([, e]) => e.tokenType === null).map(([label]) => label));
+
 // packages/lsp-server/src/utils.ts
 function getWordAtPosition(document, position) {
   const text = document.getText();
@@ -9967,12 +10749,16 @@ async function validateTextDocument(textDocument, connection) {
   const text = textDocument.getText();
   const diagnostics = [];
   try {
-    const lexer2 = new Lexer(text);
-    const tokens = lexer2.tokenize();
-    const parser2 = new Parser(tokens);
-    const result = parser2.parse();
-    symbolTables.set(textDocument.uri, result.symbolTable);
-    documentAsts.set(textDocument.uri, result.ast);
+    const lexer = new Lexer(text);
+    const tokens = lexer.tokenize();
+    const parser = new Parser(tokens);
+    const result = parser.parse();
+    documentStore.set(textDocument.uri, {
+      ast: result.ast,
+      symbolTable: result.symbolTable,
+      errors: result.errors,
+      version: textDocument.version
+    });
     for (const error of result.errors) {
       const startLine = Math.max(0, error.line - 1);
       const startChar = Math.max(0, error.column - 1);
@@ -10023,126 +10809,22 @@ async function validateTextDocument(textDocument, connection) {
 var import_node2 = __toESM(require_main4(), 1);
 
 // packages/lsp-server/src/keyword-docs.ts
-var KEYWORD_DOCS = {
-  PROGRAMME: {
-    detail: "Mot-clé PROGRAMME",
-    documentation: "**PROGRAMME** : Début d'un programme AlgoLang."
-  },
-  DEBUT: {
-    detail: "Mot-clé DEBUT",
-    documentation: "**DEBUT** : Début du bloc d'instructions principal."
-  },
-  FIN: {
-    detail: "Mot-clé FIN",
-    documentation: "**FIN** : Fin du bloc d'instructions ou du programme."
-  },
-  VAR: {
-    detail: "Mot-clé VAR",
-    documentation: "**VAR** : Section de déclaration des variables."
-  },
-  ENTIER: {
-    detail: "Type ENTIER",
-    documentation: "**ENTIER** : Type de donnée pour les nombres entiers."
-  },
-  REEL: {
-    detail: "Type REEL",
-    documentation: "**REEL** : Type de donnée pour les nombres à virgule."
-  },
-  BOOLEEN: {
-    detail: "Type BOOLEEN",
-    documentation: "**BOOLEEN** : Type de donnée logique (VRAI/FAUX)."
-  },
-  CHAINE: {
-    detail: "Type CHAINE",
-    documentation: "**CHAINE** : Type de donnée pour le texte."
-  },
-  SI: {
-    detail: "Mot-clé SI",
-    documentation: "**SI** : Structure conditionnelle."
-  },
-  ALORS: {
-    detail: "Mot-clé ALORS",
-    documentation: "**ALORS** : Début du bloc exécuté si la condition est vraie."
-  },
-  SINON: {
-    detail: "Mot-clé SINON",
-    documentation: "**SINON** : Début du bloc exécuté si la condition est fausse."
-  },
-  FINSI: {
-    detail: "Mot-clé FINSI",
-    documentation: "**FINSI** : Fin d'une structure conditionnelle."
-  },
-  TANTQUE: {
-    detail: "Mot-clé TANTQUE",
-    documentation: "**TANTQUE** : Boucle répétitive tant qu'une condition est vraie."
-  },
-  FAIRE: {
-    detail: "Mot-clé FAIRE",
-    documentation: "**FAIRE** : Début du corps d'une boucle."
-  },
-  FINTANTQUE: {
-    detail: "Mot-clé FINTANTQUE",
-    documentation: "**FINTANTQUE** : Fin d'une boucle TANTQUE."
-  },
-  POUR: {
-    detail: "Mot-clé POUR",
-    documentation: "**POUR** : Boucle avec compteur."
-  },
-  ALLANT: {
-    detail: "Mot-clé ALLANT",
-    documentation: "**ALLANT** : Utilisé dans une boucle POUR pour spécifier la plage."
-  },
-  DE: {
-    detail: "Mot-clé DE",
-    documentation: "**DE** : Spécifie le début d'une plage dans une boucle POUR."
-  },
-  A: {
-    detail: "Mot-clé A",
-    documentation: "**A** : Spécifie la fin d'une plage dans une boucle POUR."
-  },
-  FINPOUR: {
-    detail: "Mot-clé FINPOUR",
-    documentation: "**FINPOUR** : Fin d'une boucle POUR."
-  },
-  REPETER: {
-    detail: "Mot-clé REPETER",
-    documentation: "**REPETER** : Boucle exécutée au moins une fois."
-  },
-  JUSQUA: {
-    detail: "Mot-clé JUSQUA",
-    documentation: "**JUSQUA** : Condition de fin d'une boucle REPETER."
-  },
-  LIRE: {
-    detail: "Fonction LIRE",
-    documentation: "**LIRE(variable)** : Lit une valeur depuis l'entrée standard."
-  },
-  ECRIRE: {
-    detail: "Fonction ECRIRE",
-    documentation: "**ECRIRE(...)** : Affiche des valeurs dans la console."
-  },
-  VRAI: {
-    detail: "Constante VRAI",
-    documentation: "**VRAI** : Valeur booléenne vraie."
-  },
-  FAUX: {
-    detail: "Constante FAUX",
-    documentation: "**FAUX** : Valeur booléenne fausse."
-  },
-  ET: {
-    detail: "Opérateur ET",
-    documentation: "**ET** : Opérateur logique ET (AND)."
-  },
-  OU: {
-    detail: "Opérateur OU",
-    documentation: "**OU** : Opérateur logique OU (OR)."
-  },
-  NON: {
-    detail: "Opérateur NON",
-    documentation: "**NON** : Opérateur logique NON (NOT)."
-  }
-};
+var KEYWORD_DOCS = Object.fromEntries(Object.entries(KEYWORDS2).map(([label, entry]) => [
+  label,
+  { detail: entry.detail, documentation: entry.documentation }
+]));
 
 // packages/lsp-server/src/completion.ts
+var KIND_MAP = {
+  control: import_node2.CompletionItemKind.Keyword,
+  type: import_node2.CompletionItemKind.Class,
+  io: import_node2.CompletionItemKind.Function,
+  operator: import_node2.CompletionItemKind.Operator,
+  literal: import_node2.CompletionItemKind.Constant,
+  declaration: import_node2.CompletionItemKind.Keyword,
+  "builtin-function": import_node2.CompletionItemKind.Function
+};
+var KEYWORD_COMPLETIONS = Object.entries(KEYWORDS2).map(([label, entry]) => ({ label, kind: KIND_MAP[entry.kind] }));
 function register2(connection, documents) {
   connection.onCompletion((params) => {
     return getCompletionItems(params, documents);
@@ -10152,40 +10834,8 @@ function register2(connection, documents) {
   });
 }
 function getCompletionItems(params, documents) {
-  const items = [];
-  const keywords = [
-    { label: "PROGRAMME", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "DEBUT", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "FIN", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "VAR", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "ENTIER", kind: import_node2.CompletionItemKind.Class },
-    { label: "REEL", kind: import_node2.CompletionItemKind.Class },
-    { label: "BOOLEEN", kind: import_node2.CompletionItemKind.Class },
-    { label: "CHAINE", kind: import_node2.CompletionItemKind.Class },
-    { label: "SI", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "ALORS", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "SINON", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "FINSI", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "TANTQUE", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "FAIRE", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "FINTANTQUE", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "POUR", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "ALLANT", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "DE", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "A", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "FINPOUR", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "REPETER", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "JUSQUA", kind: import_node2.CompletionItemKind.Keyword },
-    { label: "LIRE", kind: import_node2.CompletionItemKind.Function },
-    { label: "ECRIRE", kind: import_node2.CompletionItemKind.Function },
-    { label: "VRAI", kind: import_node2.CompletionItemKind.Constant },
-    { label: "FAUX", kind: import_node2.CompletionItemKind.Constant },
-    { label: "ET", kind: import_node2.CompletionItemKind.Operator },
-    { label: "OU", kind: import_node2.CompletionItemKind.Operator },
-    { label: "NON", kind: import_node2.CompletionItemKind.Operator }
-  ];
-  items.push(...keywords);
-  const table = symbolTables.get(params.textDocument.uri);
+  const items = [...KEYWORD_COMPLETIONS];
+  const table = documentStore.getSymbolTable(params.textDocument.uri);
   if (table) {
     for (const [name, symbol] of table.symbols) {
       items.push({
@@ -10198,8 +10848,7 @@ function getCompletionItems(params, documents) {
   return items;
 }
 function resolveCompletionItem(item) {
-  const keyword = item.label.toUpperCase();
-  const docs = KEYWORD_DOCS[keyword];
+  const docs = KEYWORD_DOCS[item.label.toUpperCase()] ?? KEYWORD_DOCS[item.label];
   if (docs) {
     item.detail = docs.detail;
     item.documentation = docs.documentation;
@@ -10220,9 +10869,8 @@ function provideHover(params, documents) {
   const word = getWordAtPosition(document, params.position);
   if (!word)
     return null;
-  const keyword = word.toUpperCase();
-  const keywordDoc = KEYWORD_DOCS[keyword];
-  if (keywordDoc) {
+  const keywordDoc = KEYWORD_DOCS[word.toUpperCase()] ?? KEYWORD_DOCS[word];
+  if (keywordDoc !== undefined) {
     return {
       contents: {
         kind: "markdown",
@@ -10230,7 +10878,7 @@ function provideHover(params, documents) {
       }
     };
   }
-  const table = symbolTables.get(params.textDocument.uri);
+  const table = documentStore.getSymbolTable(params.textDocument.uri);
   if (table) {
     const symbol = table.symbols.get(word);
     if (symbol) {
@@ -10258,7 +10906,21 @@ function formatDocument(params, documents) {
   if (!document)
     return [];
   const text = document.getText();
-  const formatted = formatAlgoLangSource(text, params.options.tabSize || 2);
+  const tabSize = params.options.tabSize || 2;
+  let formatted;
+  try {
+    const lexer = new Lexer(text);
+    const tokens = lexer.tokenize();
+    const parser = new Parser(tokens);
+    const result = parser.parse();
+    if (result.errors.length === 0) {
+      formatted = new AlgoFormatter(tabSize).format(result.ast);
+    } else {
+      formatted = formatAlgoLangSource(text, tabSize);
+    }
+  } catch {
+    formatted = formatAlgoLangSource(text, tabSize);
+  }
   return [
     {
       range: {
@@ -10268,6 +10930,306 @@ function formatDocument(params, documents) {
       newText: formatted
     }
   ];
+}
+var PREC = {
+  ou: 1,
+  OU: 1,
+  et: 2,
+  ET: 2,
+  "=": 3,
+  "<>": 3,
+  "<": 4,
+  "<=": 4,
+  ">": 4,
+  ">=": 4,
+  "+": 5,
+  "-": 5,
+  "*": 6,
+  "/": 6,
+  "%": 6
+};
+var BLOCK_STMT_TYPES = new Set([
+  NodeType2.IF_STATEMENT,
+  NodeType2.WHILE_STATEMENT,
+  NodeType2.FOR_STATEMENT,
+  NodeType2.REPEAT_STATEMENT,
+  NodeType2.COMPOUND_STATEMENT,
+  NodeType2.FUNCTION_DECLARATION,
+  NodeType2.PROCEDURE_DECLARATION
+]);
+
+class AlgoFormatter {
+  tabSize;
+  indentLevel = 0;
+  constructor(tabSize = 2) {
+    this.tabSize = tabSize;
+  }
+  format(ast) {
+    return this.printNode(ast) + `
+`;
+  }
+  indent() {
+    return " ".repeat(this.tabSize * this.indentLevel);
+  }
+  printNode(node) {
+    switch (node.type) {
+      case NodeType2.PROGRAM:
+        return this.printProgram(node);
+      case NodeType2.BLOCK:
+        return this.printBlock(node);
+      case NodeType2.VAR_DECLARATION:
+        return this.printVarDecl(node);
+      case NodeType2.ARRAY_DECLARATION:
+        return this.printArrayDecl(node);
+      case NodeType2.COMPOUND_STATEMENT:
+        return this.printCompound(node);
+      case NodeType2.ASSIGNMENT:
+        return this.printAssign(node);
+      case NodeType2.IF_STATEMENT:
+        return this.printIf(node);
+      case NodeType2.WHILE_STATEMENT:
+        return this.printWhile(node);
+      case NodeType2.FOR_STATEMENT:
+        return this.printFor(node);
+      case NodeType2.REPEAT_STATEMENT:
+        return this.printRepeat(node);
+      case NodeType2.READ_STATEMENT:
+        return this.printRead(node);
+      case NodeType2.WRITE_STATEMENT:
+        return this.printWrite(node);
+      case NodeType2.RETURN_STATEMENT:
+        return this.printReturn(node);
+      case NodeType2.FUNCTION_CALL:
+        return this.printCallStmt(node);
+      case NodeType2.FUNCTION_DECLARATION:
+        return this.printFunctionDecl(node);
+      case NodeType2.PROCEDURE_DECLARATION:
+        return this.printProcedureDecl(node);
+      default:
+        return "";
+    }
+  }
+  printProgram(node) {
+    const name = node.value;
+    const block = node.children?.[0];
+    const lines = [`PROGRAMME ${name};`];
+    if (block)
+      lines.push(this.printNode(block));
+    return lines.join(`
+`);
+  }
+  printBlock(node) {
+    const lines = [];
+    const children = node.children ?? [];
+    const [declBlock, ...rest] = children;
+    if (declBlock?.children?.length) {
+      lines.push("VAR");
+      this.indentLevel++;
+      for (const decl of declBlock.children) {
+        lines.push(this.indent() + this.printNode(decl));
+      }
+      this.indentLevel--;
+    }
+    for (const child of rest) {
+      if (child.type === NodeType2.FUNCTION_DECLARATION || child.type === NodeType2.PROCEDURE_DECLARATION) {
+        lines.push("");
+        lines.push(this.printNode(child));
+      }
+    }
+    const mainBody = rest.at(-1);
+    if (mainBody?.type === NodeType2.COMPOUND_STATEMENT) {
+      lines.push(this.printNode(mainBody));
+    }
+    return lines.join(`
+`);
+  }
+  printVarDecl(node) {
+    const type = node.value.toUpperCase();
+    const names = (node.children ?? []).map((c) => c.value).join(", ");
+    return `${names}: ${type};`;
+  }
+  printArrayDecl(node) {
+    const elemType = node.value.toUpperCase();
+    const size = node.children?.[0]?.value;
+    const names = (node.children ?? []).slice(1).map((c) => c.value).join(", ");
+    return `${names}: TABLEAU[${size}] DE ${elemType};`;
+  }
+  printCompound(node) {
+    const lines = ["DEBUT"];
+    this.indentLevel++;
+    const stmts = node.children ?? [];
+    for (let i = 0;i < stmts.length; i++) {
+      const stmt = stmts[i];
+      const isBlock = BLOCK_STMT_TYPES.has(stmt.type);
+      const code = this.printNode(stmt);
+      const line = this.indent() + code + (isBlock ? "" : ";");
+      if (isBlock && i > 0)
+        lines.push("");
+      lines.push(line);
+    }
+    this.indentLevel--;
+    lines.push("FIN");
+    return lines.join(`
+`);
+  }
+  printAssign(node) {
+    const target = node.children?.[0];
+    const expr = node.children?.[1];
+    if (!target || !expr)
+      return "";
+    const targetStr = target.type === NodeType2.ARRAY_ACCESS ? `${target.value}[${this.printExpr(target.children[0])}]` : target.value;
+    return `${targetStr} := ${this.printExpr(expr)}`;
+  }
+  printIf(node) {
+    const [cond, then, els] = node.children ?? [];
+    if (!cond || !then)
+      return "";
+    const lines = [`SI ${this.printExpr(cond)} ALORS`];
+    lines.push(...this.printBlockBody(then));
+    if (els) {
+      lines.push(this.indent() + "SINON");
+      lines.push(...this.printBlockBody(els));
+    }
+    lines.push(this.indent() + "FINSI");
+    return lines.join(`
+`);
+  }
+  printWhile(node) {
+    const [cond, body] = node.children ?? [];
+    if (!cond || !body)
+      return "";
+    const lines = [`TANTQUE ${this.printExpr(cond)} FAIRE`];
+    lines.push(...this.printBlockBody(body));
+    lines.push(this.indent() + "FINTANTQUE");
+    return lines.join(`
+`);
+  }
+  printFor(node) {
+    const [varNode, start, end, body] = node.children ?? [];
+    if (!varNode || !start || !end || !body)
+      return "";
+    const varName = varNode.value;
+    const lines = [`POUR ${varName} ALLANT DE ${this.printExpr(start)} A ${this.printExpr(end)} FAIRE`];
+    lines.push(...this.printBlockBody(body));
+    lines.push(this.indent() + "FINPOUR");
+    return lines.join(`
+`);
+  }
+  printRepeat(node) {
+    const stmts = node.children ?? [];
+    const cond = stmts.at(-1);
+    const body = stmts.slice(0, -1);
+    const lines = ["REPETER"];
+    this.indentLevel++;
+    for (const stmt of body) {
+      const isBlock = BLOCK_STMT_TYPES.has(stmt.type);
+      lines.push(this.indent() + this.printNode(stmt) + (isBlock ? "" : ";"));
+    }
+    this.indentLevel--;
+    lines.push(this.indent() + `JUSQU'A ${this.printExpr(cond)}`);
+    return lines.join(`
+`);
+  }
+  printRead(node) {
+    const target = node.children?.[0];
+    if (!target)
+      return "";
+    const arg = target.type === NodeType2.ARRAY_ACCESS ? `${target.value}[${this.printExpr(target.children[0])}]` : target.value;
+    return `LIRE(${arg})`;
+  }
+  printWrite(node) {
+    const args = (node.children ?? []).map((c) => this.printExpr(c)).join(", ");
+    return `ECRIRE(${args})`;
+  }
+  printReturn(node) {
+    const expr = node.children?.[0];
+    return expr ? `RETOURNER ${this.printExpr(expr)}` : "RETOURNER";
+  }
+  printCallStmt(node) {
+    const name = node.value;
+    const args = (node.children ?? []).map((c) => this.printExpr(c)).join(", ");
+    return `${name}(${args})`;
+  }
+  printFunctionDecl(node) {
+    const name = node.value;
+    const [paramList, retTypeNode, body] = node.children ?? [];
+    const params = this.printParamList(paramList);
+    const retType = (retTypeNode?.value ?? "").toUpperCase();
+    const lines = [`FONCTION ${name}(${params}): ${retType}`];
+    if (body)
+      lines.push(this.printNode(body));
+    return lines.join(`
+`);
+  }
+  printProcedureDecl(node) {
+    const name = node.value;
+    const [paramList, body] = node.children ?? [];
+    const params = this.printParamList(paramList);
+    const lines = [`PROCEDURE ${name}(${params})`];
+    if (body)
+      lines.push(this.printNode(body));
+    return lines.join(`
+`);
+  }
+  printParamList(paramList) {
+    if (!paramList?.children?.length)
+      return "";
+    return paramList.children.map((p) => {
+      const name = p.value;
+      const type = p.symbolInfo?.type ?? "";
+      return `${name}: ${type.toUpperCase()}`;
+    }).join("; ");
+  }
+  printBlockBody(body) {
+    this.indentLevel++;
+    const stmts = body.type === NodeType2.COMPOUND_STATEMENT ? body.children ?? [] : [body];
+    const lines = [];
+    for (const stmt of stmts) {
+      const isBlock = BLOCK_STMT_TYPES.has(stmt.type);
+      lines.push(this.indent() + this.printNode(stmt) + (isBlock ? "" : ";"));
+    }
+    this.indentLevel--;
+    return lines;
+  }
+  printExpr(node, parentPrec = 0) {
+    switch (node.type) {
+      case NodeType2.LITERAL:
+        return this.printLiteral(node);
+      case NodeType2.VARIABLE:
+        return node.value;
+      case NodeType2.ARRAY_ACCESS: {
+        const idx = this.printExpr(node.children[0]);
+        return `${node.value}[${idx}]`;
+      }
+      case NodeType2.FUNCTION_CALL: {
+        const name = node.value;
+        const args = (node.children ?? []).map((c) => this.printExpr(c)).join(", ");
+        return `${name}(${args})`;
+      }
+      case NodeType2.BINARY_OP: {
+        const op = node.value;
+        const prec = PREC[op] ?? 5;
+        const left = this.printExpr(node.children[0], prec);
+        const right = this.printExpr(node.children[1], prec + 1);
+        const inner = `${left} ${op.toUpperCase()} ${right}`;
+        return prec < parentPrec ? `(${inner})` : inner;
+      }
+      case NodeType2.UNARY_OP: {
+        const op = node.value.toUpperCase();
+        const operand = this.printExpr(node.children[0], 7);
+        return op === "NON" ? `NON ${operand}` : `${op}${operand}`;
+      }
+      default:
+        return String(node.value ?? "");
+    }
+  }
+  printLiteral(node) {
+    if (typeof node.value === "boolean")
+      return node.value ? "VRAI" : "FAUX";
+    if (typeof node.value === "string")
+      return `"${node.value}"`;
+    return String(node.value);
+  }
 }
 function formatAlgoLangSource(text, tabSize) {
   const lines = text.split(/\r?\n/);
@@ -10280,7 +11242,7 @@ function formatAlgoLangSource(text, tabSize) {
     if (trimmed.match(/^(DEBUT|FIN|FINSI|FINTANTQUE|FINPOUR|SINON)\b/i)) {
       indentLevel = Math.max(0, indentLevel - 1);
     }
-    if (trimmed.match(/^JUSQUA\b/i)) {
+    if (trimmed.match(/^JUSQU'A\b/i)) {
       indentLevel = Math.max(0, indentLevel - 1);
     }
     const newLine = indent.repeat(indentLevel) + trimmed;
@@ -10317,7 +11279,7 @@ function provideDefinition(params, documents) {
   const word = getWordAtPosition(document, params.position);
   if (!word)
     return null;
-  const table = symbolTables.get(params.textDocument.uri);
+  const table = documentStore.getSymbolTable(params.textDocument.uri);
   if (!table)
     return null;
   const symbol = table.symbols.get(word);
@@ -10335,8 +11297,9 @@ function provideDocumentSymbols(params, documents) {
   const document = documents.get(params.textDocument.uri);
   if (!document)
     return [];
-  const table = symbolTables.get(params.textDocument.uri);
-  const ast = documentAsts.get(params.textDocument.uri);
+  const parsed = documentStore.get(params.textDocument.uri);
+  const table = parsed?.symbolTable;
+  const ast = parsed?.ast;
   const symbols = [];
   if (ast && ast.value) {
     const programmeName = String(ast.value);
@@ -10418,7 +11381,7 @@ connection.onInitialized(() => {
   }
 });
 documents.onDidClose((event) => {
-  clearDocumentCache(event.document.uri);
+  documentStore.delete(event.document.uri);
 });
 connection.onDidChangeWatchedFiles((_change) => {
   connection.console.log("We received a file change event");
