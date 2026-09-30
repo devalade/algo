@@ -368,3 +368,27 @@ test("Parser - Nested control structures", () => {
 
   expect(result.errors).toHaveLength(0);
 });
+test("Parser - semicolon is required between simple statements", () => {
+	const source = `programme t;
+var x, y: entier;
+debut
+  x := 1
+  y := 2
+fin`;
+	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
+	expect(errors.some((e) => e.code === "MISSING_SEMICOLON")).toBe(true);
+});
+
+test("Parser - semicolon may be omitted before a closing keyword and after block statements", () => {
+	const source = `programme t;
+var x, y: entier;
+debut
+  x := 1;
+  y := 2;
+  si x < y alors ecrire(x); sinon ecrire(y) finsi
+  tantque x < 3 faire x := x + 1 fintantque
+  ecrire(x)
+fin`;
+	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
+	expect(errors).toEqual([]);
+});

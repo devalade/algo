@@ -8,6 +8,15 @@ import { TokenType, NodeType, DataType } from "@/types";
 import { KEYWORDS } from "@/keywords";
 import { SemanticAnalyzer } from "@/semantic/semantic-analyzer";
 
+/** Statements that end with their own closing keyword and need no ";" after them. */
+const SELF_TERMINATED = [
+	NodeType.IF_STATEMENT,
+	NodeType.WHILE_STATEMENT,
+	NodeType.FOR_STATEMENT,
+	NodeType.REPEAT_STATEMENT,
+	NodeType.COMPOUND_STATEMENT,
+];
+
 export class Parser {
 	private tokens: Token[];
 	private current: number = 0;
@@ -243,41 +252,7 @@ export class Parser {
 			'Le bloc d\'instructions doit commencer par "debut"',
 		);
 
-		const statements: ASTNode[] = [];
-
-		while (!this.check(TokenType.END) && !this.isAtEnd()) {
-			const statement = this.parseStatement();
-			statements.push(statement);
-
-			// Block statements end with their own closing keyword — no trailing semicolon needed
-			const isBlockStatement = [
-				NodeType.IF_STATEMENT,
-				NodeType.WHILE_STATEMENT,
-				NodeType.FOR_STATEMENT,
-				NodeType.REPEAT_STATEMENT,
-				NodeType.COMPOUND_STATEMENT,
-			].includes(statement.type);
-
-			if (this.check(TokenType.SEMICOLON)) {
-				this.advance();
-			} else if (
-				!isBlockStatement &&
-				!this.check(TokenType.END) &&
-				!this.check(TokenType.ENDIF) &&
-				!this.check(TokenType.ENDWHILE) &&
-				!this.check(TokenType.ENDFOR)
-			) {
-				this.errors.push({
-					type: "ERROR",
-					message: "Point-virgule attendu après l'instruction",
-					line: this.peek().line,
-					column: this.peek().column,
-					position: this.peek().position,
-					code: "MISSING_SEMICOLON",
-				});
-				break;
-			}
-		}
+		const statements = this.parseStatementList([TokenType.END]);
 
 		this.expect(
 			TokenType.END,
@@ -288,6 +263,39 @@ export class Parser {
 			type: NodeType.COMPOUND_STATEMENT,
 			children: statements,
 		};
+	}
+
+	/**
+	 * Parse statements until one of the terminators is reached.
+	 * Each statement must be followed by ";", except the last one before a
+	 * terminator and statements that close with their own keyword (si…finsi, etc.).
+	 */
+	private parseStatementList(terminators: TokenType[]): ASTNode[] {
+		const statements: ASTNode[] = [];
+		while (!this.check(terminators) && !this.isAtEnd()) {
+			const statement = this.parseStatement();
+			statements.push(statement);
+
+			if (this.check(TokenType.SEMICOLON)) {
+				this.advance();
+			} else if (
+				!SELF_TERMINATED.includes(statement.type) &&
+				!this.check(terminators) &&
+				!this.isAtEnd()
+			) {
+				const token = this.peek();
+				this.errors.push({
+					type: "ERROR",
+					message: "Point-virgule attendu après l'instruction",
+					line: token.line,
+					column: token.column,
+					position: token.position,
+					code: "MISSING_SEMICOLON",
+				});
+				break;
+			}
+		}
+		return statements;
 	}
 
 	private parseStatement(): ASTNode {
@@ -360,21 +368,11 @@ export class Parser {
 		this.expect(TokenType.THEN, '"alors" attendu après la condition du si');
 
 		// Parser le bloc "alors"
-		const thenStatements: ASTNode[] = [];
-		while (
-			!this.check(TokenType.ELSE) &&
-			!this.check(TokenType.ENDIF) &&
-			!this.check(TokenType.END) &&
-			!this.isAtEnd()
-		) {
-			const statement = this.parseStatement();
-			thenStatements.push(statement);
-
-			// Gérer le point-virgule optionnel après l'instruction
-			if (this.check(TokenType.SEMICOLON)) {
-				this.advance();
-			}
-		}
+		const thenStatements = this.parseStatementList([
+			TokenType.ELSE,
+			TokenType.ENDIF,
+			TokenType.END,
+		]);
 
 		const thenStatement: ASTNode = {
 			type: NodeType.COMPOUND_STATEMENT,
@@ -398,20 +396,10 @@ export class Parser {
 				elseStatement = this.parseIfStatement(true);
 			} else {
 				// "sinon" normal
-				const elseStatements: ASTNode[] = [];
-				while (
-					!this.check(TokenType.ENDIF) &&
-					!this.check(TokenType.END) &&
-					!this.isAtEnd()
-				) {
-					const statement = this.parseStatement();
-					elseStatements.push(statement);
-
-					// Gérer le point-virgule optionnel
-					if (this.check(TokenType.SEMICOLON)) {
-						this.advance();
-					}
-				}
+				const elseStatements = this.parseStatementList([
+					TokenType.ENDIF,
+					TokenType.END,
+				]);
 
 				elseStatement = {
 					type: NodeType.COMPOUND_STATEMENT,
@@ -448,23 +436,10 @@ export class Parser {
 
 		this.expect(TokenType.DO, '"faire" attendu après la condition du tantque');
 
-		// Parser le corps de la boucle
-		const bodyStatements: ASTNode[] = [];
-
-		// Tant qu'on ne trouve pas fintantque, on ajoute les instructions
-		while (
-			!this.check(TokenType.ENDWHILE) &&
-			!this.check(TokenType.END) &&
-			!this.isAtEnd()
-		) {
-			const statement = this.parseStatement();
-			bodyStatements.push(statement);
-
-			// Vérifier s'il y a un point-virgule après l'instruction
-			if (this.check(TokenType.SEMICOLON)) {
-				this.advance();
-			}
-		}
+		const bodyStatements = this.parseStatementList([
+			TokenType.ENDWHILE,
+			TokenType.END,
+		]);
 
 		// Consommer le fintantque obligatoire
 		this.expect(
@@ -513,23 +488,10 @@ export class Parser {
 
 		this.expect(TokenType.DO, '"faire" attendu dans la boucle pour');
 
-		// Parser le corps de la boucle
-		const bodyStatements: ASTNode[] = [];
-
-		// Tant qu'on ne trouve pas finpour, on ajoute les instructions
-		while (
-			!this.check(TokenType.ENDFOR) &&
-			!this.check(TokenType.END) &&
-			!this.isAtEnd()
-		) {
-			const statement = this.parseStatement();
-			bodyStatements.push(statement);
-
-			// Vérifier s'il y a un point-virgule après l'instruction
-			if (this.check(TokenType.SEMICOLON)) {
-				this.advance();
-			}
-		}
+		const bodyStatements = this.parseStatementList([
+			TokenType.ENDFOR,
+			TokenType.END,
+		]);
 
 		// Consommer le finpour obligatoire
 		this.expect(
@@ -919,18 +881,7 @@ export class Parser {
 	private parseRepeatStatement(): ASTNode {
 		const repeatToken = this.advance(); // Consommer 'repeter'
 
-		const statements: ASTNode[] = [];
-
-		// Parser les instructions du corps de la boucle
-		while (!this.check(TokenType.UNTIL) && !this.isAtEnd()) {
-			const statement = this.parseStatement();
-			statements.push(statement);
-
-			// Sauter les points-virgules après les instructions
-			if (this.check(TokenType.SEMICOLON)) {
-				this.advance();
-			}
-		}
+		const statements = this.parseStatementList([TokenType.UNTIL]);
 
 		this.expect(
 			TokenType.UNTIL,
