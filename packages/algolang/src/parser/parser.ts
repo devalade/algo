@@ -145,10 +145,15 @@ export class Parser {
 				const declaration = this.parseVariableDeclaration();
 				declarations.push(declaration);
 
-				if (!this.check(TokenType.SEMICOLON)) {
+				if (this.check(TokenType.SEMICOLON)) {
+					this.advance(); // Consommer ';'
+				} else {
+					// The last declaration may omit ';' before the block starts
+					if (!this.check([TokenType.BEGIN, TokenType.FUNCTION, TokenType.PROCEDURE])) {
+						this.reportMissingSemicolon();
+					}
 					break;
 				}
-				this.advance(); // Consommer ';'
 			}
 		}
 
@@ -265,6 +270,19 @@ export class Parser {
 		};
 	}
 
+	/** Flag the position just past the last consumed token, where the ';' belongs. */
+	private reportMissingSemicolon(): void {
+		const last = this.previous();
+		this.errors.push({
+			type: "ERROR",
+			message: "Point-virgule attendu après l'instruction",
+			line: last.line,
+			column: last.column + last.value.length,
+			position: last.position + last.value.length,
+			code: "MISSING_SEMICOLON",
+		});
+	}
+
 	/**
 	 * Parse statements until one of the terminators is reached.
 	 * Each statement must be followed by ";", except the last one before a
@@ -283,16 +301,7 @@ export class Parser {
 				!this.check(terminators) &&
 				!this.isAtEnd()
 			) {
-				// Point just after the statement that lacks its ';', not at the next one
-				const last = this.previous();
-				this.errors.push({
-					type: "ERROR",
-					message: "Point-virgule attendu après l'instruction",
-					line: last.line,
-					column: last.column + last.value.length,
-					position: last.position + last.value.length,
-					code: "MISSING_SEMICOLON",
-				});
+				this.reportMissingSemicolon();
 				break;
 			}
 		}

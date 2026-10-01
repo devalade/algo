@@ -394,3 +394,15 @@ fin`;
 	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
 	expect(errors).toEqual([]);
 });
+
+test("Parser - missing semicolon between declarations is reported on that line", () => {
+	const source = `programme t;
+var
+  i, total: entier
+  valeur: chaine
+debut
+fin`;
+	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
+	expect(errors[0]?.code).toBe("MISSING_SEMICOLON");
+	expect(errors[0]?.line).toBe(3);
+});
