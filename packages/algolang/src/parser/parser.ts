@@ -283,13 +283,14 @@ export class Parser {
 				!this.check(terminators) &&
 				!this.isAtEnd()
 			) {
-				const token = this.peek();
+				// Point just after the statement that lacks its ';', not at the next one
+				const last = this.previous();
 				this.errors.push({
 					type: "ERROR",
 					message: "Point-virgule attendu après l'instruction",
-					line: token.line,
-					column: token.column,
-					position: token.position,
+					line: last.line,
+					column: last.column + last.value.length,
+					position: last.position + last.value.length,
 					code: "MISSING_SEMICOLON",
 				});
 				break;

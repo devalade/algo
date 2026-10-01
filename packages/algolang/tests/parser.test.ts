@@ -376,7 +376,9 @@ debut
   y := 2
 fin`;
 	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
-	expect(errors.some((e) => e.code === "MISSING_SEMICOLON")).toBe(true);
+	const missing = errors.find((e) => e.code === "MISSING_SEMICOLON");
+	// Reported on the statement lacking its ";" (line 4), not on the next one
+	expect(missing?.line).toBe(4);
 });
 
 test("Parser - semicolon may be omitted before a closing keyword and after block statements", () => {
