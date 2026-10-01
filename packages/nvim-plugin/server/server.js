@@ -9628,10 +9628,14 @@ class Parser {
       while (!this.check("DEBUT") && !this.check("FONCTION") && !this.check("PROCEDURE") && !this.isAtEnd()) {
         const declaration = this.parseVariableDeclaration();
         declarations.push(declaration);
-        if (!this.check("SEMICOLON")) {
+        if (this.check("SEMICOLON")) {
+          this.advance();
+        } else if (this.startsOnNewLine()) {} else {
+          if (!this.check(["DEBUT", "FONCTION", "PROCEDURE"])) {
+            this.reportMissingSemicolon();
+          }
           break;
         }
-        this.advance();
       }
     }
     return {
@@ -9706,6 +9710,20 @@ class Parser {
       children: statements
     };
   }
+  startsOnNewLine() {
+    return this.peek().line > this.previous().line;
+  }
+  reportMissingSemicolon() {
+    const last = this.previous();
+    this.errors.push({
+      type: "ERROR",
+      message: "Point-virgule ou retour à la ligne attendu après l'instruction",
+      line: last.line,
+      column: last.column + last.value.length,
+      position: last.position + last.value.length,
+      code: "MISSING_SEMICOLON"
+    });
+  }
   parseStatementList(terminators) {
     const statements = [];
     while (!this.check(terminators) && !this.isAtEnd()) {
@@ -9713,16 +9731,8 @@ class Parser {
       statements.push(statement);
       if (this.check("SEMICOLON")) {
         this.advance();
-      } else if (!SELF_TERMINATED.includes(statement.type) && !this.check(terminators) && !this.isAtEnd()) {
-        const token = this.peek();
-        this.errors.push({
-          type: "ERROR",
-          message: "Point-virgule attendu après l'instruction",
-          line: token.line,
-          column: token.column,
-          position: token.position,
-          code: "MISSING_SEMICOLON"
-        });
+      } else if (!SELF_TERMINATED.includes(statement.type) && !this.check(terminators) && !this.startsOnNewLine() && !this.isAtEnd()) {
+        this.reportMissingSemicolon();
         break;
       }
     }
