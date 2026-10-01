@@ -227,12 +227,17 @@ bun run packages/algolang/src/cli.ts check examples/bonjour.algo --verbose
 | **Logique** | `ET`, `OU`, `NON` |
 
 ### Points-virgules
-Le point-virgule sépare les instructions : chaque instruction doit être suivie de `;`.
-Il peut être omis :
-- après la dernière instruction d'un bloc (juste avant `FIN`, `FINSI`, `SINON`, `FINTANTQUE`, `FINPOUR`) ;
-- après une instruction qui se ferme avec son propre mot-clé (`SI…FINSI`, `TANTQUE…FINTANTQUE`, `POUR…FINPOUR`, `REPETER…JUSQUA`).
+Une instruction se termine par un `;` **ou** par un retour à la ligne :
 
-Oublier un `;` ailleurs produit l'erreur `Point-virgule attendu après l'instruction`.
+```
+total := 0;      // avec point-virgule
+total := total + 1   // ou simplement à la ligne
+```
+
+Deux instructions sur la même ligne doivent être séparées par `;`.
+Le `;` est aussi facultatif juste avant `FIN`, `FINSI`, `SINON`, `FINTANTQUE`, `FINPOUR` et après une instruction qui se ferme avec son propre mot-clé (`SI…FINSI`, `POUR…FINPOUR`, etc.). Cela vaut aussi pour les déclarations de variables.
+
+Oublier le séparateur sur une même ligne produit l'erreur `Point-virgule ou retour à la ligne attendu après l'instruction`.
 
 ### Mots-clés réservés
 Ne les utilisez pas comme noms de variables !

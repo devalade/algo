@@ -147,8 +147,10 @@ export class Parser {
 
 				if (this.check(TokenType.SEMICOLON)) {
 					this.advance(); // Consommer ';'
+				} else if (this.startsOnNewLine()) {
+					// A line break ends the declaration; keep reading declarations
 				} else {
-					// The last declaration may omit ';' before the block starts
+					// The last declaration may omit ';' right before the block starts
 					if (!this.check([TokenType.BEGIN, TokenType.FUNCTION, TokenType.PROCEDURE])) {
 						this.reportMissingSemicolon();
 					}
@@ -270,12 +272,17 @@ export class Parser {
 		};
 	}
 
+	/** True when the next token sits on a later line than the last consumed one. */
+	private startsOnNewLine(): boolean {
+		return this.peek().line > this.previous().line;
+	}
+
 	/** Flag the position just past the last consumed token, where the ';' belongs. */
 	private reportMissingSemicolon(): void {
 		const last = this.previous();
 		this.errors.push({
 			type: "ERROR",
-			message: "Point-virgule attendu après l'instruction",
+			message: "Point-virgule ou retour à la ligne attendu après l'instruction",
 			line: last.line,
 			column: last.column + last.value.length,
 			position: last.position + last.value.length,
@@ -285,8 +292,9 @@ export class Parser {
 
 	/**
 	 * Parse statements until one of the terminators is reached.
-	 * Each statement must be followed by ";", except the last one before a
-	 * terminator and statements that close with their own keyword (si…finsi, etc.).
+	 * A statement ends with ";" or a line break. The ";" may also be dropped
+	 * before a terminator and after statements that close with their own
+	 * keyword (si…finsi, etc.).
 	 */
 	private parseStatementList(terminators: TokenType[]): ASTNode[] {
 		const statements: ASTNode[] = [];
@@ -299,6 +307,7 @@ export class Parser {
 			} else if (
 				!SELF_TERMINATED.includes(statement.type) &&
 				!this.check(terminators) &&
+				!this.startsOnNewLine() &&
 				!this.isAtEnd()
 			) {
 				this.reportMissingSemicolon();

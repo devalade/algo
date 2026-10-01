@@ -368,25 +368,26 @@ test("Parser - Nested control structures", () => {
 
   expect(result.errors).toHaveLength(0);
 });
-test("Parser - semicolon is required between simple statements", () => {
+test("Parser - two statements on one line need a semicolon", () => {
 	const source = `programme t;
 var x, y: entier;
 debut
-  x := 1
-  y := 2
+  x := 1 y := 2;
 fin`;
 	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
 	const missing = errors.find((e) => e.code === "MISSING_SEMICOLON");
-	// Reported on the statement lacking its ";" (line 4), not on the next one
 	expect(missing?.line).toBe(4);
 });
 
-test("Parser - semicolon may be omitted before a closing keyword and after block statements", () => {
+test("Parser - a line break can replace the semicolon", () => {
 	const source = `programme t;
-var x, y: entier;
+var
+  x, y: entier
+  z: chaine
 debut
-  x := 1;
-  y := 2;
+  x := 1
+  y := x
+    + 2;
   si x < y alors ecrire(x); sinon ecrire(y) finsi
   tantque x < 3 faire x := x + 1 fintantque
   ecrire(x)
@@ -395,11 +396,10 @@ fin`;
 	expect(errors).toEqual([]);
 });
 
-test("Parser - missing semicolon between declarations is reported on that line", () => {
+test("Parser - two declarations on one line need a semicolon", () => {
 	const source = `programme t;
 var
-  i, total: entier
-  valeur: chaine
+  i, total: entier valeur: chaine
 debut
 fin`;
 	const { errors } = new Parser(new Lexer(source).tokenize()).parse();
